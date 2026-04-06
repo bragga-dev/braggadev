@@ -18,20 +18,19 @@
     }
 
     body {
-      background: #000000;   /* preto absoluto */
+      background: #000000;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: #e5e5e5;
       scroll-behavior: smooth;
     }
 
-    /* container principal elegante */
     .portfolio-container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 2rem 1.5rem 5rem;
     }
 
-    /* header com nome fantasia e detalhe roxo */
+    /* header */
     .brand-header {
       display: flex;
       flex-wrap: wrap;
@@ -78,18 +77,23 @@
     /* grade de layouts */
     .layouts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 2rem;
       margin: 2rem 0 3rem;
     }
 
     .layout-card {
-      background: #0c0c0c;    /* cinza muito escuro / preto carbonizado */
+      background: #0c0c0c;
       border-radius: 2rem;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       border: 1px solid rgba(168, 85, 247, 0.2);
       box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
     }
     .layout-card:hover {
       transform: translateY(-8px);
@@ -98,37 +102,64 @@
       background: #111111;
     }
 
+    /* Preview responsivo do iframe - MELHORIAS SIGNIFICATIVAS */
     .card-preview {
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-    background: #000;
+      position: relative;
+      width: 100%;
+      background: #000000;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      /* Altura dinâmica baseada em aspect ratio para melhor responsividade */
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Container do iframe com scroll para melhor visualização em dispositivos pequenos */
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: #000;
     }
 
     .card-preview iframe {
-    width: 1440px;   /* padrão desktop real */
-    height: 900px;
-
-    transform: scale(0.22);
-    transform-origin: top left;
-
-    border: none;
-    pointer-events: none;
-    transition: transform 0.4s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      /* Usamos object-fit para garantir que o conteúdo seja visível */
+      object-fit: contain;
+      background: #fff;
     }
-    /* ícones representativos */
-    .preview-icon {
+
+    /* Fallback para ícone quando não há iframe (landing page) */
+    .preview-icon-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+    }
+    .preview-icon-fallback i {
       font-size: 4rem;
       color: #a855f7;
-      filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.5));
-      transition: transform 0.3s;
+      filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+      transition: transform 0.3s ease;
     }
-    .layout-card:hover .preview-icon {
-      transform: scale(1.05);
+    .layout-card:hover .preview-icon-fallback i {
+      transform: scale(1.1);
     }
 
     .card-content {
       padding: 1.6rem 1.5rem 2rem;
+      flex: 1;
     }
     .card-title {
       font-size: 1.6rem;
@@ -158,6 +189,7 @@
       transition: all 0.25s;
       text-decoration: none;
       backdrop-filter: blur(4px);
+      cursor: pointer;
     }
     .btn-layout i {
       font-size: 0.9rem;
@@ -174,7 +206,7 @@
       color: #000;
     }
 
-    /* seção extra: sobre ou destaque */
+    /* seção extra */
     .highlight-section {
       background: #0a0a0a;
       border-radius: 2rem;
@@ -227,8 +259,67 @@
       color: #a855f7;
     }
 
-    /* responsividade fina */
-    @media (max-width: 680px) {
+    /* WhatsApp Float Button - ADICIONADO CONFORME SOLICITAÇÃO */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      text-decoration: none;
+      animation: pulse 2s infinite;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #128C7E;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+    /* Tooltip para o WhatsApp */
+    .whatsapp-float::before {
+      content: "Fale conosco";
+      position: absolute;
+      right: 70px;
+      background: #1f1f1f;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: 1px solid #25D366;
+    }
+    .whatsapp-float:hover::before {
+      opacity: 1;
+      visibility: visible;
+      right: 80px;
+    }
+
+    /* responsividade refinada */
+    @media (max-width: 768px) {
       .portfolio-container {
         padding: 1.5rem 1rem 3rem;
       }
@@ -242,30 +333,70 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .layouts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .card-preview {
+        aspect-ratio: 4 / 3; /* Altura um pouco maior em mobile para melhor visualização */
+      }
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+        bottom: 20px;
+        right: 20px;
+      }
+      .whatsapp-float::before {
+        display: none; /* Esconde tooltip em mobile para evitar sobreposição */
+      }
     }
 
-    /* efeito de glitter sutil */
+    @media (max-width: 480px) {
+      .card-preview {
+        aspect-ratio: 3 / 4; /* Ajuste para telas muito pequenas */
+      }
+      .brand-name {
+        font-size: 1.4rem;
+      }
+      .tagline {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* Suporte para tablets */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .layouts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card-preview {
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    /* Efeitos visuais */
+    ::selection {
+      background: #a855f7;
+      color: #000;
+    }
+    body {
+      background: #000000 radial-gradient(circle at 20% 30%, #111111 0%, #000000 100%);
+      background-attachment: fixed;
+    }
+    .brand-name i, .tagline i {
+      filter: drop-shadow(0 0 3px #a855f7);
+    }
+    h1, .card-title {
+      letter-spacing: -0.02em;
+    }
     .glow-text {
       text-shadow: 0 0 2px rgba(168, 85, 247, 0.4);
     }
-
-    a {
-      text-decoration: none;
-    }
-
-    /* Simular os layouts (páginas de exemplo) — opcional apenas para navegação demonstrativa
-       como não temos os arquivos .html reais, criamos um modal/fallback educativo.
-       Mas o portfólio exige links para layout1.html, layout2.html, layout3.html.
-       Para demonstração interativa, abriremos alertas informativos (mas mantendo os links reais).
-       Como é um index estático, também poderíamos criar mini prévias com target="_blank".
-       Vamos usar uma função elegante para caso os arquivos não existam: aviso amigável.
-    */
   </style>
 </head>
 <body>
 <div class="portfolio-container">
   
-  <!-- header com NOME FANTASIA e cores roxo/preto/branco/cinza -->
   <div class="brand-header">
     <div class="brand-name">
       <i class="fas fa-code"></i> BRAGGA DEV
@@ -275,73 +406,73 @@
     </div>
   </div>
 
-  <!-- Título principal conforme solicitado -->
   <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff, #b27aff); -webkit-background-clip: text; background-clip: text; color: transparent;">
-    Meus Layouts
+    Meus Projetos 
   </h1>
   <p style="color: #aaa; margin-bottom: 2rem; border-left: 3px solid #a855f7; padding-left: 1rem;">
     <i class="fas fa-th-large"></i> Projetos exclusivos com foco em performance e identidade visual
   </p>
 
-  <!-- GRADE DE LAYOUTS (exatamente os três itens solicitados) -->
   <div class="layouts-grid">
-    <!-- Layout Contábil -->
-   <a href="abiu.html" class="layout-card">
-  <div class="card-preview">
-    <iframe src="abiu.html"></iframe>
-  </div>
-
-  <div class="card-content">
-    <div class="card-title">
-      Abiú Consultoria | Especialista em Departamento Pessoal
-    </div>
-
-    <div class="card-desc">
-      Soluções trabalhistas com precisão e segurança jurídica.
-      Com mais de 20 anos de atuação, a Abiú Consultoria oferece soluções estratégicas para proteger sua empresa, otimizar processos e impulsionar resultados — com excelência em cada etapa.
-    </div>
-  </div>
-</a>
-
-    <!-- Layout Médico -->
-   <a href="dani.html" class="layout-card">
-  <div class="card-preview">
-    <iframe src="dani.html" loading="lazy"></iframe>
-  </div>
-
-  <div class="card-content">
-    <div class="card-title">Daniela Faria Contadora </div>
-
-    <div class="card-desc">
-      Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão. 
-    </div>
-  </div>
-</a>
-
-    <!-- Landing Page Moderna -->
-    <div class="layout-card">
+    <!-- Layout Contábil - Abiú Consultoria -->
+    <a href="abiu.html" class="layout-card" id="">
       <div class="card-preview">
-        <i class="fas fa-rocket preview-icon"></i>
+        <div class="iframe-container">
+          <iframe src="abiu.html" title="Preview Abiú Consultoria" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
       </div>
       <div class="card-content">
-        <div class="card-title">Landing Page Moderna</div>
-        <div class="card-desc">
-          Página de alta conversão com animações, seções dinâmicas e chamada para ação impactante. Ideal para produtos, SaaS ou portfólios criativos.
+        <div class="card-title">
+          Abiú Consultoria | Especialista em Departamento Pessoal
         </div>
-        <a href="layout3.html" class="btn-layout" id="">
-          <span>Acessar layout</span> <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="card-desc">
+          Soluções trabalhistas com precisão e segurança jurídica. Com mais de 20 anos de atuação, a Abiú Consultoria oferece soluções estratégicas para proteger sua empresa, otimizar processos e impulsionar resultados — com excelência em cada etapa.
+        </div>
       </div>
-    </div>
+    </a>
+
+    <!-- Layout Médico - Daniela Faria Contadora -->
+    <a href="dani.html" class="layout-card" id="">
+      <div class="card-preview">
+        <div class="iframe-container">
+          <iframe src="dani.html" title="Preview Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Daniela Faria Contadora</div>
+        <div class="card-desc">
+          Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão.
+        </div>
+      </div>
+    </a>
+
+    <!-- Layout Médico - Daniela Faria Contadora -->
+    <a href="jessica.html" class="layout-card" id="">
+      <div class="card-preview">
+        <div class="iframe-container">
+          <iframe src="jessica.html" title="Preview Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-title">Daniela Faria Contadora</div>
+        <div class="card-desc">
+          Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão.
+        </div>
+      </div>
+    </a>
   </div>
 
-  <!-- Sessão extra: Diferenciais e cores / exibindo a identidade BRAGGA DEV -->
   <div class="highlight-section">
     <div class="highlight-text">
       <h3><i class="fas fa-crown" style="color:#a855f7"></i>  Tecnologia + design estratégico</h3>
       <p>Layouts prontos para elevar a presença digital do seu negócio. Cada projeto é construído com foco em conversão e experiência do usuário.</p>
     </div>
-    
+    <div class="tech-stack">
+      <span class="tech-badge"><i class="fab fa-html5"></i> HTML5</span>
+      <span class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+      <span class="tech-badge"><i class="fab fa-js"></i> JavaScript</span>
+      <span class="tech-badge"><i class="fas fa-mobile-alt"></i> 100% Responsivo</span>
+    </div>
   </div>
 
   <footer>
@@ -350,30 +481,28 @@
   </footer>
 </div>
 
-<!-- Script que verifica se os arquivos layout1.html, layout2.html, layout3.html existem
-     Para uma experiência de portfólio realista, caso os links estejam quebrados, exibimos um modal elegante
-     sugerindo que os layouts estão em desenvolvimento. Ao mesmo tempo, mantemos a navegação original.
-     Isso garante que o usuário não veja página 404 tradicional, mas entenda que são demonstrações.
-     Como solicitado "crie uma pagina index.html que vai servir de portfolio", os links apontam para os arquivos,
-     mas para uma demonstração fluida faremos um intercept com verificação AJAX (ou fetch leve) e exibiremos preview.
-     Vou implementar um sistema que tenta carregar o recurso e caso falhe, mostra um lightbox informativo 
-     com os detalhes do layout e cores do projeto, mantendo a identidade BRAGGA DEV.
-     Isso torna o portfólio funcional e interativo.
-  -->
+<!-- Ícone do WhatsApp Flutuante - NÚMERO 73981683277 -->
+<a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20saber%20mais%20sobre%20os%20layouts." 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   aria-label="Fale conosco no WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
 <script>
   (function() {
-    // Função para abrir modal de demonstração / informativo quando o arquivo html não estiver disponível
-    function showLayoutInfo(layoutType, title, description, iconClass) {
-      // Criar overlay modal
+    // Função para mostrar modal informativo quando layout não estiver disponível
+    function showLayoutInfo(title, description, iconClass, isLanding = false) {
       const modalOverlay = document.createElement('div');
       modalOverlay.style.position = 'fixed';
       modalOverlay.style.top = '0';
       modalOverlay.style.left = '0';
       modalOverlay.style.width = '100%';
       modalOverlay.style.height = '100%';
-      modalOverlay.style.backgroundColor = 'rgba(0,0,0,0.85)';
+      modalOverlay.style.backgroundColor = 'rgba(0,0,0,0.92)';
       modalOverlay.style.backdropFilter = 'blur(12px)';
-      modalOverlay.style.zIndex = '10000';
+      modalOverlay.style.zIndex = '10001';
       modalOverlay.style.display = 'flex';
       modalOverlay.style.alignItems = 'center';
       modalOverlay.style.justifyContent = 'center';
@@ -390,6 +519,9 @@
       modalCard.style.textAlign = 'center';
       modalCard.style.color = '#f0f0f0';
       
+      const whatsappNumber = "5573981683277";
+      const whatsappLink = `https://wa.me/${whatsappNumber}?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20layout%20"${encodeURIComponent(title)}"`;
+      
       modalCard.innerHTML = `
         <div style="font-size: 3rem; margin-bottom: 1rem; color: #a855f7;">
           <i class="${iconClass}"></i>
@@ -401,8 +533,11 @@
           <span style="background:#1f1f1f; padding:6px 14px; border-radius:30px; font-size:0.8rem;"><i class="fas fa-code"></i> HTML5 + CSS3</span>
           <span style="background:#1f1f1f; padding:6px 14px; border-radius:30px; font-size:0.8rem;"><i class="fas fa-mobile"></i> Responsivo</span>
         </div>
-        <button id="closeModalBtn" style="background:#a855f7; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; color:#000; cursor:pointer; margin-top:8px; transition:0.2s;"><i class="fas fa-check-circle"></i> Entendi, quero este layout</button>
-        <p style="font-size:0.75rem; margin-top:1.2rem; color:#7e7e7e;">* O arquivo completo será disponibilizado em breve. Entre em contato para implementação personalizada.</p>
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 1rem;">
+          <button id="closeModalBtn" style="background:#a855f7; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; color:#000; cursor:pointer; transition:0.2s;"><i class="fas fa-check-circle"></i> Entendi</button>
+          <a href="${whatsappLink}" target="_blank" style="background:#25D366; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; color:#000; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:0.2s;"><i class="fab fa-whatsapp"></i> Solicitar via WhatsApp</a>
+        </div>
+        <p style="font-size:0.75rem; margin-top:1.2rem; color:#7e7e7e;">* Este layout está em desenvolvimento. Entre em contato para implementação personalizada e exclusiva.</p>
       `;
       
       modalOverlay.appendChild(modalCard);
@@ -421,115 +556,126 @@
         }
       });
     }
-    
-    // Dados dos layouts para fallback
-    const layoutsInfo = {
-      'layout1.html': {
-        title: 'Layout Contábil',
-        desc: 'Sistema financeiro com gráficos, relatórios e visual corporativo. Ideal para escritórios de contabilidade e CFOs.',
-        icon: 'fas fa-chart-line'
-      },
-      'layout2.html': {
-        title: 'Layout Médico',
-        desc: 'Agenda digital, prontuário eletrônico e interface amigável para clínicas. Design que transmite segurança e acolhimento.',
-        icon: 'fas fa-stethoscope'
-      },
-      'layout3.html': {
-        title: 'Landing Page Moderna',
-        desc: 'Página de alto impacto com animações, seções de conversão e otimização para SEO. Perfeita para lançamentos de produtos.',
-        icon: 'fas fa-rocket'
+
+    // Verificar se os arquivos existem antes de navegar
+    async function checkAndNavigate(url, title, description, iconClass) {
+      try {
+        const response = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
+        if (response.ok) {
+          window.location.href = url;
+        } else {
+          showLayoutInfo(title, description, iconClass);
+        }
+      } catch (err) {
+        showLayoutInfo(title, description, iconClass);
       }
+    }
+
+    // Configurar cards para navegação inteligente
+    const cardAbiu = document.getElementById('cardAbiu');
+    if (cardAbiu) {
+      cardAbiu.addEventListener('click', (e) => {
+        e.preventDefault();
+        checkAndNavigate('abiu.html', 
+          'Abiú Consultoria', 
+          'Layout profissional para consultoria em departamento pessoal com design moderno e foco em conversão.',
+          'fas fa-chart-line');
+      });
+    }
+
+    const cardDani = document.getElementById('cardDani');
+    if (cardDani) {
+      cardDani.addEventListener('click', (e) => {
+        e.preventDefault();
+        checkAndNavigate('dani.html',
+          'Daniela Faria Contadora',
+          'Layout contábil completo com áreas de serviço, depoimentos e seção de contato integrada.',
+          'fas fa-calculator');
+      });
+    }
+
+    const cardLanding = document.getElementById('cardLanding');
+    const btnLanding = document.getElementById('btnLanding');
+    
+    const handleLandingClick = (e) => {
+      e.preventDefault();
+      showLayoutInfo(
+        'Landing Page Moderna',
+        'Layout contemporâneo com animações suaves, seções otimizadas para conversão e design responsivo de alta performance. Ideal para campanhas de marketing digital.',
+        'fas fa-rocket'
+      );
     };
     
-    // Interceptar cliques nos links e verificar se o arquivo existe (fetch leve com HEAD)
-    const links = [
-      { element: document.getElementById('linkContabil'), url: 'layout1.html', key: 'layout1.html' },
-      { element: document.getElementById('linkMedico'), url: 'layout2.html', key: 'layout2.html' },
-      { element: document.getElementById('linkLanding'), url: 'layout3.html', key: 'layout3.html' }
-    ];
-    
-    // Função para testar se arquivo existe (não bloqueia a navegação, mas previne 404 feio)
-    // Em ambiente estático, não conseguimos garantir a existencia real, mas faremos um fetch silencioso
-    // Se der erro, mostramos o modal e impedimos a navegação padrão.
-    links.forEach(linkObj => {
-      if (!linkObj.element) return;
-      linkObj.element.addEventListener('click', async (e) => {
-        e.preventDefault(); // vamos validar primeiro
-        const url = linkObj.url;
-        const info = layoutsInfo[linkObj.key];
-        try {
-          const response = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
-          if (response.ok) {
-            // arquivo existe -> redirecionar normalmente
-            window.location.href = url;
-          } else {
-            // arquivo não encontrado -> mostrar modal informativo
-            showLayoutInfo(linkObj.key, info.title, info.desc, info.icon);
+    if (cardLanding) {
+      cardLanding.addEventListener('click', handleLandingClick);
+    }
+    if (btnLanding) {
+      btnLanding.addEventListener('click', handleLandingClick);
+    }
+
+    // Adicionar lazy loading para iframes e melhorar performance
+    const iframes = document.querySelectorAll('iframe');
+    if ('IntersectionObserver' in window) {
+      const iframeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const iframe = entry.target;
+            const src = iframe.getAttribute('src');
+            if (src && iframe.getAttribute('data-loaded') !== 'true') {
+              iframe.setAttribute('data-loaded', 'true');
+              // Recarregar o iframe quando visível para garantir renderização correta
+              iframe.src = src;
+            }
+            observer.unobserve(iframe);
           }
-        } catch (err) {
-          // erro de rede ou CORS (em ambiente local pode ocorrer, mas tratamos como não encontrado)
-          showLayoutInfo(linkObj.key, info.title, info.desc, info.icon);
-        }
+        });
       });
-    });
-    
-    // Caso o usuário clique diretamente (sem interceptação por algum motivo, manter acessibilidade)
-    // Adicional: podemos também adicionar um fallback para links puros se algum não tiver o id
-    const allLayoutAnchors = document.querySelectorAll('.btn-layout');
-    allLayoutAnchors.forEach(anchor => {
-      if (!anchor.hasAttribute('data-processed')) {
-        anchor.setAttribute('data-processed', 'true');
-        // já tratamos pelos ids específicos, mas por segurança:
-        if (!anchor.id) {
-          const href = anchor.getAttribute('href');
-          if (href && (href.includes('layout1') || href.includes('layout2') || href.includes('layout3'))) {
-            anchor.addEventListener('click', async (e) => {
-              e.preventDefault();
-              let key = '';
-              if (href.includes('layout1')) key = 'layout1.html';
-              else if (href.includes('layout2')) key = 'layout2.html';
-              else if (href.includes('layout3')) key = 'layout3.html';
-              const info = layoutsInfo[key];
-              if (info) {
-                try {
-                  const res = await fetch(key, { method: 'HEAD' });
-                  if (res.ok) window.location.href = key;
-                  else showLayoutInfo(key, info.title, info.desc, info.icon);
-                } catch {
-                  showLayoutInfo(key, info.title, info.desc, info.icon);
-                }
-              } else {
-                window.location.href = href; // fallback
-              }
-            });
-          }
-        }
-      }
-    });
+      iframes.forEach(iframe => iframeObserver.observe(iframe));
+    }
   })();
 </script>
 
-<!-- Pequeno estilo adicional para garantir que o tema preto/roxo/cinza se destaque -->
+<!-- CSS adicional para garantir que os iframes sejam responsivos e não quebrem o layout -->
 <style>
-  ::selection {
-    background: #a855f7;
-    color: #000;
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  .layout-card .btn-layout:active {
-    transform: scale(0.97);
+  .iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
   }
-  body {
-    background: #000000 radial-gradient(circle at 20% 30%, #111111 0%, #000000 100%);
-    background-attachment: fixed;
+  /* Garantir que os cards tenham altura consistente */
+  .layout-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  .brand-name i, .tagline i {
-    filter: drop-shadow(0 0 3px #a855f7);
-  }
-  h1, .card-title {
-    letter-spacing: -0.02em;
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   .btn-layout {
-    cursor: pointer;
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  /* Scroll suave para toda a página */
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Melhorar acessibilidade do botão WhatsApp */
+  .whatsapp-float:focus-visible {
+    outline: 3px solid #25D366;
+    outline-offset: 2px;
   }
 </style>
 </body>
