@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abiú Consultoria — Especialista em Departamento Pessoal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E4C97E;
+    --gold-dark: #9A7A32;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #222222;
+    --white: #F5F0E8;
+    --white2: #EDE8DC;
+    --text-muted: #888880;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6vw;
+    height: 72px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    transition: all .3s;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav-logo-icon span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold);
+  }
+
+  .nav-brand {
+    display: flex; flex-direction: column; line-height: 1;
+  }
+
+  .nav-brand strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 3px;
+  }
+
+  .nav-brand small {
+    font-size: 8px; letter-spacing: 4px;
+    color: var(--text-muted); text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--white2); text-decoration: none;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    position: relative; transition: color .3s;
+  }
+
+  .nav-links a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0; height: 1px;
+    background: var(--gold);
+    transform: scaleX(0); transition: transform .3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    padding: 9px 20px;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    transition: background .3s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ── */
+  #inicio {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 72px 6vw 0;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    width: 100%; max-width: 1200px; margin: 0 auto;
+    padding: 80px 0;
+  }
+
+  .hero-text { animation: fadeUp .9s ease both; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(201,168,76,0.35);
+    padding: 6px 14px; border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .hero-badge span {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero-badge::before {
+    content: ''; width: 5px; height: 5px;
+    background: var(--gold); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  h1 .accent { color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 300; font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .hero-desc {
+    font-size: 13px; line-height: 1.8;
+    color: rgba(245,240,232,0.65);
+    margin-bottom: 36px; max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--black);
+    padding: 14px 28px;
+    border: none; border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-block;
+    transition: all .3s;
+  }
+
+  .btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(201,168,76,0.3);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 28px;
+    border: 1px solid rgba(245,240,232,0.25);
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-block;
+    transition: all .3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+  }
+
+  .stat { border-left: 2px solid var(--gold); padding-left: 14px; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .hero-image-wrap {
+    position: relative;
+    animation: fadeUp .9s .2s ease both;
+    display: flex; justify-content: center;
+  }
+
+  .hero-image-frame {
+    position: relative; width: 100%; max-width: 420px;
+  }
+
+  .hero-image-frame::before {
+    content: '';
+    position: absolute; inset: -2px;
+    background: linear-gradient(135deg, var(--gold), transparent 60%, var(--gold));
+    border-radius: 4px; z-index: 0;
+  }
+
+  .hero-photo {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover; object-position: top;
+    border-radius: 3px;
+    display: block;
+  }
+
+  .hero-image-frame::after {
+    content: 'ANDRÉ ABIÚ';
+    position: absolute; bottom: -1px; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.95), transparent);
+    padding: 40px 20px 18px;
+    z-index: 2; text-align: center;
+    font-size: 9px; letter-spacing: 4px;
+    color: var(--gold);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .hero-deco {
+    position: absolute; top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%; z-index: 0;
+  }
+
+  .hero-deco2 {
+    position: absolute; bottom: 60px; left: -30px;
+    width: 50px; height: 50px;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 50%; z-index: 0;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0 6vw;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 6vw; }
+
+  .section-label {
+    font-size: 9px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 13px; line-height: 1.8;
+    color: rgba(245,240,232,0.6);
+    max-width: 500px;
+  }
+
+  /* ── SERVICES ── */
+  #servicos { background: var(--dark); }
+
+  .services-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 64px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .service-card {
+    background: var(--dark);
+    padding: 40px 32px;
+    position: relative; overflow: hidden;
+    transition: background .3s;
+    cursor: default;
+  }
+
+  .service-card:hover { background: var(--dark2); }
+
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0); transition: transform .4s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; font-weight: 700;
+    color: rgba(201,168,76,0.12);
+    line-height: 1; margin-bottom: 20px;
+    transition: color .3s;
+  }
+
+  .service-card:hover .service-num { color: rgba(201,168,76,0.25); }
+
+  .service-icon {
+    width: 42px; height: 42px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px; font-size: 18px;
+  }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 700;
+    margin-bottom: 10px; color: var(--white);
+  }
+
+  .service-desc {
+    font-size: 12px; line-height: 1.8;
+    color: rgba(245,240,232,0.55);
+  }
+
+  /* ── ABOUT ── */
+  #sobre { background: var(--black); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .about-image-wrap { position: relative; }
+
+  .about-photo {
+    width: 100%; border-radius: 4px;
+    display: block;
+    filter: grayscale(15%);
+    transition: filter .4s;
+  }
+
+  .about-photo:hover { filter: grayscale(0%); }
+
+  .about-badge {
+    position: absolute; bottom: 32px; right: -20px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 20px 24px;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .about-badge strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 700;
+    line-height: 1;
+  }
+
+  .about-badge span {
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .about-content {}
+
+  .about-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .about-text {
+    font-size: 13px; line-height: 1.9;
+    color: rgba(245,240,232,0.65);
+    margin-bottom: 16px;
+  }
+
+  .about-quote {
+    border-left: 2px solid var(--gold);
+    padding: 16px 20px;
+    margin: 28px 0;
+    background: rgba(201,168,76,0.04);
+  }
+
+  .about-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic;
+    line-height: 1.6; color: var(--white2);
+  }
+
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
+  }
+
+  .about-tag {
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    padding: 6px 12px; border-radius: 2px;
+  }
+
+  /* ── REVIEWS ── */
+  #avaliacoes { background: var(--dark); }
+
+  .reviews-header { text-align: center; margin-bottom: 64px; }
+  .reviews-header .section-label { display: block; }
+  .reviews-header .section-subtitle { margin: 0 auto; }
+
+  .stars-display {
+    display: flex; gap: 6px; justify-content: center;
+    margin: 16px 0;
+  }
+
+  .star { color: var(--gold); font-size: 20px; }
+
+  .rating-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+
+  .rating-sub {
+    font-size: 11px; color: var(--text-muted); letter-spacing: 2px;
+  }
+
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .review-card {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.08);
+    border-radius: 4px;
+    padding: 32px;
+    position: relative;
+    transition: border-color .3s, transform .3s;
+  }
+
+  .review-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-4px);
+  }
+
+  .review-quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; color: var(--gold);
+    line-height: .6; margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .review-text {
+    font-size: 13px; line-height: 1.8;
+    color: rgba(245,240,232,0.7);
+    margin-bottom: 24px;
+  }
+
+  .review-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+  .review-stars span { color: var(--gold); font-size: 13px; }
+
+  .review-author { display: flex; align-items: center; gap: 12px; }
+
+  .review-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 700; color: var(--black);
+    flex-shrink: 0;
+  }
+
+  .review-author-info strong {
+    display: block; font-size: 13px; font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .review-author-info span {
+    font-size: 10px; color: var(--text-muted); letter-spacing: 1px;
+  }
+
+  /* ── CONTACT ── */
+  #contato { background: var(--black); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; max-width: 1200px; margin: 0 auto;
+  }
+
+  .contact-info {}
+
+  .contact-items { margin-top: 40px; }
+
+  .contact-item {
+    display: flex; gap: 20px; margin-bottom: 28px;
+    align-items: flex-start;
+  }
+
+  .contact-item-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .contact-item-text strong {
+    display: block; font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .contact-item-text a, .contact-item-text span {
+    font-size: 14px; color: var(--white2);
+    text-decoration: none; transition: color .3s;
+  }
+
+  .contact-item-text a:hover { color: var(--gold); }
+
+  .contact-form {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 4px;
+    padding: 44px;
+  }
+
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .form-sub {
+    font-size: 12px; color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-group label {
+    display: block; font-size: 9px;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 2px;
+    color: var(--white);
+    padding: 12px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    outline: none; transition: border-color .3s;
+    -webkit-appearance: none;
+  }
+
+  .form-group select option { background: var(--dark2); }
+
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--black);
+    padding: 16px;
+    border: none; border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    cursor: pointer; transition: all .3s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201,168,76,0.25);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 48px 6vw 32px;
+  }
+
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px; margin-bottom: 40px;
+  }
+
+  .footer-brand p {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.8; margin-top: 16px; max-width: 300px;
+  }
+
+  .footer-nav h4, .footer-social h4 {
+    font-size: 9px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .footer-nav ul { list-style: none; }
+
+  .footer-nav li { margin-bottom: 10px; }
+
+  .footer-nav a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 12px; transition: color .3s;
+  }
+
+  .footer-nav a:hover { color: var(--white); }
+
+  .social-links { display: flex; flex-direction: column; gap: 10px; }
+
+  .social-link {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text-muted); text-decoration: none;
+    font-size: 12px; transition: color .3s;
+  }
+
+  .social-link:hover { color: var(--gold); }
+
+  .social-link-icon {
+    width: 30px; height: 30px;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 11px; color: var(--text-muted);
+  }
+
+  .footer-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--gold);
+    letter-spacing: 4px;
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 99;
+    width: 56px; height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; text-decoration: none;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+    transition: transform .3s;
+  }
+
+  .whatsapp-float:hover { transform: scale(1.1); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+
+  @keyframes shimmer {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--gold-dark) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 0; }
+    .hero-image-wrap { order: -1; }
+    .hero-image-frame { max-width: 280px; margin: 0 auto; }
+    .services-grid { grid-template-columns: 1fr; }
+    .services-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-badge { right: 16px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 20px; }
+  }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+    transition: all .3s;
+  }
+
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .nav-cta-desktop { display: none; }
+  }
+
+  /* ── MEI STRIP ── */
+  .mei-strip {
+    background: rgba(201,168,76,0.05);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    padding: 40px 6vw;
+  }
+
+  .mei-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+
+  .mei-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 700;
+  }
+
+  .mei-items {
+    display: flex; gap: 0; flex-wrap: wrap;
+  }
+
+  .mei-item {
+    padding: 6px 20px;
+    border-right: 1px solid rgba(201,168,76,0.2);
+    font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(245,240,232,0.6);
+    white-space: nowrap;
+  }
+
+  .mei-item:last-child { border-right: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-logo">
+    <div class="nav-logo-icon"><span>A</span></div>
+    <div class="nav-brand">
+      <strong>ABIÚ</strong>
+      <small>Consultoria</small>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#avaliacoes">Avaliações</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="https://wa.me/5562999791627" target="_blank" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span>Vicente Pires — Brasília, DF</span>
+      </div>
+
+      <h1>
+        Especialistas em<br>
+        <span class="accent gold-shimmer">Departamento</span><br>
+        Pessoal
+      </h1>
+
+      <p class="hero-sub">Soluções trabalhistas com precisão e segurança jurídica</p>
+
+      <p class="hero-desc">
+        Com mais de 20 anos de atuação, a Abiú Consultoria oferece soluções estratégicas para proteger sua empresa, otimizar processos e impulsionar resultados — com excelência em cada etapa.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://wa.me/5562999791627" target="_blank" class="btn-gold">Falar no WhatsApp</a>
+        <a href="#servicos" class="btn-outline">Ver Serviços</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Anos de Experiência</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Empresas Atendidas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Segurança Jurídica</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image-wrap">
+      <div class="hero-deco"></div>
+      <div class="hero-deco2"></div>
+      <div class="hero-image-frame">
+        <img src="img/abiu.jpg" alt="André Abiú" class="hero-photo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEI STRIP -->
+<div class="mei-strip reveal">
+  <div class="mei-inner">
+    <div class="mei-title">Soluções completas para <span style="color:var(--gold)">MEI</span></div>
+    <div class="mei-items">
+      <div class="mei-item">Abertura & Alterações</div>
+      <div class="mei-item">Regularização de Pendências</div>
+      <div class="mei-item">Gestão Mensal</div>
+      <div class="mei-item">Registro de Empregados</div>
+      <div class="mei-item">Folha de Pagamento</div>
+      <div class="mei-item">Obrigações Mensais & Anuais</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicos">
+  <div class="services-header reveal">
+    <div>
+      <p class="section-label">O que fazemos</p>
+      <h2 class="section-title">Nossos Serviços<br><span style="color:var(--gold)">Especializados</span></h2>
+    </div>
+    <p class="section-subtitle">
+      Soluções completas em Departamento Pessoal para empresas de todos os portes, com foco em conformidade, segurança e eficiência.
+    </p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">👥</div>
+      <div class="service-name">Gestão Terceirizada de DP</div>
+      <p class="service-desc">Assumimos toda a gestão do seu Departamento Pessoal com equipe especializada, garantindo conformidade e eficiência operacional.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">📋</div>
+      <div class="service-name">Admissões e Férias</div>
+      <p class="service-desc">Processo completo de admissão de colaboradores e controle preciso de férias, integrações com eSocial e documentação trabalhista.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">💼</div>
+      <div class="service-name">Folha de Pagamento e Encargos</div>
+      <p class="service-desc">Processamento da folha com total acurácia, cálculo de encargos sociais, FGTS, INSS e relatórios gerenciais detalhados.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">⚖️</div>
+      <div class="service-name">Rescisões e Cálculos Trabalhistas</div>
+      <p class="service-desc">Análise e processamento de rescisões com segurança jurídica, evitando passivos trabalhistas e garantindo conformidade legal.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">🖥️</div>
+      <div class="service-name">eSocial e Obrigações Acessórias</div>
+      <p class="service-desc">Envio e monitoramento de todas as obrigações digitais no eSocial, EFD-Reinf, CAGED, RAIS e demais declarações legais.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">🤝</div>
+      <div class="service-name">Consultoria Trabalhista</div>
+      <p class="service-desc">Orientação estratégica em relações de trabalho, prevenção de riscos, compliance trabalhista e suporte em auditorias e fiscalizações.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <img src="img/abiu.jpg" alt="André Abiú" class="about-photo">
+      <div class="about-badge">
+        <strong>20+</strong>
+        <span>Anos de Atuação</span>
+      </div>
+    </div>
+
+    <div class="about-content reveal">
+      <p class="about-name">André Abiú</p>
+      <h2 class="about-title">Especialista em<br><span style="color:var(--gold)">Departamento Pessoal</span></h2>
+
+      <p class="about-text">
+        Sou André Abiú, especialista em Departamento Pessoal com mais de 20 anos de atuação na área trabalhista. Ao longo dessa trajetória, desenvolvi expertise sólida em gestão de pessoas, conformidade legal e relações de trabalho.
+      </p>
+
+      <p class="about-text">
+        Acredito que uma empresa organizada começa por uma estrutura trabalhista bem construída. Por isso, atuo com metodologia rigorosa, combinando experiência técnica e visão estratégica para proteger cada cliente.
+      </p>
+
+      <div class="about-quote">
+        <p>"Risco trabalhista não se administra com achismo, mas com conhecimento."</p>
+      </div>
+
+      <div class="about-tags">
+        <span class="about-tag">Departamento Pessoal</span>
+        <span class="about-tag">Gestão Trabalhista</span>
+        <span class="about-tag">Consultoria Trabalhista</span>
+        <span class="about-tag">eSocial</span>
+        <span class="about-tag">Compliance Trabalhista</span>
+        <span class="about-tag">MEI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVIEWS -->
+<section id="avaliacoes">
+  <div class="reviews-header reveal">
+    <span class="section-label">Depoimentos</span>
+    <h2 class="section-title">O que nossos clientes<br><span style="color:var(--gold)">dizem sobre nós</span></h2>
+    <div class="stars-display">
+      <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+    </div>
+    <div class="rating-big">5.0</div>
+    <p class="rating-sub">Avaliação média dos nossos clientes</p>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">A Abiú Consultoria transformou a gestão de RH da nossa empresa. Antes tínhamos constante insegurança com obrigações trabalhistas, hoje temos total tranquilidade. André é um profissional excepcional.</p>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div class="review-author-info">
+          <strong>Maria Clara Souza</strong>
+          <span>Empresária — Brasília, DF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">Profissionalismo e competência de alto nível. A consultoria cuida de toda a folha de pagamento da nossa empresa com precisão e pontualidade. Não imagino trabalhar com outro especialista.</p>
+      <div class="review-author">
+        <div class="review-avatar">R</div>
+        <div class="review-author-info">
+          <strong>Roberto Ferreira</strong>
+          <span>Diretor Financeiro</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">Como MEI, eu estava perdido com tantas obrigações. A Abiú me ajudou a regularizar tudo e agora tenho um suporte mensal incrível. Recomendo de olhos fechados para qualquer empreendedor.</p>
+      <div class="review-author">
+        <div class="review-avatar">P</div>
+        <div class="review-author-info">
+          <strong>Pedro Henrique Lima</strong>
+          <span>MEI — Vicente Pires, DF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">O suporte em rescisões evitou que a gente enfrentasse um passivo trabalhista enorme. André identificou riscos que nunca tínhamos percebido. Segurança jurídica de verdade.</p>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div class="review-author-info">
+          <strong>Ana Paula Mendes</strong>
+          <span>Sócia — Comércio</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">Terceirizamos todo o DP para a Abiú Consultoria e foi a melhor decisão. A equipe é extremamente qualificada e o atendimento é ágil e sempre disponível. Nossa empresa cresceu com mais segurança.</p>
+      <div class="review-author">
+        <div class="review-avatar">C</div>
+        <div class="review-author-info">
+          <strong>Carlos Eduardo Ramos</strong>
+          <span>CEO — Empresa de Tecnologia</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card reveal">
+      <div class="review-quote-mark">"</div>
+      <div class="review-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="review-text">Desde que contratei a Abiú para cuidar do eSocial e das obrigações acessórias, nunca mais tive problema com autuações ou notificações do fisco. Trabalho com paz de espírito.</p>
+      <div class="review-author">
+        <div class="review-avatar">J</div>
+        <div class="review-author-info">
+          <strong>Juliana Costa</strong>
+          <span>Proprietária — Clínica</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contato">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p class="section-label">Fale Conosco</p>
+      <h2 class="section-title">Vamos proteger<br>o seu <span style="color:var(--gold)">negócio</span></h2>
+      <p class="section-subtitle">Entre em contato e descubra como podemos simplificar sua gestão trabalhista com segurança e eficiência.</p>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-text">
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/5562999791627" target="_blank">(62) 99979-1627</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text">
+            <strong>E-mail</strong>
+            <a href="mailto:abiuconsultoria@gmail.com">abiuconsultoria@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Localização</strong>
+            <span>Vicente Pires — Brasília, DF</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📸</div>
+          <div class="contact-item-text">
+            <strong>Instagram</strong>
+            <a href="https://instagram.com/abiuconsultoria" target="_blank">@abiuconsultoria</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-title">Solicite uma Consulta</div>
+      <p class="form-sub">Responderemos em até 24 horas úteis</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" placeholder="Seu nome">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp</label>
+          <input type="tel" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" placeholder="seu@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de empresa</label>
+        <select>
+          <option value="">Selecione...</option>
+          <option>MEI</option>
+          <option>ME / EPP</option>
+          <option>Empresa de Médio Porte</option>
+          <option>Grande Empresa</option>
+          <option>Ainda não tenho empresa</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Serviço de interesse</label>
+        <select>
+          <option value="">Selecione...</option>
+          <option>Gestão Terceirizada de DP</option>
+          <option>Folha de Pagamento</option>
+          <option>eSocial e Obrigações</option>
+          <option>Rescisões Trabalhistas</option>
+          <option>Consultoria Trabalhista</option>
+          <option>Serviços para MEI</option>
+          <option>Outro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea placeholder="Conte um pouco sobre sua necessidade..."></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="sendWhatsApp()">Enviar Mensagem →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <div class="nav-logo-icon"><span>A</span></div>
+        <div class="nav-brand">
+          <strong>ABIÚ</strong>
+          <small>Consultoria</small>
+        </div>
+      </div>
+      <p>Especialistas em Departamento Pessoal com mais de 20 anos de experiência. Soluções trabalhistas com segurança jurídica, precisão e excelência para sua empresa prosperar.</p>
+    </div>
+
+    <div class="footer-nav">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre André Abiú</a></li>
+        <li><a href="#avaliacoes">Avaliações</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Contato</h4>
+      <div class="social-links">
+        <a href="https://wa.me/5562999791627" target="_blank" class="social-link">
+          <div class="social-link-icon">📱</div>
+          (62) 99979-1627
+        </a>
+        <a href="mailto:abiuconsultoria@gmail.com" class="social-link">
+          <div class="social-link-icon">✉️</div>
+          abiuconsultoria@gmail.com
+        </a>
+        <a href="https://instagram.com/abiuconsultoria" target="_blank" class="social-link">
+          <div class="social-link-icon">📸</div>
+          @abiuconsultoria
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Abiú Consultoria. Todos os direitos reservados.</p>
+    <span class="footer-logo-text">ABIÚ CONSULTORIA</span>
+    <p>Vicente Pires — Brasília, DF</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5562999791627" target="_blank" class="whatsapp-float" title="Fale no WhatsApp">
+  💬
+</a>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav active
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(10,10,10,0.98)'
+      : 'rgba(10,10,10,0.92)';
+  });
+
+  // Menu mobile
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '72px';
+    links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'rgba(10,10,10,0.98)';
+    links.style.padding = '20px 6vw';
+    links.style.borderBottom = '1px solid rgba(201,168,76,0.12)';
+  }
+
+  // WhatsApp form send
+  function sendWhatsApp() {
+    const name = document.querySelector('input[type="text"]').value;
+    const phone = document.querySelector('input[type="tel"]').value;
+    const service = document.querySelectorAll('select')[1].value;
+    const msg = document.querySelector('textarea').value;
+    let text = `Olá, me chamo ${name || '[nome]'} e gostaria de saber mais sobre ${service || 'os serviços da Abiú Consultoria'}.`;
+    if (msg) text += ` ${msg}`;
+    window.open(`https://wa.me/5562999791627?text=${encodeURIComponent(text)}`, '_blank');
+  }
+</script>
+</body>
+</html>
