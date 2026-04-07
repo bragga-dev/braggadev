@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaiany Cunha | Hipnoterapeuta</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #4ab8d8;
+    --sky-light: #a8dff0;
+    --sky-dark: #2596be;
+    --mint: #d8f0f5;
+    --mint-pale: #eef8fb;
+    --white: #ffffff;
+    --dark: #1a2a35;
+    --mid: #4a6070;
+    --accent: #2596be;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74,184,216,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--sky-dark);
+    letter-spacing: 0.04em;
+  }
+  .nav-logo span { font-style: italic; font-weight: 300; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--mid);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--sky-dark); }
+  .nav-cta {
+    background: var(--sky); color: white !important;
+    padding: 10px 22px; border-radius: 30px;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--sky-dark) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 80px;
+    background: linear-gradient(135deg, var(--mint-pale) 0%, var(--mint) 40%, rgba(74,184,216,0.08) 100%);
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,184,216,0.18) 0%, transparent 70%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  #hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: 10%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,184,216,0.1) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite reverse;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .hero-text {
+    padding: 60px 60px 60px 80px;
+    position: relative; z-index: 2;
+    animation: fadeInLeft 1s ease both;
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(74,184,216,0.12);
+    border: 1px solid rgba(74,184,216,0.4);
+    color: var(--sky-dark);
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 30px;
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1; font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--sky-dark);
+    font-weight: 400;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem; color: var(--mid);
+    line-height: 1.7; margin-bottom: 40px;
+    font-weight: 300; max-width: 440px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sky-dark) 100%);
+    color: white; padding: 14px 32px;
+    border-radius: 40px; text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+    box-shadow: 0 8px 30px rgba(74,184,216,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,184,216,0.45); }
+  .btn-outline {
+    border: 1.5px solid var(--sky);
+    color: var(--sky-dark); padding: 14px 32px;
+    border-radius: 40px; text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+    transition: all 0.3s; display: inline-block;
+  }
+  .btn-outline:hover { background: var(--sky); color: white; }
+
+  .hero-image {
+    display: flex; align-items: flex-end; justify-content: center;
+    position: relative; z-index: 2;
+    animation: fadeInRight 1s ease 0.2s both;
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .hero-img-wrap {
+    position: relative;
+    width: 440px; max-width: 90%;
+  }
+  .hero-img-wrap::before {
+    content: '';
+    position: absolute; inset: -20px;
+    border-radius: 60% 40% 50% 50% / 60% 60% 40% 40%;
+    background: linear-gradient(135deg, rgba(74,184,216,0.15), rgba(37,150,190,0.1));
+    z-index: -1;
+  }
+  .hero-img-wrap img {
+    width: 100%; border-radius: 50% 50% 40% 40%;
+    object-fit: cover; object-position: top;
+    height: 560px;
+    filter: drop-shadow(0 20px 60px rgba(74,184,216,0.2));
+  }
+  .hero-float-card {
+    position: absolute; bottom: 60px; left: -30px;
+    background: white; border-radius: 18px;
+    padding: 16px 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    display: flex; align-items: center; gap: 14px;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-float-card .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .hero-float-card .card-text { font-size: 0.8rem; color: var(--mid); }
+  .hero-float-card .card-text strong { display: block; color: var(--dark); font-size: 0.9rem; margin-bottom: 2px; }
+
+  /* ── SPIRAL DIVIDER ── */
+  .spiral-section {
+    display: flex; justify-content: center; align-items: center;
+    padding: 40px 0;
+    background: white;
+  }
+  .spiral {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    border: 1px solid var(--sky-light);
+    position: relative; display: flex; align-items: center; justify-content: center;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spiral::before {
+    content: '';
+    position: absolute; inset: 8px;
+    border-radius: 50%; border: 1px solid rgba(74,184,216,0.4);
+  }
+  .spiral::after {
+    content: '';
+    position: absolute; inset: 18px;
+    border-radius: 50%; border: 1px solid rgba(74,184,216,0.6);
+  }
+  .spiral-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; background: var(--sky);
+  }
+
+  /* ── SOBRE ── */
+  #sobre {
+    background: white;
+    padding: 90px 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .sobre-img {
+    position: relative;
+  }
+  .sobre-img-frame {
+    border-radius: 30px 10px 30px 10px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 30px 80px rgba(74,184,216,0.2);
+  }
+  .sobre-img-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+  }
+  .sobre-accent {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky-light), var(--mint));
+    z-index: -1;
+  }
+  .sobre-accent2 {
+    position: absolute; top: -15px; left: -15px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--sky-light);
+    z-index: -1;
+  }
+  .sobre-text { }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--sky-dark); font-weight: 500;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 30px; height: 1.5px; background: var(--sky);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 300; line-height: 1.2;
+    color: var(--dark); margin-bottom: 28px;
+  }
+  .section-title em { font-style: italic; color: var(--sky-dark); }
+  .sobre-text p {
+    font-size: 0.95rem; line-height: 1.85;
+    color: var(--mid); margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .sobre-text p strong { color: var(--dark); font-weight: 500; }
+  .sobre-creds {
+    display: flex; gap: 24px; margin-top: 36px;
+  }
+  .cred-item {
+    text-align: center; flex: 1;
+    padding: 20px 16px;
+    background: var(--mint-pale);
+    border-radius: 16px;
+    border-top: 3px solid var(--sky);
+  }
+  .cred-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600;
+    color: var(--sky-dark); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .cred-label { font-size: 0.75rem; color: var(--mid); letter-spacing: 0.05em; }
+
+  /* ── SERVIÇOS ── */
+  #servicos {
+    background: linear-gradient(160deg, var(--mint-pale) 0%, var(--mint) 100%);
+    padding: 90px 80px;
+  }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-header .section-label { justify-content: center; }
+  .section-header .section-label::before { display: none; }
+  .section-header .section-title { font-size: clamp(2rem, 3.5vw, 2.8rem); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .service-card {
+    background: white; border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 30px rgba(74,184,216,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky), var(--sky-dark));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(74,184,216,0.15); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--mint), var(--sky-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 22px;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--dark); margin-bottom: 12px;
+  }
+  .service-desc {
+    font-size: 0.88rem; line-height: 1.75;
+    color: var(--mid); font-weight: 300;
+  }
+
+  /* ── COMO FUNCIONA ── */
+  #processo {
+    background: white;
+    padding: 90px 80px;
+  }
+  .steps-wrap { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
+  .step {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding-bottom: 48px; position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute; left: 26px; top: 52px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sky), transparent);
+  }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: white;
+    box-shadow: 0 8px 20px rgba(74,184,216,0.3);
+  }
+  .step-content { padding-top: 8px; }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--dark); margin-bottom: 8px;
+  }
+  .step-desc { font-size: 0.9rem; color: var(--mid); line-height: 1.75; font-weight: 300; }
+
+  /* ── DEPOIMENTOS ── */
+  #depoimentos {
+    background: linear-gradient(160deg, var(--dark) 0%, #1e3545 100%);
+    padding: 90px 80px;
+  }
+  #depoimentos .section-label { color: var(--sky-light); }
+  #depoimentos .section-title { color: white; }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; margin-top: 50px;
+  }
+  .testimonial {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(74,184,216,0.2);
+    border-radius: 20px; padding: 32px 28px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .testimonial:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(74,184,216,0.4);
+  }
+  .testimonial-stars { color: var(--sky); margin-bottom: 18px; font-size: 0.9rem; letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: 0.9rem; line-height: 1.8;
+    color: rgba(255,255,255,0.75); font-weight: 300;
+    font-style: italic; margin-bottom: 24px;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: white;
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  }
+  .author-info .name { color: white; font-size: 0.88rem; font-weight: 500; }
+  .author-info .role { color: var(--sky-light); font-size: 0.76rem; }
+
+  /* ── CTA ── */
+  #contato {
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sky-dark) 100%);
+    padding: 100px 80px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  #contato::before {
+    content: '';
+    position: absolute; top: -100px; left: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  #contato::after {
+    content: '';
+    position: absolute; bottom: -80px; right: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .cta-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 300; line-height: 1.2; color: white;
+    margin-bottom: 20px;
+  }
+  .cta-title em { font-style: italic; }
+  .cta-sub {
+    font-size: 1rem; color: rgba(255,255,255,0.8);
+    max-width: 480px; margin: 0 auto 48px;
+    line-height: 1.7; font-weight: 300;
+  }
+  .btn-white {
+    background: white; color: var(--sky-dark);
+    padding: 16px 40px; border-radius: 40px;
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.06em; display: inline-block;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; z-index: 2;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0,0,0,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.5);
+    padding: 40px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+    font-size: 0.8rem;
+  }
+  footer .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: white; font-weight: 300;
+    font-style: italic;
+  }
+  footer .instagram {
+    color: var(--sky-light); text-decoration: none;
+    font-weight: 500; letter-spacing: 0.08em;
+    transition: color 0.3s;
+  }
+  footer .instagram:hover { color: var(--sky); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-text { padding: 100px 24px 40px; text-align: center; }
+    .hero-btns { justify-content: center; }
+    .hero-image { padding: 0 24px 60px; }
+    .hero-img-wrap { width: 300px; }
+    .hero-img-wrap img { height: 400px; }
+    .hero-float-card { left: 0; }
+    #sobre { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    #servicos { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    #processo { padding: 60px 24px; }
+    #depoimentos { padding: 60px 24px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    #contato { padding: 80px 24px; }
+    footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+  }
+
+  /* Animate on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Kaiany <span>Cunha</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#processo">Como Funciona</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato" class="nav-cta">Agendar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Hipnoterapeuta Certificada</div>
+    <h1 class="hero-title">
+      Transforme sua<br><em>mente,</em> transforme<br>sua vida
+    </h1>
+    <p class="hero-subtitle">
+      Bem-estar emocional e equilíbrio mental através da hipnoterapia. Um espaço seguro para você se curar e alcançar seu maior potencial.
+    </p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-primary">Agendar Consulta</a>
+      <a href="#sobre" class="btn-outline">Conheça Kaiany</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-img-wrap">
+      <img src="img/kaiane2.jpg" alt="Kaiany Cunha Hipnoterapeuta">
+      <div class="hero-float-card">
+        <div class="icon">🌀</div>
+        <div class="card-text">
+          <strong>Sessão Online</strong>
+          Atendimento em todo Brasil
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPIRAL DIVIDER -->
+<div class="spiral-section">
+  <div class="spiral"><div class="spiral-dot"></div></div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-img reveal">
+    <div class="sobre-img-frame">
+      <img src="img/kaiane1.png" alt="Kaiany Cunha">
+    </div>
+    <div class="sobre-accent"></div>
+    <div class="sobre-accent2"></div>
+  </div>
+  <div class="sobre-text reveal">
+    <div class="section-label">Quem sou eu</div>
+    <h2 class="section-title">Olá, sou <em>Kaiany</em> Cunha</h2>
+    <p>Sou uma profissional dedicada a ajudar as pessoas a alcançarem um estado de <strong>bem-estar e equilíbrio emocional</strong>.</p>
+    <p>Formada em <strong>hipnoterapia</strong> e atualmente cursando psicologia, estou em constante busca por ampliar meu conhecimento e habilidades para oferecer o melhor cuidado possível.</p>
+    <p>Acredito que a mente humana tem um enorme potencial para se curar e se transformar. Por isso, estou comprometida em ajudar meus pacientes a explorarem esse potencial e a encontrarem soluções para seus desafios.</p>
+    <p>Meu objetivo é fornecer um <strong>ambiente seguro e acolhedor</strong> para que você possa se sentir à vontade e encontrar caminhos para uma vida mais plena e feliz. 💙</p>
+    <div class="sobre-creds">
+      <div class="cred-item">
+        <div class="cred-num">100+</div>
+        <div class="cred-label">Pacientes atendidos</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-num">5★</div>
+        <div class="cred-label">Avaliação média</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-num">3+</div>
+        <div class="cred-label">Anos de experiência</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-header reveal">
+    <div class="section-label">O que ofereço</div>
+    <h2 class="section-title">Áreas de <em>Atuação</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🧠</div>
+      <div class="service-name">Ansiedade & Estresse</div>
+      <p class="service-desc">Técnicas hipnoterapêuticas para reduzir a ansiedade, aliviar o estresse e encontrar equilíbrio emocional no dia a dia.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🌙</div>
+      <div class="service-name">Fobias & Medos</div>
+      <p class="service-desc">Trabalho profundo para ressignificar experiências e libertar-se de medos e fobias que limitam sua qualidade de vida.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">✨</div>
+      <div class="service-name">Autoestima & Confiança</div>
+      <p class="service-desc">Fortalecimento da autoestima e desenvolvimento de uma mentalidade positiva para alcançar seus objetivos com mais segurança.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💤</div>
+      <div class="service-name">Distúrbios do Sono</div>
+      <p class="service-desc">Técnicas para melhorar a qualidade do sono, combater a insônia e restaurar o equilíbrio do ciclo de descanso.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎯</div>
+      <div class="service-name">Foco & Performance</div>
+      <p class="service-desc">Otimização do potencial mental para melhorar o foco, a concentração e o desempenho pessoal e profissional.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💙</div>
+      <div class="service-name">Bem-Estar Emocional</div>
+      <p class="service-desc">Acompanhamento holístico para seu equilíbrio emocional, com um ambiente acolhedor e técnicas personalizadas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="processo">
+  <div class="section-header reveal">
+    <div class="section-label">O processo</div>
+    <h2 class="section-title">Como <em>Funciona</em></h2>
+  </div>
+  <div class="steps-wrap">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Primeiro Contato</div>
+        <p class="step-desc">Entre em contato pelo Instagram ou WhatsApp para agendar sua sessão inicial. Respondo todos os dias.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Sessão de Anamnese</div>
+        <p class="step-desc">Na primeira sessão, conheceremos sua história, seus desafios e definiremos juntos os objetivos do seu tratamento.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Sessões de Hipnoterapia</div>
+        <p class="step-desc">Sessões personalizadas utilizando técnicas de hipnoterapia para acessar o subconsciente e promover as transformações desejadas.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">Acompanhamento & Evolução</div>
+        <p class="step-desc">Acompanhamento contínuo do seu progresso, com ajustes nas técnicas conforme sua evolução e necessidades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="section-header reveal">
+    <div class="section-label">Histórias reais</div>
+    <h2 class="section-title">O que dizem sobre <em>mim</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"As sessões com a Kaiany mudaram minha vida. Consegui superar minha ansiedade de uma forma que nunca imaginei ser possível. Ela é incrível!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div class="author-info">
+          <div class="name">Ana Paula S.</div>
+          <div class="role">Paciente — Ansiedade</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Tinha fobia de falar em público há anos. Depois de apenas 4 sessões, consegui dar uma palestra para 200 pessoas. Obrigado, Kaiany!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">M</div>
+        <div class="author-info">
+          <div class="name">Marcos L.</div>
+          <div class="role">Paciente — Fobia Social</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Profissional extremamente competente e acolhedora. Me senti completamente segura durante todo o processo. Recomendo de olhos fechados!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">J</div>
+        <div class="author-info">
+          <div class="name">Juliana R.</div>
+          <div class="role">Paciente — Autoestima</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contato">
+  <div class="cta-label">Comece hoje</div>
+  <h2 class="cta-title">Pronta para <em>transformar</em><br>sua vida?</h2>
+  <p class="cta-sub">Juntos vamos trabalhar para alcançar seu bem-estar emocional e mental. Dê o primeiro passo hoje.</p>
+  <a href="https://instagram.com/Kaiany_Hipnoterapeuta" class="btn-white" target="_blank">📲 Fale Comigo no Instagram</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Kaiany Cunha · Hipnoterapeuta</div>
+  <div>© 2025 Todos os direitos reservados</div>
+  <a href="https://instagram.com/Kaiany_Hipnoterapeuta" class="instagram" target="_blank">@Kaiany_Hipnoterapeuta</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
