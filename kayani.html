@@ -16,17 +16,66 @@
     --dark: #1a2a35;
     --mid: #4a6070;
     --accent: #2596be;
+    --whatsapp: #25D366;
+    --whatsapp-dark: #128C7E;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Jost', sans-serif;
     color: var(--dark);
     background: var(--white);
     overflow-x: hidden;
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 999;
+    display: flex; align-items: center; gap: 12px;
+    animation: fadeInUp 1s ease 1s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .whatsapp-label {
+    background: white;
+    color: var(--dark);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 8px 16px; border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    white-space: nowrap;
+    opacity: 0; transform: translateX(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .whatsapp-float:hover .whatsapp-label {
+    opacity: 1; transform: translateX(0);
+  }
+  .whatsapp-btn {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: waPulse 3s ease-in-out infinite;
+  }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 8px 30px rgba(37,211,102,0.4); }
+    50% { box-shadow: 0 8px 50px rgba(37,211,102,0.6), 0 0 0 12px rgba(37,211,102,0.08); }
+  }
+  .whatsapp-btn:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 14px 40px rgba(37,211,102,0.55);
+    animation: none;
+  }
+  .whatsapp-btn svg {
+    width: 30px; height: 30px; fill: white;
   }
 
   /* ── NAV ── */
@@ -37,6 +86,11 @@
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(74,184,216,0.15);
+    transition: padding 0.3s, box-shadow 0.3s;
+  }
+  nav.scrolled {
+    padding: 12px 40px;
+    box-shadow: 0 4px 30px rgba(74,184,216,0.12);
   }
   .nav-logo {
     font-family: 'Cormorant Garamond', serif;
@@ -51,14 +105,24 @@
     font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase;
     transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1.5px; background: var(--sky);
+    transform: scaleX(0); transition: transform 0.3s;
+    transform-origin: center;
   }
   .nav-links a:hover { color: var(--sky-dark); }
+  .nav-links a:hover::after { transform: scaleX(1); }
   .nav-cta {
     background: var(--sky); color: white !important;
     padding: 10px 22px; border-radius: 30px;
     transition: background 0.3s !important;
   }
   .nav-cta:hover { background: var(--sky-dark) !important; }
+  .nav-cta::after { display: none !important; }
 
   /* ── HERO ── */
   #hero {
@@ -116,10 +180,7 @@
     color: var(--dark);
     margin-bottom: 12px;
   }
-  .hero-title em {
-    font-style: italic; color: var(--sky-dark);
-    font-weight: 400;
-  }
+  .hero-title em { font-style: italic; color: var(--sky-dark); font-weight: 400; }
   .hero-subtitle {
     font-size: 1.05rem; color: var(--mid);
     line-height: 1.7; margin-bottom: 40px;
@@ -133,9 +194,20 @@
     font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
     box-shadow: 0 8px 30px rgba(74,184,216,0.35);
     transition: transform 0.3s, box-shadow 0.3s;
-    display: inline-block;
+    display: inline-flex; align-items: center; gap: 8px;
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,184,216,0.45); }
+  .btn-wa {
+    background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+    color: white; padding: 14px 32px;
+    border-radius: 40px; text-decoration: none;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,0.45); }
+  .btn-wa svg { width: 18px; height: 18px; fill: white; }
   .btn-outline {
     border: 1.5px solid var(--sky);
     color: var(--sky-dark); padding: 14px 32px;
@@ -192,6 +264,29 @@
   .hero-float-card .card-text { font-size: 0.8rem; color: var(--mid); }
   .hero-float-card .card-text strong { display: block; color: var(--dark); font-size: 0.9rem; margin-bottom: 2px; }
 
+  /* Stats bar */
+  .hero-stats {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: white;
+    display: flex; justify-content: center;
+    box-shadow: 0 -4px 30px rgba(74,184,216,0.08);
+    z-index: 3;
+  }
+  .stat-item {
+    padding: 22px 48px;
+    text-align: center;
+    border-right: 1px solid rgba(74,184,216,0.15);
+    flex: 1; max-width: 220px;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600;
+    color: var(--sky-dark); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--mid); letter-spacing: 0.08em; text-transform: uppercase; }
+
   /* ── SPIRAL DIVIDER ── */
   .spiral-section {
     display: flex; justify-content: center; align-items: center;
@@ -216,10 +311,7 @@
     position: absolute; inset: 18px;
     border-radius: 50%; border: 1px solid rgba(74,184,216,0.6);
   }
-  .spiral-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%; background: var(--sky);
-  }
+  .spiral-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); }
 
   /* ── SOBRE ── */
   #sobre {
@@ -228,19 +320,14 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 80px; align-items: center;
   }
-  .sobre-img {
-    position: relative;
-  }
+  .sobre-img { position: relative; }
   .sobre-img-frame {
     border-radius: 30px 10px 30px 10px;
     overflow: hidden;
     aspect-ratio: 3/4;
     box-shadow: 0 30px 80px rgba(74,184,216,0.2);
   }
-  .sobre-img-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: top;
-  }
+  .sobre-img-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .sobre-accent {
     position: absolute; bottom: -20px; right: -20px;
     width: 140px; height: 140px;
@@ -255,7 +342,6 @@
     border: 2px solid var(--sky-light);
     z-index: -1;
   }
-  .sobre-text { }
   .section-label {
     font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--sky-dark); font-weight: 500;
@@ -278,21 +364,20 @@
     font-weight: 300;
   }
   .sobre-text p strong { color: var(--dark); font-weight: 500; }
-  .sobre-creds {
-    display: flex; gap: 24px; margin-top: 36px;
-  }
+  .sobre-creds { display: flex; gap: 24px; margin-top: 36px; }
   .cred-item {
     text-align: center; flex: 1;
     padding: 20px 16px;
     background: var(--mint-pale);
     border-radius: 16px;
     border-top: 3px solid var(--sky);
+    transition: transform 0.3s;
   }
+  .cred-item:hover { transform: translateY(-4px); }
   .cred-num {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem; font-weight: 600;
-    color: var(--sky-dark); line-height: 1;
-    margin-bottom: 6px;
+    color: var(--sky-dark); line-height: 1; margin-bottom: 6px;
   }
   .cred-label { font-size: 0.75rem; color: var(--mid); letter-spacing: 0.05em; }
 
@@ -321,8 +406,7 @@
     position: absolute; top: 0; left: 0; right: 0;
     height: 4px;
     background: linear-gradient(90deg, var(--sky), var(--sky-dark));
-    transform: scaleX(0);
-    transition: transform 0.3s;
+    transform: scaleX(0); transition: transform 0.3s;
     transform-origin: left;
   }
   .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(74,184,216,0.15); }
@@ -338,21 +422,12 @@
     font-size: 1.4rem; font-weight: 600;
     color: var(--dark); margin-bottom: 12px;
   }
-  .service-desc {
-    font-size: 0.88rem; line-height: 1.75;
-    color: var(--mid); font-weight: 300;
-  }
+  .service-desc { font-size: 0.88rem; line-height: 1.75; color: var(--mid); font-weight: 300; }
 
   /* ── COMO FUNCIONA ── */
-  #processo {
-    background: white;
-    padding: 90px 80px;
-  }
+  #processo { background: white; padding: 90px 80px; }
   .steps-wrap { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
-  .step {
-    display: flex; gap: 32px; align-items: flex-start;
-    padding-bottom: 48px; position: relative;
-  }
+  .step { display: flex; gap: 32px; align-items: flex-start; padding-bottom: 48px; position: relative; }
   .step:not(:last-child)::after {
     content: '';
     position: absolute; left: 26px; top: 52px; bottom: 0;
@@ -390,11 +465,12 @@
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(74,184,216,0.2);
     border-radius: 20px; padding: 32px 28px;
-    transition: background 0.3s, border-color 0.3s;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
   }
   .testimonial:hover {
     background: rgba(255,255,255,0.08);
     border-color: rgba(74,184,216,0.4);
+    transform: translateY(-4px);
   }
   .testimonial-stars { color: var(--sky); margin-bottom: 18px; font-size: 0.9rem; letter-spacing: 2px; }
   .testimonial-text {
@@ -413,19 +489,148 @@
   .author-info .name { color: white; font-size: 0.88rem; font-weight: 500; }
   .author-info .role { color: var(--sky-light); font-size: 0.76rem; }
 
-  /* ── CTA ── */
+  /* ── CONTATO ── */
   #contato {
+    background: linear-gradient(160deg, var(--mint-pale) 0%, var(--mint) 100%);
+    padding: 90px 80px;
+  }
+  .contato-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .contato-left {}
+  .contato-intro {
+    font-size: 0.95rem; color: var(--mid);
+    line-height: 1.8; font-weight: 300;
+    margin-bottom: 36px;
+  }
+  .contact-channels { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+  .contact-channel {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px;
+    background: white; border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(74,184,216,0.08);
+    text-decoration: none; color: var(--dark);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .contact-channel:hover { transform: translateX(6px); box-shadow: 0 8px 30px rgba(74,184,216,0.15); }
+  .contact-channel .ch-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ch-wa { background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark)); }
+  .ch-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .contact-channel .ch-icon svg { width: 22px; height: 22px; fill: white; }
+  .contact-channel .ch-text strong { display: block; font-size: 0.9rem; color: var(--dark); margin-bottom: 2px; }
+  .contact-channel .ch-text span { font-size: 0.8rem; color: var(--mid); }
+
+  /* Map */
+  .map-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(74,184,216,0.15);
+    border: 3px solid white;
+  }
+  .map-wrap iframe {
+    width: 100%; height: 340px;
+    border: none; display: block;
+  }
+  .map-caption {
+    background: white;
+    padding: 16px 22px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .map-caption .pin-icon { font-size: 1.2rem; }
+  .map-caption p { font-size: 0.82rem; color: var(--mid); font-weight: 300; }
+  .map-caption p strong { color: var(--dark); font-weight: 500; display: block; }
+
+  /* ── FORMULÁRIO ── */
+  .form-wrap {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(74,184,216,0.12);
+  }
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600;
+    color: var(--dark); margin-bottom: 8px;
+  }
+  .form-subtitle { font-size: 0.85rem; color: var(--mid); margin-bottom: 28px; font-weight: 300; }
+  .form-group { margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 500;
+    color: var(--mid); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid rgba(74,184,216,0.25);
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem; color: var(--dark);
+    background: var(--mint-pale);
+    outline: none;
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--sky);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(74,184,216,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group select { cursor: pointer; }
+  .btn-form {
+    width: 100%;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sky-dark) 100%);
+    color: white; padding: 15px;
+    border-radius: 40px; border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em;
+    box-shadow: 0 8px 30px rgba(74,184,216,0.35);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-form:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,184,216,0.45); }
+  .btn-form:active { transform: translateY(0); }
+  .form-success {
+    display: none;
+    text-align: center; padding: 30px;
+  }
+  .form-success .check {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 1.6rem;
+  }
+  .form-success h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--dark); margin-bottom: 8px;
+  }
+  .form-success p { font-size: 0.85rem; color: var(--mid); }
+
+  /* ── CTA FINAL ── */
+  #cta-final {
     background: linear-gradient(135deg, var(--sky) 0%, var(--sky-dark) 100%);
     padding: 100px 80px;
     text-align: center; position: relative; overflow: hidden;
   }
-  #contato::before {
+  #cta-final::before {
     content: '';
     position: absolute; top: -100px; left: -100px;
     width: 400px; height: 400px; border-radius: 50%;
     background: rgba(255,255,255,0.06);
   }
-  #contato::after {
+  #cta-final::after {
     content: '';
     position: absolute; bottom: -80px; right: -80px;
     width: 300px; height: 300px; border-radius: 50%;
@@ -433,14 +638,12 @@
   }
   .cta-label {
     font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7); font-weight: 500;
-    margin-bottom: 20px;
+    color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 20px;
   }
   .cta-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2.4rem, 4vw, 3.6rem);
-    font-weight: 300; line-height: 1.2; color: white;
-    margin-bottom: 20px;
+    font-weight: 300; line-height: 1.2; color: white; margin-bottom: 20px;
   }
   .cta-title em { font-style: italic; }
   .cta-sub {
@@ -448,16 +651,30 @@
     max-width: 480px; margin: 0 auto 48px;
     line-height: 1.7; font-weight: 300;
   }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
   .btn-white {
     background: white; color: var(--sky-dark);
-    padding: 16px 40px; border-radius: 40px;
+    padding: 16px 36px; border-radius: 40px;
     text-decoration: none; font-size: 0.9rem; font-weight: 500;
-    letter-spacing: 0.06em; display: inline-block;
+    letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 8px;
     box-shadow: 0 12px 40px rgba(0,0,0,0.15);
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative; z-index: 2;
   }
   .btn-white:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(0,0,0,0.2); }
+  .btn-white-wa {
+    background: var(--whatsapp); color: white;
+    padding: 16px 36px; border-radius: 40px;
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 12px 40px rgba(37,211,102,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; z-index: 2;
+  }
+  .btn-white-wa:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(37,211,102,0.4); }
+  .btn-white-wa svg, .btn-white svg { width: 18px; height: 18px; }
+  .btn-white-wa svg { fill: white; }
+  .btn-white svg { fill: var(--sky-dark); }
 
   /* ── FOOTER ── */
   footer {
@@ -467,17 +684,11 @@
     flex-wrap: wrap; gap: 20px;
     font-size: 0.8rem;
   }
-  footer .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem; color: white; font-weight: 300;
-    font-style: italic;
-  }
-  footer .instagram {
-    color: var(--sky-light); text-decoration: none;
-    font-weight: 500; letter-spacing: 0.08em;
-    transition: color 0.3s;
-  }
-  footer .instagram:hover { color: var(--sky); }
+  footer .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: white; font-weight: 300; font-style: italic; }
+  .footer-links { display: flex; gap: 24px; align-items: center; }
+  .footer-links a { color: var(--sky-light); text-decoration: none; font-weight: 500; letter-spacing: 0.08em; transition: color 0.3s; display: flex; align-items: center; gap: 6px; }
+  .footer-links a:hover { color: var(--sky); }
+  .footer-links a svg { width: 16px; height: 16px; fill: currentColor; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
@@ -490,14 +701,19 @@
     .hero-img-wrap { width: 300px; }
     .hero-img-wrap img { height: 400px; }
     .hero-float-card { left: 0; }
+    .hero-stats { position: static; flex-wrap: wrap; }
+    .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(74,184,216,0.15); }
     #sobre { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
     #servicos { padding: 60px 24px; }
     .services-grid { grid-template-columns: 1fr; }
     #processo { padding: 60px 24px; }
     #depoimentos { padding: 60px 24px; }
     .testimonials-grid { grid-template-columns: 1fr; }
-    #contato { padding: 80px 24px; }
+    #contato { padding: 60px 24px; }
+    .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+    #cta-final { padding: 80px 24px; }
     footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+    .whatsapp-float { bottom: 20px; right: 20px; }
   }
 
   /* Animate on scroll */
@@ -506,19 +722,46 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Form notification */
+  .notif {
+    position: fixed; top: 90px; right: 28px;
+    background: var(--dark); color: white;
+    padding: 14px 22px; border-radius: 14px;
+    font-size: 0.85rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 200; display: flex; align-items: center; gap: 10px;
+    border-left: 4px solid var(--sky);
+  }
+  .notif.show { transform: translateX(0); }
 </style>
 </head>
 <body>
 
+<!-- WHATSAPP FLOAT -->
+<div class="whatsapp-float">
+  <div class="whatsapp-label">Fale comigo agora!</div>
+  <a href="https://wa.me/55SEUNUMERO" target="_blank" class="whatsapp-btn" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- NOTIFICATION TOAST -->
+<div class="notif" id="notif">✅ Mensagem enviada com sucesso!</div>
+
 <!-- NAV -->
-<nav>
+<nav id="nav">
   <div class="nav-logo">Kaiany <span>Cunha</span></div>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#processo">Como Funciona</a></li>
     <li><a href="#depoimentos">Depoimentos</a></li>
-    <li><a href="#contato" class="nav-cta">Agendar</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="https://wa.me/55SEUNUMERO" target="_blank" class="nav-cta">Agendar</a></li>
   </ul>
 </nav>
 
@@ -533,7 +776,10 @@
       Bem-estar emocional e equilíbrio mental através da hipnoterapia. Um espaço seguro para você se curar e alcançar seu maior potencial.
     </p>
     <div class="hero-btns">
-      <a href="#contato" class="btn-primary">Agendar Consulta</a>
+      <a href="https://wa.me/55SEUNUMERO" target="_blank" class="btn-wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
       <a href="#sobre" class="btn-outline">Conheça Kaiany</a>
     </div>
   </div>
@@ -547,6 +793,24 @@
           Atendimento em todo Brasil
         </div>
       </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">Pacientes atendidos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5★</div>
+      <div class="stat-label">Avaliação média</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Anos de experiência</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Online & Presencial</div>
     </div>
   </div>
 </section>
@@ -572,20 +836,6 @@
     <p>Formada em <strong>hipnoterapia</strong> e atualmente cursando psicologia, estou em constante busca por ampliar meu conhecimento e habilidades para oferecer o melhor cuidado possível.</p>
     <p>Acredito que a mente humana tem um enorme potencial para se curar e se transformar. Por isso, estou comprometida em ajudar meus pacientes a explorarem esse potencial e a encontrarem soluções para seus desafios.</p>
     <p>Meu objetivo é fornecer um <strong>ambiente seguro e acolhedor</strong> para que você possa se sentir à vontade e encontrar caminhos para uma vida mais plena e feliz. 💙</p>
-    <div class="sobre-creds">
-      <div class="cred-item">
-        <div class="cred-num">100+</div>
-        <div class="cred-label">Pacientes atendidos</div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-num">5★</div>
-        <div class="cred-label">Avaliação média</div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-num">3+</div>
-        <div class="cred-label">Anos de experiência</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -640,7 +890,7 @@
       <div class="step-num">1</div>
       <div class="step-content">
         <div class="step-title">Primeiro Contato</div>
-        <p class="step-desc">Entre em contato pelo Instagram ou WhatsApp para agendar sua sessão inicial. Respondo todos os dias.</p>
+        <p class="step-desc">Entre em contato pelo WhatsApp ou Instagram para agendar sua sessão inicial. Respondo todos os dias.</p>
       </div>
     </div>
     <div class="step reveal">
@@ -710,22 +960,154 @@
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CONTATO -->
 <section id="contato">
+  <div class="section-header reveal">
+    <div class="section-label">Entre em contato</div>
+    <h2 class="section-title">Vamos <em>conversar?</em></h2>
+  </div>
+  <div class="contato-grid">
+    <!-- Esquerda: canais + mapa -->
+    <div class="contato-left reveal">
+      <p class="contato-intro">Estou aqui para ajudar você a dar o primeiro passo rumo ao seu bem-estar. Escolha como prefere entrar em contato:</p>
+      <div class="contact-channels">
+        <a href="https://wa.me/55SEUNUMERO" target="_blank" class="contact-channel">
+          <div class="ch-icon ch-wa">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="ch-text">
+            <strong>WhatsApp</strong>
+            <span>Resposta rápida · Atendo todos os dias</span>
+          </div>
+        </a>
+        <a href="https://instagram.com/Kaiany_Hipnoterapeuta" target="_blank" class="contact-channel">
+          <div class="ch-icon ch-ig">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <div class="ch-text">
+            <strong>Instagram</strong>
+            <span>@Kaiany_Hipnoterapeuta</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- MAPA GOOGLE -->
+      <div class="map-wrap">
+        <!--
+          INSTRUÇÃO: Substitua o src do iframe abaixo pelo link de embed do Google Maps
+          da sua localização. Para gerar:
+          1. Acesse maps.google.com e pesquise seu endereço
+          2. Clique em "Compartilhar" → "Incorporar um mapa"
+          3. Copie o src do iframe gerado e cole aqui
+        -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62062.22539404741!2d-40.08391!3d-13.858166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x74327eea5d63c5f%3A0x54e4f93de3e14fbe!2sJequ%C3%AD%C3%A9%2C%20BA!5e0!3m2!1spt-BR!2sbr!4v1712345678901!5m2!1spt-BR!2sbr"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização Kaiany Cunha Hipnoterapeuta">
+        </iframe>
+        <div class="map-caption">
+          <span class="pin-icon">📍</span>
+          <p>
+            <strong>Jequié – BA</strong>
+            Atendimento presencial e online para todo o Brasil
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direita: formulário -->
+    <div class="reveal">
+      <div class="form-wrap">
+        <div id="form-content">
+          <div class="form-title">Envie uma mensagem</div>
+          <p class="form-subtitle">Preencha abaixo e entrarei em contato em breve 💙</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome *</label>
+              <input type="text" id="f-nome" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <label>WhatsApp *</label>
+              <input type="tel" id="f-tel" placeholder="(00) 00000-0000" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="f-email" placeholder="seu@email.com">
+          </div>
+          <div class="form-group">
+            <label>Área de interesse</label>
+            <select id="f-area">
+              <option value="" disabled selected>Selecione um tema</option>
+              <option>Ansiedade & Estresse</option>
+              <option>Fobias & Medos</option>
+              <option>Autoestima & Confiança</option>
+              <option>Distúrbios do Sono</option>
+              <option>Foco & Performance</option>
+              <option>Bem-Estar Emocional</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensagem</label>
+            <textarea id="f-msg" placeholder="Conte um pouco sobre o que está sentindo ou o que gostaria de tratar..."></textarea>
+          </div>
+          <button class="btn-form" onclick="submitForm()">
+            Enviar Mensagem
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="check">✓</div>
+          <h3>Mensagem enviada!</h3>
+          <p>Obrigada pelo contato. Entrarei em breve via WhatsApp ou e-mail. 💙</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
   <div class="cta-label">Comece hoje</div>
   <h2 class="cta-title">Pronta para <em>transformar</em><br>sua vida?</h2>
   <p class="cta-sub">Juntos vamos trabalhar para alcançar seu bem-estar emocional e mental. Dê o primeiro passo hoje.</p>
-  <a href="https://instagram.com/Kaiany_Hipnoterapeuta" class="btn-white" target="_blank">📲 Fale Comigo no Instagram</a>
+  <div class="cta-btns">
+    <a href="https://wa.me/55SEUNUMERO" target="_blank" class="btn-white-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="https://instagram.com/Kaiany_Hipnoterapeuta" target="_blank" class="btn-white">
+      <svg viewBox="0 0 24 24" style="fill:var(--sky-dark)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="logo">Kaiany Cunha · Hipnoterapeuta</div>
   <div>© 2025 Todos os direitos reservados</div>
-  <a href="https://instagram.com/Kaiany_Hipnoterapeuta" class="instagram" target="_blank">@Kaiany_Hipnoterapeuta</a>
+  <div class="footer-links">
+    <a href="https://wa.me/55SEUNUMERO" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="https://instagram.com/Kaiany_Hipnoterapeuta" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @Kaiany_Hipnoterapeuta
+    </a>
+  </div>
 </footer>
 
 <script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -737,6 +1119,39 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
+
+  // Phone mask
+  const telInput = document.getElementById('f-tel');
+  if (telInput) {
+    telInput.addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      this.value = v;
+    });
+  }
+
+  // Form submit
+  function submitForm() {
+    const nome = document.getElementById('f-nome').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    if (!nome || !tel) {
+      showNotif('Por favor, preencha nome e WhatsApp. 😊', true);
+      return;
+    }
+    // Simulate send (replace with real backend/formspree/emailjs)
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    showNotif('Mensagem enviada com sucesso! ✅');
+  }
+
+  function showNotif(msg, isError) {
+    const notif = document.getElementById('notif');
+    notif.textContent = msg;
+    notif.style.borderColor = isError ? '#e07070' : 'var(--sky)';
+    notif.classList.add('show');
+    setTimeout(() => notif.classList.remove('show'), 3500);
+  }
 </script>
 </body>
 </html>
