@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espaço Ártemis — Tatuagem · Piercing · Fisioterapia</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<!-- Custom Tailwind Config -->
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: '#c9a84c',
+          'gold-light': '#e8c97a',
+          'gold-dim': '#8a6e30',
+          dark: '#111111',
+          dark2: '#1a1a1a',
+          dark3: '#222222',
+          cream: '#ede8de',
+          'red-artemis': '#8b1a1a',
+          'text-muted': '#888888',
+        },
+        fontFamily: {
+          'cormorant': ['Cormorant Garamond', 'serif'],
+          'bebas': ['Bebas Neue', 'sans-serif'],
+          'josefin': ['Josefin Sans', 'sans-serif'],
+        },
+        animation: {
+          'float': 'floatArcher 6s ease-in-out infinite',
+          'scroll-bounce': 'scrollBounce 2s ease infinite',
+          'hero-reveal': 'heroReveal 1.2s ease both',
+          'wa-pulse': 'waPulse 2.5s ease infinite',
+        },
+        keyframes: {
+          floatArcher: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-12px)' },
+          },
+          scrollBounce: {
+            '0%, 100%': { transform: 'translateX(-50%) translateY(0)' },
+            '50%': { transform: 'translateX(-50%) translateY(6px)' },
+          },
+          heroReveal: {
+            from: { opacity: '0', transform: 'translateY(30px)' },
+            to: { opacity: '1', transform: 'translateY(0)' },
+          },
+          waPulse: {
+            '0%, 100%': { boxShadow: '0 4px 25px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4)' },
+            '50%': { boxShadow: '0 4px 25px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0)' },
+          },
+        },
+      },
+    },
+  }
+</script>
+<style>
+  /* Custom CSS that Tailwind cannot easily replicate */
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #c9a84c; }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Custom animations and effects */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .stat-box {
+    transition: border-color 0.3s;
+  }
+  .stat-box:hover {
+    border-left-color: #c9a84c;
+  }
+
+  .membro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: #c9a84c;
+    transition: height 0.4s;
+  }
+  .membro-card:hover::before {
+    height: 100%;
+  }
+
+  .servico-line {
+    width: 30px;
+    height: 1px;
+    background: #8a6e30;
+    transition: width 0.3s, background 0.3s;
+  }
+  .servico-card:hover .servico-line {
+    width: 50px;
+    background: #c9a84c;
+  }
+
+  .bio-badge {
+    transition: all 0.3s;
+  }
+  .bio-badge:hover {
+    border-left-color: #c9a84c;
+    background: #1a1a1a;
+  }
+
+  .bio-highlight::before {
+    content: '✦';
+    position: absolute;
+    top: -0.8rem;
+    left: 2rem;
+    background: #0a0a0a;
+    padding: 0 0.5rem;
+    color: #c9a84c;
+    font-size: 0.8rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-left-color: #c9a84c;
+    background: #1a1a1a;
+  }
+
+  /* Fade-in animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    .hero-archer, .hero-line-dec {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body class="bg-black text-white font-josefin font-light overflow-x-hidden">
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-100 flex justify-between items-center px-8 md:px-16 py-5 bg-gradient-to-b from-[#0a0a0a]/97 to-transparent backdrop-blur-sm">
+  <div class="nav-logo font-cormorant text-sm font-light tracking-[0.35em] uppercase text-gold">
+    Espaço <span class="italic text-white">Ártemis</span>
+  </div>
+  
+  <ul class="hidden md:flex gap-10 list-none">
+    <li><a href="#inicio" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Início</a></li>
+    <li><a href="#sobre" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Sobre</a></li>
+    <li><a href="#servicos" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Serviços</a></li>
+    <li><a href="#equipe" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Equipe</a></li>
+    <li><a href="#avaliacoes" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Avaliações</a></li>
+    <li><a href="#contato" class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300">Contato</a></li>
+  </ul>
+  
+  <a class="hidden md:block text-[0.65rem] tracking-[0.2em] uppercase text-black bg-gold px-5 py-2.5 hover:bg-gold-light transition-all duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar</a>
+  
+  <!-- Mobile Menu Button -->
+  <div class="md:hidden flex flex-col gap-1.5 cursor-pointer">
+    <span class="block w-6 h-px bg-gold"></span>
+    <span class="block w-6 h-px bg-gold"></span>
+    <span class="block w-6 h-px bg-gold"></span>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 bg-black">
+    <div class="absolute inset-0 bg-gradient-radial from-gold/6 via-transparent to-transparent" style="background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 30%, rgba(139,26,26,0.08) 0%, transparent 60%)"></div>
+  </div>
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(#c9a84c 1px, transparent 1px), linear-gradient(90deg, #c9a84c 1px, transparent 1px); background-size: 80px 80px;"></div>
+  <div class="hero-noise"></div>
+  
+  <div class="absolute left-16 top-1/2 -translate-y-1/2 w-px h-[35vh] bg-gradient-to-b from-transparent via-gold to-transparent hidden lg:block"></div>
+  
+  <img class="hero-archer absolute right-[8%] bottom-0 h-[85vh] opacity-[0.07] invert sepia saturate-0 animate-float hidden lg:block" src="img/space-artemis-logo.png" alt="">
+  
+  <div class="relative z-10 text-center px-8 animate-hero-reveal">
+    <div class="text-[0.65rem] tracking-[0.5em] uppercase text-gold mb-8 flex items-center justify-center gap-4">
+      <span class="block w-10 h-px bg-gold-dim"></span>
+      Bem-vindo ao
+      <span class="block w-10 h-px bg-gold-dim"></span>
+    </div>
+    
+    <h1 class="font-bebas text-[clamp(5rem,14vw,13rem)] leading-[0.88] tracking-[0.04em] text-white drop-shadow-[0_0_80px_rgba(201,168,76,0.15)]">
+      <em class="font-cormorant italic text-[0.7em] text-gold block">Espaço</em>
+      Artemis
+    </h1>
+    
+    <p class="mt-8 text-[0.75rem] tracking-[0.3em] uppercase text-text-muted leading-[2.2]">
+      <strong class="text-white font-normal">Tatuagem</strong> · <strong class="text-white font-normal">Piercing</strong> · <strong class="text-white font-normal">Fisioterapia</strong><br>
+      estética & bem-estar, em um só lugar
+    </p>
+    
+    <div class="mt-14 flex justify-center gap-6 flex-wrap">
+      <a class="btn-primary px-10 py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase relative overflow-hidden hover:after:opacity-10 after:content-[''] after:absolute after:inset-0 after:bg-white after:opacity-0 after:transition-opacity after:duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar via WhatsApp</a>
+      <a class="btn-secondary px-10 py-4 border border-gold/40 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:border-gold hover:bg-gold/5 transition-all duration-300" href="#servicos">Conheça os Serviços</a>
+    </div>
+  </div>
+  
+  <a class="hero-scroll absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.55rem] tracking-[0.4em] uppercase text-text-muted no-underline animate-scroll-bounce" href="#sobre">
+    scroll
+    <span class="block w-px h-10 bg-gradient-to-b from-gold-dim to-transparent"></span>
+  </a>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- SOBRE SECTION -->
+<section id="sobre" class="py-20 md:py-32 px-8 md:px-16 bg-dark">
+  <div class="grid md:grid-cols-2 gap-16 md:gap-32 items-center">
+    <div class="fade-in">
+      <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+        <span class="text-[0.5rem]">✦</span>
+        Nossa história
+      </div>
+      <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] text-white">
+        Por que <em class="italic text-gold">Ártemis</em>?
+      </h2>
+      <div class="divider w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
+      <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
+        Ártemis é a <strong class="text-gold font-normal">deusa da caça</strong> — símbolo de independência, força, perspicácia, destreza e ousadia. Aquela que vai à luta, que corre atrás dos seus objetivos e retorna vitoriosa para casa.
+      </p>
+      <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
+        Desde o início do nosso estúdio, com os serviços de tatuagem e perfurações corporais, já pretendíamos fazer essa mudança. Agora, esse momento chegou. Após a graduação de Giulia em Fisioterapia, agregamos novos profissionais e serviços ao espaço — com a mesma qualidade que vocês já conhecem.
+      </p>
+      <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
+        Seja bem-vindo ao <strong class="text-gold font-normal">Espaço Ártemis</strong>. Estética & bem-estar, em um só lugar.
+      </p>
+      
+      <div class="sobre-stats grid grid-cols-2 gap-[2px] mt-12">
+        <div class="stat-box bg-dark2 p-8 border-l-2 border-transparent">
+          <div class="stat-number font-bebas text-5xl text-gold leading-none">8+</div>
+          <div class="stat-label text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Anos de experiência</div>
+        </div>
+        <div class="stat-box bg-dark2 p-8 border-l-2 border-transparent">
+          <div class="stat-number font-bebas text-5xl text-gold leading-none">1ª</div>
+          <div class="stat-label text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Safe Piercer da cidade</div>
+        </div>
+        <div class="stat-box bg-dark2 p-8 border-l-2 border-transparent">
+          <div class="stat-number font-bebas text-5xl text-gold leading-none">100%</div>
+          <div class="stat-label text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Material esterilizado</div>
+        </div>
+        <div class="stat-box bg-dark2 p-8 border-l-2 border-transparent">
+          <div class="stat-number font-bebas text-5xl text-gold leading-none">∞</div>
+          <div class="stat-label text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Cuidado com você</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sobre-visual fade-in relative hidden md:block">
+      <div class="sobre-img-frame relative bg-dark2 p-12 border border-gold/15">
+        <div class="absolute -top-6 -left-6 right-6 bottom-6 border border-gold/8 pointer-events-none"></div>
+        <img class="artemis-symbol w-full max-w-[300px] mx-auto opacity-90 brightness-0 invert sepia-[0.3] saturate-2 hue-rotate-[5deg]" src="img/dani.jpg" alt="Ártemis">
+        <div class="sobre-quote absolute -bottom-8 -right-8 bg-gold text-black p-6 font-cormorant italic text-base max-w-[220px] leading-6">
+          Com amor e grande carinho,<br>Marcon e Giulia.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- EQUIPE SECTION -->
+<section id="equipe" class="py-20 md:py-32 px-8 md:px-16 bg-black text-center">
+  <div class="equipe-header fade-in mb-16">
+    <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4">
+      <span class="text-[0.5rem]">✦</span>
+      Conheça quem faz acontecer
+    </div>
+    <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
+      Nossa <em class="italic text-gold">Equipe</em>
+    </h2>
+  </div>
+  
+  <div class="equipe-grid grid md:grid-cols-2 gap-[3px] max-w-[900px] mx-auto">
+    <div class="membro-card bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2">
+      <div class="membro-role text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">Tatuador · Artista</div>
+      <div class="membro-name font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight">Marcon<br>Santtana</div>
+      <div class="membro-tags flex flex-wrap gap-2">
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Black-Work</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Traços</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Rastelado</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Mangá / Quadrinhos</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Professor</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Geek</span>
+      </div>
+    </div>
+    <div class="membro-card bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2">
+      <div class="membro-role text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">Fisioterapeuta · Safe Piercer</div>
+      <div class="membro-name font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight">Giulia</div>
+      <div class="membro-tags flex flex-wrap gap-2">
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">1ª Safe Piercer da Cidade</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Fisioterapia — UESB</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Joias Biocompatíveis</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Autoclave</span>
+        <span class="tag text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Desde os 16 anos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- SERVIÇOS SECTION -->
+<section id="servicos" class="py-20 md:py-32 px-8 md:px-16 bg-dark">
+  <div class="servicos-intro fade-in max-w-[700px] mb-20">
+    <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+      <span class="text-[0.5rem]">✦</span>
+      O que fazemos
+    </div>
+    <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
+      Nossos <em class="italic text-gold">Serviços</em>
+    </h2>
+    <div class="divider w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
+    <p class="text-[0.88rem] leading-8 text-white/60">
+      Arte corporal, saúde e bem-estar reunidos em um único espaço pensado especialmente para você. Qualidade comprovada, materiais certificados e atendimento exclusivo.
+    </p>
+  </div>
+  
+  <div class="servicos-grid grid md:grid-cols-3 gap-[3px]">
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">🖤</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">01</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Tatuagem</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        Especialidades em Black-Work, traços, rastelado e estilo mangá/quadrinhos. Toda arte é criada e digitalizada exclusivamente para você — nunca cópias.
+      </p>
+    </div>
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">💎</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">02</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Piercing Seguro</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        A primeira Safe Piercer da cidade. 100% de descarte dos materiais, esterilização em autoclave, joias biocompatíveis em grau implante, com laudos e fornecedores certificados.
+      </p>
+    </div>
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">🌿</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">03</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Fisioterapia</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        Atendimento clínico pela fisioterapeuta formada pela UESB. Disponível no espaço e a domicílio, com o mesmo cuidado e carinho que nos tornou referência.
+      </p>
+    </div>
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">✨</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">04</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Estética & Bem-estar</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        Novos serviços estéticos que chegam gradualmente ao espaço. Acompanhe os destaques do perfil e seja o primeiro a conhecer cada novidade.
+      </p>
+    </div>
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">🏠</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">05</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Atendimento a Domicílio</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        Alguns dos nossos serviços chegam até você. No conforto do seu lar, com toda a qualidade, segurança e atenção que você merece.
+      </p>
+    </div>
+    <div class="servico-card bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default">
+      <span class="servico-icon text-3xl mb-6 block">🎨</span>
+      <span class="servico-num absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none transition-colors duration-300 group-hover:text-gold/10">06</span>
+      <h3 class="servico-name font-cormorant text-2xl font-light text-white mb-4">Arte Personalizada</h3>
+      <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
+      <p class="servico-desc text-[0.78rem] leading-[1.9] text-white/55">
+        Traga sua referência. Todas as artes são redesenhadas e digitalizadas exclusivamente, trabalhadas com os melhores equipamentos do mercado.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- BIOSSEGURANÇA SECTION -->
+<section id="bioseguranca" class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-center">
+  <div class="fade-in">
+    <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+      <span class="text-[0.5rem]">✦</span>
+      Sua saúde em primeiro lugar
+    </div>
+    <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
+      Biossegurança <em class="italic text-gold">é coisa séria</em>
+    </h2>
+    <div class="divider w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
+    <p class="text-[0.88rem] leading-8 text-white/60 mb-8">
+      Álcool 70% não esteriliza. Apenas a autoclave garante uma perfuração 100% segura. Se você valoriza o seu corpo e preza por qualidade e saúde — aqui você encontra provas disso.
+    </p>
+    
+    <div class="bio-highlight relative bg-gradient-to-br from-dark to-dark2 border border-gold/15 p-12 mt-12">
+      <p class="font-cormorant text-xl italic text-white leading-relaxed">"Valor é diferente de preço. Comigo você encontra qualidade, segurança e um procedimento que posso provar e assegurar."</p>
+    </div>
+  </div>
+  
+  <div class="bio-badges fade-in flex flex-col gap-[2px]">
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">⚗️</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">Esterilização em Autoclave</strong>
+        Único método aprovado para esterilização real de materiais e joias.
+      </div>
+    </div>
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">🗑️</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">100% Descartáveis</strong>
+        Tudo que toca em você é descartado após o procedimento, sem exceções.
+      </div>
+    </div>
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">🏥</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">Material Aprovado pela ANVISA</strong>
+        Trabalhamos apenas com insumos devidamente regularizados.
+      </div>
+    </div>
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">💍</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">Joias em Grau Implante</strong>
+        Biocompatíveis, com laudos e fornecedores nacionais e internacionais certificados.
+      </div>
+    </div>
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">🤝</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">Acompanhamento na Cicatrização</strong>
+        Suporte do procedimento até o fim da cicatrização (6 a 8 meses).
+      </div>
+    </div>
+    <div class="bio-badge bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all">
+      <span class="bio-badge-icon text-2xl shrink-0">🏆</span>
+      <div class="bio-badge-text text-[0.78rem] leading-relaxed text-white/70">
+        <strong class="block text-white font-normal text-sm mb-1">Primeira Safe Piercer da Cidade</strong>
+        Pioneira na modalidade mais segura e estéril de perfuração corporal.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- AVALIAÇÕES SECTION -->
+<section id="avaliacoes" class="py-20 md:py-32 px-8 md:px-16 bg-dark overflow-hidden">
+  <div class="aval-header fade-in mb-20 text-center">
+    <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4">
+      <span class="text-[0.5rem]">✦</span>
+      O que dizem nossos clientes
+    </div>
+    <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
+      Avaliações <em class="italic text-gold">reais</em>
+    </h2>
+    <div class="divider w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8 mx-auto"></div>
+  </div>
+  
+  <div class="aval-grid grid md:grid-cols-3 gap-[3px]">
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Lugar incrível! Fiz minha tatuagem com o Marcon e ficou exatamente como eu sonhava. Atendimento atencioso, espaço limpo e profissionalismo do início ao fim.</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">A</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Ana Lima</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem Black-Work</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Giulia é incrível! Meu primeiro piercing foi feito com ela e me senti segura em todo momento. Joia de qualidade, explicação detalhada sobre a cicatrização. Simplesmente perfeita!</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">J</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Juliana Mota</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Piercing Seguro</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Melhor espaço de Jequié, sem dúvida. Fui para tatuagem e voltei para fisioterapia. Giulia é uma profissional maravilhosa. Super recomendo!</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">R</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Rafael Santos</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem + Fisioterapia</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Arte digitalizada exclusivamente para mim, feita com cuidado e capricho. O Marcon é um artista de verdade. Saí radiante e já estou planejando a próxima!</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">F</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Fernanda Costa</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem Personalizada</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Levei minha filha para o primeiro piercing e me senti completamente segura. Giulia explicou cada passo, usou material estéril e minha filha adorou o resultado.</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">M</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Mariana Reis</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Piercing — Menor de Idade</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+      <span class="aval-google absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
+      <div class="aval-stars text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
+      <p class="aval-text font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Atendimento exclusivo, ambiente aconchegante e um carinho imenso com os clientes. O Espaço Ártemis é referência na cidade e merece todo o reconhecimento!</p>
+      <div class="aval-author flex items-center gap-4">
+        <div class="aval-avatar w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">C</div>
+        <div>
+          <div class="aval-name text-[0.7rem] tracking-[0.15em] uppercase text-white">Carlos Andrade</div>
+          <div class="aval-service text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem Mangá</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-strip h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+<!-- CONTATO SECTION -->
+<section id="contato" class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-start">
+  <div class="contato-info fade-in">
+    <div class="section-label text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+      <span class="text-[0.5rem]">✦</span>
+      Fale conosco
+    </div>
+    <h2 class="section-title font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
+      Agende sua <em class="italic text-gold">sessão</em>
+    </h2>
+    <div class="divider w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
+    <p class="text-[0.88rem] leading-8 text-white/65 mb-12">
+      Para agilizar seu atendimento, envie a arte de inspiração, o tamanho desejado em centímetros e, se possível, uma foto nítida do local do corpo onde quer a tattoo ou o piercing.
+    </p>
+    
+    <div class="contact-items flex flex-col gap-[2px]">
+      <a class="contact-item bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2" href="https://wa.me/5573999999999" target="_blank">
+        <span class="contact-item-icon text-xl shrink-0">📱</span>
+        <div>
+          <div class="contact-item-label text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">WhatsApp</div>
+          <div class="contact-item-value text-[0.82rem] text-white">(73) 9 9999-9999</div>
+        </div>
+      </a>
+      <a class="contact-item bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2" href="https://instagram.com/espacoartemis" target="_blank">
+        <span class="contact-item-icon text-xl shrink-0">📸</span>
+        <div>
+          <div class="contact-item-label text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Instagram</div>
+          <div class="contact-item-value text-[0.82rem] text-white">@espacoartemis</div>
+        </div>
+      </a>
+      <div class="contact-item bg-dark p-6 flex items-center gap-6">
+        <span class="contact-item-icon text-xl shrink-0">📍</span>
+        <div>
+          <div class="contact-item-label text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Localização</div>
+          <div class="contact-item-value text-[0.82rem] text-white">Jequié, Bahia — BA</div>
+        </div>
+      </div>
+      <div class="contact-item bg-dark p-6 flex items-center gap-6">
+        <span class="contact-item-icon text-xl shrink-0">🕐</span>
+        <div>
+          <div class="contact-item-label text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Horário</div>
+          <div class="contact-item-value text-[0.82rem] text-white">Seg–Sáb · Mediante agendamento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="contato-form fade-in">
+    <div class="form-row grid md:grid-cols-2 gap-[2px]">
+      <div class="form-group">
+        <input type="text" placeholder="Seu nome" class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all">
+      </div>
+      <div class="form-group">
+        <input type="tel" placeholder="WhatsApp" class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all">
+      </div>
+    </div>
+    <div class="form-group">
+      <select class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-text-muted font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all cursor-pointer">
+        <option value="" disabled selected>Qual serviço deseja?</option>
+        <option>Tatuagem</option>
+        <option>Piercing Seguro</option>
+        <option>Fisioterapia</option>
+        <option>Estética & Bem-estar</option>
+        <option>Atendimento a Domicílio</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Tamanho (ex: 10 x 10 cm)" class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all">
+    </div>
+    <div class="form-group">
+      <textarea placeholder="Descreva sua ideia, local do corpo, referências..." class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all resize-none h-[140px]"></textarea>
+    </div>
+    <button class="form-submit w-full py-5 bg-gold border-none cursor-pointer font-josefin text-[0.65rem] tracking-[0.4em] uppercase text-black mt-[2px] transition-colors duration-300 hover:bg-gold-light" onclick="sendWhatsApp()">Enviar via WhatsApp ↗</button>
+  </div>
+</section>
+
+<!-- GOOGLE MAPS - 100% WIDTH -->
+<div class="w-full">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4650.414077192733!2d-40.0877808!3d-13.859209100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x740af6ff51d7e9f%3A0x712e601f30aac966!2zRXNwYcOnbyDDgXJ0ZW1pcyBKZXF1acOp!5e1!3m2!1spt-BR!2sbr!4v1775747611385!5m2!1spt-BR!2sbr" 
+    class="w-full h-[450px] border-0" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark py-16 px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-gold/10">
+  <div class="footer-brand font-cormorant text-2xl font-light tracking-[0.2em] uppercase text-gold">
+    Espaço <span class="italic text-white">Ártemis</span>
+  </div>
+  <div class="footer-copy text-[0.6rem] tracking-[0.15em] text-text-muted text-center">
+    © 2024 Espaço Ártemis · Tatuagem · Piercing · Fisioterapia<br>
+    Jequié, Bahia — Todos os direitos reservados
+  </div>
+  <div class="footer-social flex gap-6">
+    <a class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold" href="https://instagram.com/espacoartemis" target="_blank">Instagram</a>
+    <a class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold" href="https://wa.me/5573999999999" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="whatsapp-float fixed bottom-10 right-10 z-200 w-[58px] h-[58px] bg-[#25d366] rounded-full flex items-center justify-center no-underline shadow-[0_4px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_35px_rgba(37,211,102,0.6)] animate-wa-pulse" href="https://wa.me/5573999999999" target="_blank" rel="noopener">
+  <div class="wa-tooltip absolute right-[70px] bg-dark text-white text-[0.65rem] tracking-[0.1em] whitespace-nowrap py-2 px-4 pointer-events-none opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 hidden md:block">Falar no WhatsApp</div>
+  <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 200) current = section.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      if (a.getAttribute('href') === '#' + current) {
+        a.style.color = '#c9a84c';
+        a.style.opacity = '1';
+      } else {
+        a.style.color = '';
+        a.style.opacity = '';
+      }
+    });
+  });
+
+  // WhatsApp form
+  function sendWhatsApp() {
+    const nome = document.querySelector('input[type="text"]')?.value || 'não informado';
+    const tel = document.querySelector('input[type="tel"]')?.value || 'não informado';
+    const servico = document.querySelector('select')?.value || 'não selecionado';
+    const inputs = document.querySelectorAll('input[type="text"]');
+    const tamanho = inputs[1]?.value || 'não informado';
+    const msg = document.querySelector('textarea')?.value || '';
+
+    const text = `Olá! Vim pelo site 🖤\n\n*Nome:* ${nome}\n*WhatsApp:* ${tel}\n*Serviço:* ${servico}\n*Tamanho:* ${tamanho}\n*Mensagem:* ${msg}`;
+    window.open('https://wa.me/5573999999999?text=' + encodeURIComponent(text), '_blank');
+  }
+
+  // Smooth scroll for all internal links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Make whatsapp float group hover work
+  const waFloat = document.querySelector('.whatsapp-float');
+  if (waFloat) {
+    waFloat.classList.add('group');
+    const tooltip = waFloat.querySelector('.wa-tooltip');
+    if (tooltip) {
+      waFloat.addEventListener('mouseenter', () => {
+        tooltip.classList.add('opacity-100', 'translate-x-0');
+        tooltip.classList.remove('opacity-0', '-translate-x-2');
+      });
+      waFloat.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('opacity-100', 'translate-x-0');
+        tooltip.classList.add('opacity-0', '-translate-x-2');
+      });
+    }
+  }
+</script>
+</body>
+</html>
