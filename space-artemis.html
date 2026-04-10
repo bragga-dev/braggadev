@@ -4,19 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Espaço Ártemis — Tatuagem · Piercing · Fisioterapia</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome 6 (ícones profissionais) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@200;300;400&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Custom Tailwind Config -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
     <script>
       tailwind.config = {
         theme: {
@@ -57,14 +47,8 @@
                 to: { opacity: "1", transform: "translateY(0)" },
               },
               waPulse: {
-                "0%, 100%": {
-                  boxShadow:
-                    "0 4px 25px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4)",
-                },
-                "50%": {
-                  boxShadow:
-                    "0 4px 25px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0)",
-                },
+                "0%, 100%": { boxShadow: "0 4px 25px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4)" },
+                "50%": { boxShadow: "0 4px 25px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0)" },
               },
             },
           },
@@ -72,380 +56,337 @@
       };
     </script>
     <style>
-      /* Custom CSS that Tailwind cannot easily replicate */
-      * {
-        scroll-behavior: smooth;
-      }
+      * { scroll-behavior: smooth; }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: #0a0a0a; }
+      ::-webkit-scrollbar-thumb { background: #c9a84c; }
+      body { overflow-x: hidden; }
 
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0a0a0a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #c9a84c;
-      }
-
-      body {
-        overflow-x: hidden;
-      }
-
-      /* Custom animations and effects */
       .hero-noise {
-        position: absolute;
-        inset: 0;
-        opacity: 0.03;
+        position: absolute; inset: 0; opacity: 0.03;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
         pointer-events: none;
       }
 
-      .stat-box {
-        transition: border-color 0.3s;
+      /* --- MOBILE MENU --- */
+      #mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      .stat-box:hover {
-        border-left-color: #c9a84c;
+      #mobile-menu.open {
+        transform: translateX(0);
       }
+
+      /* Hamburger animation */
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 1.5px;
+        background: #c9a84c;
+        transition: all 0.35s ease;
+        transform-origin: center;
+      }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      .stat-box { transition: border-color 0.3s; }
+      .stat-box:hover { border-left-color: #c9a84c; }
 
       .membro-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 3px;
-        height: 0;
-        background: #c9a84c;
-        transition: height 0.4s;
+        content: ""; position: absolute; top: 0; left: 0;
+        width: 3px; height: 0; background: #c9a84c; transition: height 0.4s;
       }
-      .membro-card:hover::before {
-        height: 100%;
-      }
+      .membro-card:hover::before { height: 100%; }
 
       .servico-line {
-        width: 30px;
-        height: 1px;
-        background: #8a6e30;
-        transition:
-          width 0.3s,
-          background 0.3s;
+        width: 30px; height: 1px; background: #8a6e30;
+        transition: width 0.3s, background 0.3s;
       }
-      .servico-card:hover .servico-line {
-        width: 50px;
-        background: #c9a84c;
-      }
+      .servico-card:hover .servico-line { width: 50px; background: #c9a84c; }
 
-      .bio-badge {
-        transition: all 0.3s;
-      }
-      .bio-badge:hover {
-        border-left-color: #c9a84c;
-        background: #1a1a1a;
-      }
+      .bio-badge { transition: all 0.3s; }
+      .bio-badge:hover { border-left-color: #c9a84c; background: #1a1a1a; }
 
       .bio-highlight::before {
-        content: "✦";
-        position: absolute;
-        top: -0.8rem;
-        left: 2rem;
-        background: #0a0a0a;
-        padding: 0 0.5rem;
-        color: #c9a84c;
-        font-size: 0.8rem;
+        content: "✦"; position: absolute; top: -0.8rem; left: 2rem;
+        background: #0a0a0a; padding: 0 0.5rem; color: #c9a84c; font-size: 0.8rem;
       }
 
-      .form-group input,
-      .form-group textarea,
-      .form-group select {
-        transition:
-          border-color 0.3s,
-          background 0.3s;
+      /* FORMULÁRIO MELHORADO */
+      .form-field {
+        position: relative;
+        margin-bottom: 3px;
       }
-      .form-group input:focus,
-      .form-group textarea:focus,
-      .form-group select:focus {
+      .form-field label {
+        display: block;
+        font-size: 0.58rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #c9a84c;
+        margin-bottom: 6px;
+        padding-left: 2px;
+        font-family: 'Josefin Sans', sans-serif;
+      }
+      .form-field input,
+      .form-field textarea,
+      .form-field select {
+        width: 100%;
+        padding: 14px 18px;
+        background: #111111;
+        border: none;
+        border-left: 2px solid transparent;
+        color: #ffffff;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.04em;
+        outline: none;
+        transition: border-color 0.3s, background 0.3s;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .form-field input::placeholder,
+      .form-field textarea::placeholder { color: #555; }
+      .form-field input:focus,
+      .form-field textarea:focus,
+      .form-field select:focus {
         border-left-color: #c9a84c;
         background: #1a1a1a;
       }
+      .form-field select { cursor: pointer; color: #aaa; }
+      .form-field select.filled { color: #fff; }
+      .form-field select option { background: #111; color: #fff; }
 
-      /* Fade-in animation */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition:
-          opacity 0.7s ease,
-          transform 0.7s ease;
+      /* Estilo da opção de serviço com ícone */
+      .servico-options { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 3px; }
+      .servico-opt {
+        padding: 12px 14px;
+        background: #111;
+        border: 1px solid transparent;
+        border-left: 2px solid transparent;
+        color: #888;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        user-select: none;
       }
-      .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
+      .servico-opt:hover { background: #1a1a1a; color: #c9a84c; border-left-color: #8a6e30; }
+      .servico-opt.selected { background: #1a1a1a; color: #c9a84c; border-left-color: #c9a84c; border-color: rgba(201,168,76,0.2); }
+      .servico-opt i { font-size: 0.85rem; }
+
+      /* Campo de tamanho condicional */
+      #campo-tamanho { display: none; }
+      #campo-tamanho.show { display: block; }
+
+      /* Validação visual */
+      .form-field input.error,
+      .form-field textarea.error,
+      .form-field select.error {
+        border-left-color: #8b1a1a;
+        animation: shake 0.3s ease;
+      }
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+      }
+
+      /* Caracteres restantes */
+      .char-count {
+        text-align: right;
+        font-size: 0.55rem;
+        letter-spacing: 0.1em;
+        color: #555;
+        margin-top: 4px;
+        font-family: 'Josefin Sans', sans-serif;
+      }
+      .char-count.warning { color: #c9a84c; }
+      .char-count.over { color: #8b1a1a; }
+
+      /* Feedback de envio */
+      .btn-submit { position: relative; overflow: hidden; }
+      .btn-submit .btn-inner {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        transition: transform 0.3s; 
+      }
+      .btn-submit.loading .btn-inner { transform: translateY(-100%); }
+      .btn-submit .btn-loading {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        opacity: 0; transition: opacity 0.3s;
+        font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      }
+      .btn-submit.loading .btn-loading { opacity: 1; }
+
+      .fade-in {
+        opacity: 0; transform: translateY(20px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+      /* Logo SVG no header */
+      .nav-logo-svg {
+        width: 32px; height: 32px; flex-shrink: 0;
       }
 
       @media (max-width: 768px) {
-        .hero-archer,
-        .hero-line-dec {
-          display: none;
-        }
+        .hero-archer, .hero-line-dec { display: none; }
       }
     </style>
   </head>
   <body class="bg-black text-white font-josefin font-light overflow-x-hidden">
-    <!-- NAVBAR - MANTIDA -->
-    <nav
-      class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-8 md:px-16 py-5 bg-gradient-to-b from-[#0a0a0a]/97 to-transparent backdrop-blur-sm"
-    >
-      <div
-        class="font-cormorant text-sm font-light tracking-[0.35em] uppercase text-gold"
-      >
-        Espaço <span class="italic text-white">Ártemis</span>
-      </div>
 
+    <!-- NAVBAR MELHORADA -->
+    <nav class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-6 md:px-16 py-4 bg-gradient-to-b from-[#0a0a0a]/97 to-transparent backdrop-blur-sm">
+
+      <!-- LOGO + NOME -->
+      <a href="#inicio" class="flex items-center gap-3 no-underline group">
+        <!-- Logo SVG — Lua crescente + seta (símbolo de Ártemis) -->
+        <svg class="nav-logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Lua crescente -->
+          <path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/>
+          <!-- Arco -->
+          <path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+          <!-- Flecha -->
+          <line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Ponto central -->
+          <circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/>
+        </svg>
+        <div class="font-cormorant text-sm font-light tracking-[0.3em] uppercase text-gold leading-none">
+          Espaço <span class="italic text-white">Ártemis</span>
+        </div>
+      </a>
+
+      <!-- LINKS DESKTOP -->
       <ul class="hidden md:flex gap-10 list-none">
-        <li>
-          <a
-            href="#inicio"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Início</a
-          >
-        </li>
-        <li>
-          <a
-            href="#sobre"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Sobre</a
-          >
-        </li>
-        <li>
-          <a
-            href="#servicos"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Serviços</a
-          >
-        </li>
-        <li>
-          <a
-            href="#equipe"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Equipe</a
-          >
-        </li>
-        <li>
-          <a
-            href="#avaliacoes"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Avaliações</a
-          >
-        </li>
-        <li>
-          <a
-            href="#contato"
-            class="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold hover:opacity-100 transition-all duration-300"
-            >Contato</a
-          >
-        </li>
+        <li><a href="#inicio" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Início</a></li>
+        <li><a href="#sobre" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Sobre</a></li>
+        <li><a href="#servicos" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Serviços</a></li>
+        <li><a href="#equipe" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Equipe</a></li>
+        <li><a href="#avaliacoes" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Avaliações</a></li>
+        <li><a href="#contato" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Contato</a></li>
       </ul>
 
-      <a
-        class="hidden md:block text-[0.65rem] tracking-[0.2em] uppercase text-black bg-gold px-5 py-2.5 hover:bg-gold-light transition-all duration-300"
-        href="https://wa.me/5573999999999"
-        target="_blank"
-        >Agendar</a
-      >
+      <a class="hidden md:block text-[0.65rem] tracking-[0.2em] uppercase text-black bg-gold px-5 py-2.5 hover:bg-gold-light transition-all duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar</a>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden flex flex-col gap-1.5 cursor-pointer">
-        <span class="block w-6 h-px bg-gold"></span>
-        <span class="block w-6 h-px bg-gold"></span>
-        <span class="block w-6 h-px bg-gold"></span>
-      </div>
+      <!-- HAMBURGER MOBILE -->
+      <button id="hamburger" class="hamburger md:hidden flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-2 -mr-2" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
+    <!-- MENU MOBILE (drawer lateral) -->
+    <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 z-[99] w-[80vw] max-w-[320px] bg-[#0a0a0a] border-l border-gold/15 flex flex-col pt-24 pb-10 px-8">
+      <ul class="flex flex-col gap-1 list-none flex-1">
+        <li><a href="#inicio" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Início</a></li>
+        <li><a href="#sobre" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Sobre</a></li>
+        <li><a href="#servicos" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Serviços</a></li>
+        <li><a href="#equipe" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Equipe</a></li>
+        <li><a href="#avaliacoes" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Avaliações</a></li>
+        <li><a href="#contato" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold transition-colors">Contato</a></li>
+      </ul>
+      <a href="https://wa.me/5573999999999" target="_blank" class="w-full py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase text-center hover:bg-gold-light transition-all duration-300 flex items-center justify-center gap-2">
+        <i class="fab fa-whatsapp"></i> Agendar agora
+      </a>
+      <p class="text-[0.55rem] tracking-[0.2em] text-text-muted text-center mt-6 uppercase">Jequié, Bahia — BA</p>
+    </div>
+    <!-- Overlay mobile -->
+    <div id="menu-overlay" class="fixed inset-0 z-[98] bg-black/60 backdrop-blur-sm hidden" id="menu-overlay"></div>
+
     <!-- HERO SECTION -->
-    <section
-      id="inicio"
-      class="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-black">
-        <div
-          class="absolute inset-0 bg-gradient-radial from-gold/6 via-transparent to-transparent"
-          style="
-            background:
-              radial-gradient(
-                ellipse 60% 60% at 80% 50%,
-                rgba(201, 168, 76, 0.06) 0%,
-                transparent 70%
-              ),
-              radial-gradient(
-                ellipse 40% 40% at 20% 30%,
-                rgba(139, 26, 26, 0.08) 0%,
-                transparent 60%
-              );
-          "
-        ></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 30%, rgba(139,26,26,0.08) 0%, transparent 60%);"></div>
       </div>
-      <div
-        class="absolute inset-0 opacity-[0.04]"
-        style="
-          background-image:
-            linear-gradient(#c9a84c 1px, transparent 1px),
-            linear-gradient(90deg, #c9a84c 1px, transparent 1px);
-          background-size: 80px 80px;
-        "
-      ></div>
+      <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(#c9a84c 1px, transparent 1px), linear-gradient(90deg, #c9a84c 1px, transparent 1px); background-size: 80px 80px;"></div>
       <div class="hero-noise"></div>
-
-      <div
-        class="absolute left-16 top-1/2 -translate-y-1/2 w-px h-[35vh] bg-gradient-to-b from-transparent via-gold to-transparent hidden lg:block"
-      ></div>
-
-      <img
-        class="hero-archer absolute right-[8%] bottom-0 h-[85vh] opacity-[0.07] invert sepia saturate-0 animate-float hidden lg:block"
-        src="img/space-artemis-logo.png"
-        alt=""
-      />
+      <div class="absolute left-16 top-1/2 -translate-y-1/2 w-px h-[35vh] bg-gradient-to-b from-transparent via-gold to-transparent hidden lg:block"></div>
+      <img class="hero-archer absolute right-[8%] bottom-0 h-[85vh] opacity-[0.07] invert sepia saturate-0 animate-float hidden lg:block" src="img/space-artemis-logo.png" alt="" />
 
       <div class="relative z-10 text-center px-8 animate-hero-reveal">
-        <div
-          class="text-[0.65rem] tracking-[0.5em] uppercase text-gold mb-8 flex items-center justify-center gap-4"
-        >
+        <div class="text-[0.65rem] tracking-[0.5em] uppercase text-gold mb-8 flex items-center justify-center gap-4">
           <span class="block w-10 h-px bg-gold-dim"></span>
           Bem-vindo ao
           <span class="block w-10 h-px bg-gold-dim"></span>
         </div>
-
-        <h1
-          class="font-bebas text-[clamp(5rem,14vw,13rem)] leading-[0.88] tracking-[0.04em] text-white drop-shadow-[0_0_80px_rgba(201,168,76,0.15)]"
-        >
-          <em class="font-cormorant italic text-[0.7em] text-gold block"
-            >Espaço</em
-          >
+        <h1 class="font-bebas text-[clamp(5rem,14vw,13rem)] leading-[0.88] tracking-[0.04em] text-white drop-shadow-[0_0_80px_rgba(201,168,76,0.15)]">
+          <em class="font-cormorant italic text-[0.7em] text-gold block">Espaço</em>
           Artemis
         </h1>
-
-        <p
-          class="mt-8 text-[0.75rem] tracking-[0.3em] uppercase text-text-muted leading-[2.2]"
-        >
+        <p class="mt-8 text-[0.75rem] tracking-[0.3em] uppercase text-text-muted leading-[2.2]">
           <strong class="text-white font-normal">Tatuagem</strong> ·
           <strong class="text-white font-normal">Piercing</strong> ·
           <strong class="text-white font-normal">Fisioterapia</strong><br />
           estética & bem-estar, em um só lugar
         </p>
-
         <div class="mt-14 flex justify-center gap-6 flex-wrap">
-          <a
-            class="px-10 py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase relative overflow-hidden hover:after:opacity-10 after:content-[''] after:absolute after:inset-0 after:bg-white after:opacity-0 after:transition-opacity after:duration-300"
-            href="https://wa.me/5573999999999"
-            target="_blank"
-            >Agendar via WhatsApp</a
-          >
-          <a
-            class="px-10 py-4 border border-gold/40 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:border-gold hover:bg-gold/5 transition-all duration-300"
-            href="#servicos"
-            >Conheça os Serviços</a
-          >
+          <a class="px-10 py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar via WhatsApp</a>
+          <a class="px-10 py-4 border border-gold/40 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:border-gold hover:bg-gold/5 transition-all duration-300" href="#servicos">Conheça os Serviços</a>
         </div>
       </div>
 
-      <a
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.55rem] tracking-[0.4em] uppercase text-text-muted no-underline animate-scroll-bounce"
-        href="#sobre"
-      >
+      <a class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.55rem] tracking-[0.4em] uppercase text-text-muted no-underline animate-scroll-bounce" href="#sobre">
         scroll
-        <span
-          class="block w-px h-10 bg-gradient-to-b from-gold-dim to-transparent"
-        ></span>
+        <span class="block w-px h-10 bg-gradient-to-b from-gold-dim to-transparent"></span>
       </a>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- SOBRE SECTION -->
     <section id="sobre" class="py-20 md:py-32 px-8 md:px-16 bg-dark">
       <div class="grid md:grid-cols-2 gap-16 md:gap-32 items-center">
         <div class="fade-in">
-          <div
-            class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4"
-          >
-            <span class="text-[0.5rem]">✦</span>
-            Nossa história
+          <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+            <span class="text-[0.5rem]">✦</span> Nossa história
           </div>
-          <h2
-            class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] text-white"
-          >
+          <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] text-white">
             Por que <em class="italic text-gold">Ártemis</em>?
           </h2>
-          <div
-            class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"
-          ></div>
+          <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
           <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
-            Ártemis é a
-            <strong class="text-gold font-normal">deusa da caça</strong> —
-            símbolo de independência, força, perspicácia, destreza e ousadia.
-            Aquela que vai à luta, que corre atrás dos seus objetivos e retorna
-            vitoriosa para casa.
+            Ártemis é a <strong class="text-gold font-normal">deusa da caça</strong> — símbolo de independência, força, perspicácia, destreza e ousadia. Aquela que vai à luta, que corre atrás dos seus objetivos e retorna vitoriosa para casa.
           </p>
           <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
-            Desde o início do nosso estúdio, com os serviços de tatuagem e
-            perfurações corporais, já pretendíamos fazer essa mudança. Agora,
-            esse momento chegou. Após a graduação de Giulia em Fisioterapia,
-            agregamos novos profissionais e serviços ao espaço — com a mesma
-            qualidade que vocês já conhecem.
+            Desde o início do nosso estúdio, com os serviços de tatuagem e perfurações corporais, já pretendíamos fazer essa mudança. Agora, esse momento chegou. Após a graduação de Giulia em Fisioterapia, agregamos novos profissionais e serviços ao espaço — com a mesma qualidade que vocês já conhecem.
           </p>
           <p class="text-[0.92rem] leading-8 text-white/70 mb-6">
-            Seja bem-vindo ao
-            <strong class="text-gold font-normal">Espaço Ártemis</strong>.
-            Estética & bem-estar, em um só lugar.
+            Seja bem-vindo ao <strong class="text-gold font-normal">Espaço Ártemis</strong>. Estética & bem-estar, em um só lugar.
           </p>
 
           <div class="grid grid-cols-2 gap-[2px] mt-12">
             <div class="bg-dark2 p-8 border-l-2 border-transparent stat-box">
               <div class="font-bebas text-5xl text-gold leading-none">8+</div>
-              <div
-                class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2"
-              >
-                Anos de experiência
-              </div>
+              <div class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Anos de experiência</div>
             </div>
             <div class="bg-dark2 p-8 border-l-2 border-transparent stat-box">
               <div class="font-bebas text-5xl text-gold leading-none">1ª</div>
-              <div
-                class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2"
-              >
-                Safe Piercer da cidade
-              </div>
+              <div class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Safe Piercer da cidade</div>
             </div>
             <div class="bg-dark2 p-8 border-l-2 border-transparent stat-box">
               <div class="font-bebas text-5xl text-gold leading-none">100%</div>
-              <div
-                class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2"
-              >
-                Material esterilizado
-              </div>
+              <div class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Material esterilizado</div>
             </div>
             <div class="bg-dark2 p-8 border-l-2 border-transparent stat-box">
               <div class="font-bebas text-5xl text-gold leading-none">∞</div>
-              <div
-                class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2"
-              >
-                Cuidado com você
-              </div>
+              <div class="text-[0.6rem] tracking-[0.3em] uppercase text-text-muted mt-2">Cuidado com você</div>
             </div>
           </div>
         </div>
 
         <div class="fade-in relative hidden md:block">
           <div class="relative bg-dark2 p-12 border border-gold/15">
-            <div
-              class="absolute -top-6 -left-6 right-6 bottom-6 border border-gold/8 pointer-events-none"
-            ></div>
-            <img
-              class="w-full max-w-[300px] mx-auto grayscale hover:grayscale-0 transition"
-              src="img/giula-marcon.jpg"
-            />
-            <div
-              class="absolute -bottom-8 -right-8 bg-gold text-black p-6 font-cormorant italic text-base max-w-[220px] leading-6"
-            >
+            <div class="absolute -top-6 -left-6 right-6 bottom-6 border border-gold/8 pointer-events-none"></div>
+            <img class="w-full max-w-[300px] mx-auto grayscale hover:grayscale-0 transition" src="img/giula-marcon.jpg" />
+            <div class="absolute -bottom-8 -right-8 bg-gold text-black p-6 font-cormorant italic text-base max-w-[220px] leading-6">
               Com amor e grande carinho,<br />Marcon e Giulia.
             </div>
           </div>
@@ -453,766 +394,532 @@
       </div>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- EQUIPE SECTION -->
-    <section
-      id="equipe"
-      class="py-20 md:py-32 px-8 md:px-16 bg-black text-center"
-    >
+    <section id="equipe" class="py-20 md:py-32 px-8 md:px-16 bg-black text-center">
       <div class="fade-in mb-16">
-        <div
-          class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4"
-        >
-          <span class="text-[0.5rem]">✦</span>
-          Conheça quem faz acontecer
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4">
+          <span class="text-[0.5rem]">✦</span> Conheça quem faz acontecer
         </div>
-        <h2
-          class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white"
-        >
+        <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
           Nossa <em class="italic text-gold">Equipe</em>
         </h2>
       </div>
-
       <div class="grid md:grid-cols-2 gap-[3px] max-w-[900px] mx-auto">
-        <div
-          class="bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2 membro-card"
-        >
-          <div class="text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">
-            Tatuador · Artista
-          </div>
-          <div
-            class="font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight"
-          >
-            Marcon<br />Santtana
-          </div>
+        <div class="bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2 membro-card">
+          <div class="text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">Tatuador · Artista</div>
+          <div class="font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight">Marcon<br />Santtana</div>
           <div class="flex flex-wrap gap-2">
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Black-Work</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Traços</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Rastelado</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Mangá / Quadrinhos</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Professor</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Geek</span
-            >
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Black-Work</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Traços</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Rastelado</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Mangá / Quadrinhos</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Professor</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Geek</span>
           </div>
         </div>
-        <div
-          class="bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2 membro-card"
-        >
-          <div class="text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">
-            Fisioterapeuta · Safe Piercer
-          </div>
-          <div
-            class="font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight"
-          >
-            Giulia
-          </div>
+        <div class="bg-dark p-14 md:p-16 relative overflow-hidden text-left transition-colors duration-300 hover:bg-dark2 membro-card">
+          <div class="text-[0.55rem] tracking-[0.4em] uppercase text-gold mb-3">Fisioterapeuta · Safe Piercer</div>
+          <div class="font-cormorant text-3xl md:text-4xl font-light text-white mb-6 leading-tight">Giulia</div>
           <div class="flex flex-wrap gap-2">
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >1ª Safe Piercer da Cidade</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Fisioterapia — UESB</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Joias Biocompatíveis</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Autoclave</span
-            >
-            <span
-              class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5"
-              >Desde os 16 anos</span
-            >
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">1ª Safe Piercer da Cidade</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Fisioterapia — UESB</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Joias Biocompatíveis</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Autoclave</span>
+            <span class="text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5">Desde os 16 anos</span>
           </div>
         </div>
       </div>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- SERVIÇOS SECTION -->
     <section id="servicos" class="py-20 md:py-32 px-8 md:px-16 bg-dark">
       <div class="fade-in max-w-[700px] mb-20">
-        <div
-          class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4"
-        >
-          <span class="text-[0.5rem]">✦</span>
-          O que fazemos
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+          <span class="text-[0.5rem]">✦</span> O que fazemos
         </div>
-        <h2
-          class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white"
-        >
+        <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
           Nossos <em class="italic text-gold">Serviços</em>
         </h2>
-        <div
-          class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"
-        ></div>
+        <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
         <p class="text-[0.88rem] leading-8 text-white/60">
-          Arte corporal, saúde e bem-estar reunidos em um único espaço pensado
-          especialmente para você. Qualidade comprovada, materiais certificados
-          e atendimento exclusivo.
+          Arte corporal, saúde e bem-estar reunidos em um único espaço pensado especialmente para você. Qualidade comprovada, materiais certificados e atendimento exclusivo.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-[3px]">
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-paintbrush text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >01</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Tatuagem
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">01</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Tatuagem</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            Especialidades em Black-Work, traços, rastelado e estilo
-            mangá/quadrinhos. Toda arte é criada e digitalizada exclusivamente
-            para você — nunca cópias.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">Especialidades em Black-Work, traços, rastelado e estilo mangá/quadrinhos. Toda arte é criada e digitalizada exclusivamente para você — nunca cópias.</p>
         </div>
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-gem text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >02</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Piercing Seguro
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">02</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Piercing Seguro</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            A primeira Safe Piercer da cidade. 100% de descarte dos materiais,
-            esterilização em autoclave, joias biocompatíveis em grau implante.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">A primeira Safe Piercer da cidade. 100% de descarte dos materiais, esterilização em autoclave, joias biocompatíveis em grau implante.</p>
         </div>
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-leaf text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >03</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Fisioterapia
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">03</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Fisioterapia</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            Atendimento clínico pela fisioterapeuta formada pela UESB.
-            Disponível no espaço e a domicílio, com o mesmo cuidado e carinho.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">Atendimento clínico pela fisioterapeuta formada pela UESB. Disponível no espaço e a domicílio, com o mesmo cuidado e carinho.</p>
         </div>
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-spa text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >04</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Estética & Bem-estar
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">04</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Estética & Bem-estar</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            Novos serviços estéticos que chegam gradualmente ao espaço.
-            Acompanhe os destaques do perfil.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">Novos serviços estéticos que chegam gradualmente ao espaço. Acompanhe os destaques do perfil.</p>
         </div>
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-home text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >05</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Atendimento a Domicílio
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">05</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Atendimento a Domicílio</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            Alguns dos nossos serviços chegam até você. No conforto do seu lar,
-            com toda a qualidade e segurança.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">Alguns dos nossos serviços chegam até você. No conforto do seu lar, com toda a qualidade e segurança.</p>
         </div>
-        <div
-          class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card"
-        >
+        <div class="bg-black p-12 md:p-16 relative overflow-hidden transition-colors duration-300 hover:bg-dark2 cursor-default servico-card">
           <i class="fas fa-palette text-3xl mb-6 block text-gold"></i>
-          <span
-            class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none"
-            >06</span
-          >
-          <h3 class="font-cormorant text-2xl font-light text-white mb-4">
-            Arte Personalizada
-          </h3>
+          <span class="absolute top-6 right-8 font-bebas text-6xl text-gold/5 leading-none">06</span>
+          <h3 class="font-cormorant text-2xl font-light text-white mb-4">Arte Personalizada</h3>
           <div class="servico-line w-[30px] h-px bg-gold-dim mb-6"></div>
-          <p class="text-[0.78rem] leading-[1.9] text-white/55">
-            Traga sua referência. Todas as artes são redesenhadas e
-            digitalizadas exclusivamente.
-          </p>
+          <p class="text-[0.78rem] leading-[1.9] text-white/55">Traga sua referência. Todas as artes são redesenhadas e digitalizadas exclusivamente.</p>
         </div>
       </div>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- BIOSSEGURANÇA SECTION -->
-    <section
-      id="bioseguranca"
-      class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-center"
-    >
+    <section id="bioseguranca" class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-center">
       <div class="fade-in">
-        <div
-          class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4"
-        >
-          <span class="text-[0.5rem]">✦</span>
-          Sua saúde em primeiro lugar
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+          <span class="text-[0.5rem]">✦</span> Sua saúde em primeiro lugar
         </div>
-        <h2
-          class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white"
-        >
+        <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
           Biossegurança <em class="italic text-gold">é coisa séria</em>
         </h2>
-        <div
-          class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"
-        ></div>
+        <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
         <p class="text-[0.88rem] leading-8 text-white/60 mb-8">
-          Álcool 70% não esteriliza. Apenas a autoclave garante uma perfuração
-          100% segura. Se você valoriza o seu corpo e preza por qualidade e
-          saúde — aqui você encontra provas disso.
+          Álcool 70% não esteriliza. Apenas a autoclave garante uma perfuração 100% segura. Se você valoriza o seu corpo e preza por qualidade e saúde — aqui você encontra provas disso.
         </p>
-
-        <div
-          class="relative bg-gradient-to-br from-dark to-dark2 border border-gold/15 p-12 mt-12 bio-highlight"
-        >
+        <div class="relative bg-gradient-to-br from-dark to-dark2 border border-gold/15 p-12 mt-12 bio-highlight">
           <p class="font-cormorant text-xl italic text-white leading-relaxed">
-            "Valor é diferente de preço. Comigo você encontra qualidade,
-            segurança e um procedimento que posso provar e assegurar."
+            "Valor é diferente de preço. Comigo você encontra qualidade, segurança e um procedimento que posso provar e assegurar."
           </p>
         </div>
       </div>
 
       <div class="fade-in flex flex-col gap-[2px]">
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-flask text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >Esterilização em Autoclave</strong
-            >
+            <strong class="block text-white font-normal text-sm mb-1">Esterilização em Autoclave</strong>
             Único método aprovado para esterilização real de materiais e joias.
           </div>
         </div>
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-trash-alt text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >100% Descartáveis</strong
-            >
-            Tudo que toca em você é descartado após o procedimento, sem
-            exceções.
+            <strong class="block text-white font-normal text-sm mb-1">100% Descartáveis</strong>
+            Tudo que toca em você é descartado após o procedimento, sem exceções.
           </div>
         </div>
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-hospital text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >Material Aprovado pela ANVISA</strong
-            >
+            <strong class="block text-white font-normal text-sm mb-1">Material Aprovado pela ANVISA</strong>
             Trabalhamos apenas com insumos devidamente regularizados.
           </div>
         </div>
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-ring text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >Joias em Grau Implante</strong
-            >
+            <strong class="block text-white font-normal text-sm mb-1">Joias em Grau Implante</strong>
             Biocompatíveis, com laudos e fornecedores certificados.
           </div>
         </div>
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-hand-holding-heart text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >Acompanhamento na Cicatrização</strong
-            >
+            <strong class="block text-white font-normal text-sm mb-1">Acompanhamento na Cicatrização</strong>
             Suporte do procedimento até o fim da cicatrização (6 a 8 meses).
           </div>
         </div>
-        <div
-          class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge"
-        >
+        <div class="bg-dark p-6 flex items-center gap-6 border-l-2 border-transparent transition-all bio-badge">
           <i class="fas fa-trophy text-2xl shrink-0 text-gold"></i>
           <div class="text-[0.78rem] leading-relaxed text-white/70">
-            <strong class="block text-white font-normal text-sm mb-1"
-              >Primeira Safe Piercer da Cidade</strong
-            >
+            <strong class="block text-white font-normal text-sm mb-1">Primeira Safe Piercer da Cidade</strong>
             Pioneira na modalidade mais segura e estéril de perfuração corporal.
           </div>
         </div>
       </div>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- AVALIAÇÕES SECTION -->
-    <section
-      id="avaliacoes"
-      class="py-20 md:py-32 px-8 md:px-16 bg-dark overflow-hidden"
-    >
+    <section id="avaliacoes" class="py-20 md:py-32 px-8 md:px-16 bg-dark overflow-hidden">
       <div class="fade-in mb-20 text-center">
-        <div
-          class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4"
-        >
-          <span class="text-[0.5rem]">✦</span>
-          O que dizem nossos clientes
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex justify-center items-center gap-4">
+          <span class="text-[0.5rem]">✦</span> O que dizem nossos clientes
         </div>
-        <h2
-          class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white"
-        >
+        <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
           Avaliações <em class="italic text-gold">reais</em>
         </h2>
-        <div
-          class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8 mx-auto"
-        ></div>
+        <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8 mx-auto"></div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-[3px]">
-        <div
-          class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2"
-        >
-          <span
-            class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1"
-            >Google ★</span
-          >
+        <div class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+          <span class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
           <div class="text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
-          <p
-            class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8"
-          >
-            Lugar incrível! Fiz minha tatuagem com o Marcon e ficou exatamente
-            como eu sonhava.
-          </p>
+          <p class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Lugar incrível! Fiz minha tatuagem com o Marcon e ficou exatamente como eu sonhava.</p>
           <div class="flex items-center gap-4">
-            <div
-              class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0"
-            >
-              A
-            </div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">A</div>
             <div>
-              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">
-                Ana Lima
-              </div>
-              <div
-                class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5"
-              >
-                Tatuagem Black-Work
-              </div>
+              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">Ana Lima</div>
+              <div class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem Black-Work</div>
             </div>
           </div>
         </div>
-        <div
-          class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2"
-        >
-          <span
-            class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1"
-            >Google ★</span
-          >
+        <div class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+          <span class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
           <div class="text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
-          <p
-            class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8"
-          >
-            Giulia é incrível! Me senti segura em todo momento. Joia de
-            qualidade, explicação detalhada.
-          </p>
+          <p class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Giulia é incrível! Me senti segura em todo momento. Joia de qualidade, explicação detalhada.</p>
           <div class="flex items-center gap-4">
-            <div
-              class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0"
-            >
-              J
-            </div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">J</div>
             <div>
-              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">
-                Juliana Mota
-              </div>
-              <div
-                class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5"
-              >
-                Piercing Seguro
-              </div>
+              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">Juliana Mota</div>
+              <div class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Piercing Seguro</div>
             </div>
           </div>
         </div>
-        <div
-          class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2"
-        >
-          <span
-            class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1"
-            >Google ★</span
-          >
+        <div class="bg-black p-10 relative transition-colors duration-300 hover:bg-dark2">
+          <span class="absolute top-6 right-6 text-[0.55rem] tracking-[0.2em] uppercase text-gold-dim border border-gold/20 px-2 py-1">Google ★</span>
           <div class="text-gold text-[0.7rem] tracking-[0.2em] mb-6">★★★★★</div>
-          <p
-            class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8"
-          >
-            Melhor espaço de Jequié. Fui para tatuagem e voltei para
-            fisioterapia. Super recomendo!
-          </p>
+          <p class="font-cormorant text-[1.05rem] italic text-white/80 leading-relaxed mb-8">Melhor espaço de Jequié. Fui para tatuagem e voltei para fisioterapia. Super recomendo!</p>
           <div class="flex items-center gap-4">
-            <div
-              class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0"
-            >
-              R
-            </div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-dim to-dark3 flex items-center justify-center text-xs text-gold font-cormorant font-semibold shrink-0">R</div>
             <div>
-              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">
-                Rafael Santos
-              </div>
-              <div
-                class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5"
-              >
-                Tatuagem + Fisioterapia
-              </div>
+              <div class="text-[0.7rem] tracking-[0.15em] uppercase text-white">Rafael Santos</div>
+              <div class="text-[0.6rem] tracking-[0.1em] text-text-muted mt-0.5">Tatuagem + Fisioterapia</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div
-      class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"
-    ></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
     <!-- CONTATO SECTION -->
-    <section
-      id="contato"
-      class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-start"
-    >
+    <section id="contato" class="py-20 md:py-32 px-8 md:px-16 bg-black grid md:grid-cols-2 gap-16 md:gap-32 items-start">
       <div class="fade-in">
-        <div
-          class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4"
-        >
-          <span class="text-[0.5rem]">✦</span>
-          Fale conosco
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4 flex items-center gap-4">
+          <span class="text-[0.5rem]">✦</span> Fale conosco
         </div>
-        <h2
-          class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white"
-        >
+        <h2 class="font-cormorant text-[clamp(2.5rem,5vw,4.5rem)] font-light text-white">
           Agende sua <em class="italic text-gold">sessão</em>
         </h2>
-        <div
-          class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"
-        ></div>
+        <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-8"></div>
         <p class="text-[0.88rem] leading-8 text-white/65 mb-12">
-          Para agilizar seu atendimento, envie a arte de inspiração, o tamanho
-          desejado em centímetros e, se possível, uma foto nítida do local do
-          corpo onde quer a tattoo ou o piercing.
+          Para agilizar seu atendimento, envie a arte de inspiração, o tamanho desejado em centímetros e, se possível, uma foto nítida do local do corpo onde quer a tattoo ou o piercing.
         </p>
 
         <div class="flex flex-col gap-[2px]">
-          <a
-            class="bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2"
-            href="https://wa.me/5573999999999"
-            target="_blank"
-          >
+          <a class="bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2" href="https://wa.me/5573999999999" target="_blank">
             <i class="fab fa-whatsapp text-2xl shrink-0 text-green-500"></i>
             <div>
-              <div
-                class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1"
-              >
-                WhatsApp
-              </div>
+              <div class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">WhatsApp</div>
               <div class="text-[0.82rem] text-white">(73) 9 9999-9999</div>
             </div>
           </a>
-          <a
-            class="bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2"
-            href="https://instagram.com/espacoartemis"
-            target="_blank"
-          >
+          <a class="bg-dark p-6 flex items-center gap-6 no-underline text-inherit transition-colors duration-300 hover:bg-dark2" href="https://instagram.com/espacoartemis" target="_blank">
             <i class="fab fa-instagram text-2xl shrink-0 text-pink-500"></i>
             <div>
-              <div
-                class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1"
-              >
-                Instagram
-              </div>
+              <div class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Instagram</div>
               <div class="text-[0.82rem] text-white">@espacoartemis</div>
             </div>
           </a>
           <div class="bg-dark p-6 flex items-center gap-6">
             <i class="fas fa-map-marker-alt text-2xl shrink-0 text-red-500"></i>
             <div>
-              <div
-                class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1"
-              >
-                Localização
-              </div>
+              <div class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Localização</div>
               <div class="text-[0.82rem] text-white">Jequié, Bahia — BA</div>
             </div>
           </div>
           <div class="bg-dark p-6 flex items-center gap-6">
             <i class="fas fa-clock text-2xl shrink-0 text-blue-400"></i>
             <div>
-              <div
-                class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1"
-              >
-                Horário
-              </div>
-              <div class="text-[0.82rem] text-white">
-                Seg–Sáb · Mediante agendamento
-              </div>
+              <div class="text-[0.55rem] tracking-[0.3em] uppercase text-gold mb-1">Horário</div>
+              <div class="text-[0.82rem] text-white">Seg–Sáb · Mediante agendamento</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- FORMULÁRIO DE CONTATO CORRIGIDO E FUNCIONAL -->
+      <!-- FORMULÁRIO MELHORADO -->
       <div class="fade-in" id="form-contato">
-        <form
-          id="contactForm"
-          onsubmit="
-            event.preventDefault();
-            sendFormWhatsApp();
-          "
-        >
-          <div class="grid md:grid-cols-2 gap-[2px]">
-            <div class="form-group">
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                placeholder="Seu nome"
-                required
-                class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all"
-              />
+
+        <!-- Passo 1: Dados -->
+        <div id="step-info">
+          <p class="text-[0.6rem] tracking-[0.4em] uppercase text-gold mb-6 flex items-center gap-3">
+            <span class="w-5 h-5 rounded-full border border-gold flex items-center justify-center text-[0.55rem]">1</span>
+            Seus dados
+          </p>
+
+          <div class="grid grid-cols-2 gap-[3px] mb-[3px]">
+            <div class="form-field">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" />
             </div>
-            <div class="form-group">
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                placeholder="WhatsApp"
-                required
-                class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all"
-              />
+            <div class="form-field">
+              <label for="telefone">WhatsApp</label>
+              <input type="tel" id="telefone" placeholder="(73) 9 0000-0000" autocomplete="tel" />
             </div>
           </div>
-          <div class="form-group">
-            <select
-              id="servico"
-              name="servico"
-              required
-              class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-text-muted font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all cursor-pointer"
-            >
-              <option value="" disabled selected>Qual serviço deseja?</option>
-              <option value="Tatuagem">Tatuagem</option>
-              <option value="Piercing Seguro">Piercing Seguro</option>
-              <option value="Fisioterapia">Fisioterapia</option>
-              <option value="Estética & Bem-estar">Estética & Bem-estar</option>
-              <option value="Atendimento a Domicílio">
-                Atendimento a Domicílio
-              </option>
-            </select>
+
+          <!-- Passo 2: Serviço -->
+          <p class="text-[0.6rem] tracking-[0.4em] uppercase text-gold mb-4 mt-8 flex items-center gap-3">
+            <span class="w-5 h-5 rounded-full border border-gold flex items-center justify-center text-[0.55rem]">2</span>
+            Qual serviço deseja?
+          </p>
+
+          <div class="servico-options" id="servico-options">
+            <button type="button" class="servico-opt" data-value="Tatuagem" onclick="selectServico(this)">
+              <i class="fas fa-paintbrush"></i> Tatuagem
+            </button>
+            <button type="button" class="servico-opt" data-value="Piercing Seguro" onclick="selectServico(this)">
+              <i class="fas fa-gem"></i> Piercing
+            </button>
+            <button type="button" class="servico-opt" data-value="Fisioterapia" onclick="selectServico(this)">
+              <i class="fas fa-leaf"></i> Fisioterapia
+            </button>
+            <button type="button" class="servico-opt" data-value="Estética & Bem-estar" onclick="selectServico(this)">
+              <i class="fas fa-spa"></i> Estética
+            </button>
+            <button type="button" class="servico-opt" data-value="Atendimento a Domicílio" onclick="selectServico(this)">
+              <i class="fas fa-home"></i> Domicílio
+            </button>
+            <button type="button" class="servico-opt" data-value="Arte Personalizada" onclick="selectServico(this)">
+              <i class="fas fa-palette"></i> Personalizada
+            </button>
           </div>
-          <div class="form-group">
-            <input
-              type="text"
-              id="tamanho"
-              name="tamanho"
-              placeholder="Tamanho (ex: 10 x 10 cm)"
-              class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all"
-            />
+          <input type="hidden" id="servico" value="" />
+
+          <!-- Tamanho — aparece só para tattoo/piercing -->
+          <div class="form-field" id="campo-tamanho">
+            <label for="tamanho">Tamanho / local</label>
+            <input type="text" id="tamanho" placeholder="Ex: 10 × 10 cm — costela direita" />
           </div>
-          <div class="form-group">
-            <textarea
-              id="mensagem"
-              name="mensagem"
-              placeholder="Descreva sua ideia, local do corpo, referências..."
-              rows="4"
-              class="w-full p-5 bg-dark border-none border-l-2 border-transparent text-white font-josefin text-[0.8rem] tracking-[0.05em] outline-none transition-all resize-none"
-            ></textarea>
+
+          <!-- Passo 3: Mensagem -->
+          <p class="text-[0.6rem] tracking-[0.4em] uppercase text-gold mb-4 mt-8 flex items-center gap-3">
+            <span class="w-5 h-5 rounded-full border border-gold flex items-center justify-center text-[0.55rem]">3</span>
+            Detalhes & referências
+          </p>
+
+          <div class="form-field">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" rows="4" maxlength="500" placeholder="Descreva sua ideia, referências, dúvidas ou o que precisar..." oninput="updateCharCount(this)"></textarea>
+            <div class="char-count" id="char-count">0 / 500</div>
           </div>
-          <button
-            type="submit"
-            class="w-full py-5 bg-gold border-none cursor-pointer font-josefin text-[0.65rem] tracking-[0.4em] uppercase text-black mt-[2px] transition-colors duration-300 hover:bg-gold-light"
-          >
-            Enviar via WhatsApp <i class="fab fa-whatsapp ml-2"></i>
+
+          <!-- Feedback de erro -->
+          <div id="form-error" class="hidden text-[0.7rem] tracking-[0.1em] text-red-500 mb-3 flex items-center gap-2">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="form-error-msg"></span>
+          </div>
+
+          <button type="button" onclick="sendFormWhatsApp()" class="btn-submit w-full py-5 bg-gold border-none cursor-pointer font-josefin text-[0.65rem] tracking-[0.4em] uppercase text-black mt-[2px] transition-colors duration-300 hover:bg-gold-light">
+            <span class="btn-inner">
+              Enviar via WhatsApp <i class="fab fa-whatsapp ml-2"></i>
+            </span>
+            <span class="btn-loading">Abrindo WhatsApp...</span>
           </button>
-        </form>
+
+          <p class="text-[0.58rem] tracking-[0.15em] text-text-muted text-center mt-4">
+            Ao enviar, você será redirecionado ao WhatsApp com suas informações preenchidas automaticamente.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- GOOGLE MAPS - 100% WIDTH -->
+    <!-- GOOGLE MAPS -->
     <div class="w-full">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4650.414077192733!2d-40.0877808!3d-13.859209100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x740af6ff51d7e9f%3A0x712e601f30aac966!2zRXNwYcOnbyDDgXJ0ZW1pcyBKZXF1acOp!5e1!3m2!1spt-BR!2sbr!4v1775747611385!5m2!1spt-BR!2sbr"
-        class="w-full h-[450px] border-0"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      >
-      </iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4650.414077192733!2d-40.0877808!3d-13.859209100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x740af6ff51d7e9f%3A0x712e601f30aac966!2zRXNwYcOnbyDDgXJ0ZW1pcyBKZXF1acOp!5e1!3m2!1spt-BR!2sbr!4v1775747611385!5m2!1spt-BR!2sbr" class="w-full h-[450px] border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
     <!-- FOOTER -->
-    <footer
-      class="bg-dark py-16 px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-gold/10"
-    >
-      <div
-        class="font-cormorant text-2xl font-light tracking-[0.2em] uppercase text-gold"
-      >
-        Espaço <span class="italic text-white">Ártemis</span>
+    <footer class="bg-dark py-16 px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-gold/10">
+      <div class="flex items-center gap-3">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/>
+          <path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+          <line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/>
+        </svg>
+        <div class="font-cormorant text-2xl font-light tracking-[0.2em] uppercase text-gold">
+          Espaço <span class="italic text-white">Ártemis</span>
+        </div>
       </div>
       <div class="text-[0.6rem] tracking-[0.15em] text-text-muted text-center">
         © 2024 Espaço Ártemis · Tatuagem · Piercing · Fisioterapia<br />
         Jequié, Bahia — Todos os direitos reservados
       </div>
       <div class="flex gap-6">
-        <a
-          class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold"
-          href="https://instagram.com/espacoartemis"
-          target="_blank"
-          ><i class="fab fa-instagram mr-1"></i> Instagram</a
-        >
-        <a
-          class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold"
-          href="https://wa.me/5573999999999"
-          target="_blank"
-          ><i class="fab fa-whatsapp mr-1"></i> WhatsApp</a
-        >
+        <a class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold" href="https://instagram.com/espacoartemis" target="_blank"><i class="fab fa-instagram mr-1"></i> Instagram</a>
+        <a class="text-[0.65rem] tracking-[0.2em] uppercase text-text-muted no-underline transition-colors duration-300 hover:text-gold" href="https://wa.me/5573999999999" target="_blank"><i class="fab fa-whatsapp mr-1"></i> WhatsApp</a>
       </div>
     </footer>
 
     <!-- WHATSAPP FLOAT -->
-    <a
-      class="fixed bottom-10 right-10 z-[200] w-[58px] h-[58px] bg-[#25d366] rounded-full flex items-center justify-center no-underline shadow-[0_4px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_35px_rgba(37,211,102,0.6)] animate-wa-pulse group"
-      href="https://wa.me/5573999999999"
-      target="_blank"
-      rel="noopener"
-    >
-      <div
-        class="absolute right-[70px] bg-dark text-white text-[0.65rem] tracking-[0.1em] whitespace-nowrap py-2 px-4 pointer-events-none opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 hidden md:block"
-      >
+    <a class="fixed bottom-10 right-10 z-[200] w-[58px] h-[58px] bg-[#25d366] rounded-full flex items-center justify-center no-underline shadow-[0_4px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_35px_rgba(37,211,102,0.6)] animate-wa-pulse group" href="https://wa.me/5573999999999" target="_blank" rel="noopener">
+      <div class="absolute right-[70px] bg-dark text-white text-[0.65rem] tracking-[0.1em] whitespace-nowrap py-2 px-4 pointer-events-none opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 hidden md:block">
         Falar no WhatsApp
       </div>
       <i class="fab fa-whatsapp text-3xl text-white"></i>
     </a>
 
     <script>
-      // Fade-in on scroll
+      // ─── MENU MOBILE ───────────────────────────────────────────────
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('menu-overlay');
+
+      function openMenu() {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', () => {
+        mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      overlay.addEventListener('click', closeMenu);
+
+      // Fechar ao clicar em link do menu mobile
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // ─── FADE-IN ON SCROLL ─────────────────────────────────────────
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-              setTimeout(() => entry.target.classList.add("visible"), i * 80);
+              setTimeout(() => entry.target.classList.add('visible'), i * 80);
             }
           });
         },
-        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
       );
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-      document
-        .querySelectorAll(".fade-in")
-        .forEach((el) => observer.observe(el));
-
-      // Active nav link
-      const sections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll(".nav-links a");
-
-      window.addEventListener("scroll", () => {
-        let current = "";
-        sections.forEach((section) => {
-          if (window.scrollY >= section.offsetTop - 200)
-            current = section.getAttribute("id");
-        });
-        navLinks.forEach((a) => {
-          if (a.getAttribute("href") === "#" + current) {
-            a.style.color = "#c9a84c";
-            a.style.opacity = "1";
-          } else {
-            a.style.color = "";
-            a.style.opacity = "";
-          }
-        });
-      });
-
-      // Função do formulário de contato - ENVIA VIA WHATSAPP
-      function sendFormWhatsApp() {
-        const nome = document.getElementById("nome")?.value || "não informado";
-        const telefone =
-          document.getElementById("telefone")?.value || "não informado";
-        const servico =
-          document.getElementById("servico")?.value || "não selecionado";
-        const tamanho =
-          document.getElementById("tamanho")?.value || "não informado";
-        const mensagem =
-          document.getElementById("mensagem")?.value || "não informada";
-
-        const text = `Olá! Vim pelo site 🖤\n\n*Dados do formulário de contato:*\n\n*Nome:* ${nome}\n*WhatsApp:* ${telefone}\n*Serviço desejado:* ${servico}\n*Tamanho:* ${tamanho}\n*Mensagem:* ${mensagem}\n\n*Enviado pelo formulário do site Espaço Ártemis*`;
-
-        window.open(
-          "https://wa.me/5573999999999?text=" + encodeURIComponent(text),
-          "_blank",
-        );
-      }
-
-      // Smooth scroll for all internal links
-      document.querySelectorAll('a[href^="#"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-          const href = a.getAttribute("href");
-          if (href && href !== "#") {
+      // ─── SMOOTH SCROLL ─────────────────────────────────────────────
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if (href && href !== '#') {
             e.preventDefault();
             const target = document.querySelector(href);
-            if (target) target.scrollIntoView({ behavior: "smooth" });
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
           }
         });
       });
+
+      // ─── FORMULÁRIO ────────────────────────────────────────────────
+      let selectedServico = '';
+
+      function selectServico(el) {
+        document.querySelectorAll('.servico-opt').forEach(b => b.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedServico = el.dataset.value;
+        document.getElementById('servico').value = selectedServico;
+
+        // Mostrar campo tamanho só para tattoo, piercing e arte
+        const showTamanho = ['Tatuagem', 'Piercing Seguro', 'Arte Personalizada'];
+        const campoTamanho = document.getElementById('campo-tamanho');
+        if (showTamanho.includes(selectedServico)) {
+          campoTamanho.classList.add('show');
+        } else {
+          campoTamanho.classList.remove('show');
+        }
+      }
+
+      function updateCharCount(el) {
+        const count = el.value.length;
+        const max = el.maxLength;
+        const counter = document.getElementById('char-count');
+        counter.textContent = count + ' / ' + max;
+        counter.className = 'char-count' + (count > max * 0.9 ? (count >= max ? ' over' : ' warning') : '');
+      }
+
+      function showError(msg) {
+        const box = document.getElementById('form-error');
+        document.getElementById('form-error-msg').textContent = msg;
+        box.classList.remove('hidden');
+        box.classList.add('flex');
+        setTimeout(() => {
+          box.classList.add('hidden');
+          box.classList.remove('flex');
+        }, 4000);
+      }
+
+      function sendFormWhatsApp() {
+        const nome = document.getElementById('nome').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+        const tamanho = document.getElementById('tamanho').value.trim();
+
+        // Validação
+        if (!nome) {
+          document.getElementById('nome').classList.add('error');
+          setTimeout(() => document.getElementById('nome').classList.remove('error'), 600);
+          showError('Por favor, informe seu nome.');
+          return;
+        }
+        if (!telefone) {
+          document.getElementById('telefone').classList.add('error');
+          setTimeout(() => document.getElementById('telefone').classList.remove('error'), 600);
+          showError('Por favor, informe seu WhatsApp.');
+          return;
+        }
+        if (!selectedServico) {
+          showError('Por favor, selecione o serviço desejado.');
+          return;
+        }
+
+        // Montar mensagem
+        let text = `Olá! Vim pelo site 🖤\n\n*Dados do agendamento:*\n\n*Nome:* ${nome}\n*WhatsApp:* ${telefone}\n*Serviço:* ${selectedServico}`;
+        if (tamanho) text += `\n*Tamanho / Local:* ${tamanho}`;
+        if (mensagem) text += `\n*Mensagem:* ${mensagem}`;
+        text += `\n\n_Enviado pelo formulário do site Espaço Ártemis_`;
+
+        // Feedback visual
+        const btn = document.querySelector('.btn-submit');
+        btn.classList.add('loading');
+        setTimeout(() => {
+          btn.classList.remove('loading');
+          window.open('https://wa.me/5573999999999?text=' + encodeURIComponent(text), '_blank');
+        }, 800);
+      }
     </script>
   </body>
 </html>

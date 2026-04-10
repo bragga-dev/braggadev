@@ -1,695 +1,875 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>BRAGGA DEV · Portfólio de Layouts</title>
-  <meta name="description" content="Portfólio BRAGGA DEV - Layouts profissionais: contábil, médico e landing page moderna. Tecnologia, design e inovação.">
-  <meta name="theme-color" content="#0a0a0a">
-  <!-- Font Awesome 6 (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: inter e space grotesk -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BRAGGA DEV · Portfólio</title>
+  <meta name="description" content="BRAGGA DEV — Interfaces digitais de alto nível. Layouts profissionais, responsivos e focados em conversão." />
+  <meta name="theme-color" content="#080808" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void:    '#080808',
+            void2:   '#0f0f0f',
+            void3:   '#161616',
+            void4:   '#1e1e1e',
+            'vio':   '#8b5cf6',
+            'vio-l': '#a78bfa',
+            'vio-d': '#5b21b6',
+            'vio-x': '#2d1458',
+            dim:     '#5a5a6a',
+            muted:   '#8888a0',
+            light:   '#d4d4e8',
+            bright:  '#f0f0f8',
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            dm:   ['DM Sans', 'sans-serif'],
+          },
+          animation: {
+            'fade-up':   'fadeUp 0.7s ease both',
+            'fade-in':   'fadeIn 0.5s ease both',
+            'pulse-vio': 'pulseVio 2.5s ease-in-out infinite',
+            'scan':      'scan 8s linear infinite',
+          },
+          keyframes: {
+            fadeUp:   { from:{opacity:'0',transform:'translateY(24px)'}, to:{opacity:'1',transform:'translateY(0)'} },
+            fadeIn:   { from:{opacity:'0'}, to:{opacity:'1'} },
+            pulseVio: { '0%,100%':{boxShadow:'0 0 0 0 rgba(139,92,246,.5)'}, '50%':{boxShadow:'0 0 0 14px rgba(139,92,246,0)'} },
+            scan:     { '0%':{backgroundPosition:'0% 0%'}, '100%':{backgroundPosition:'0% 200%'} },
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #080808; font-family: 'DM Sans', sans-serif; color: #d4d4e8; overflow-x: hidden; }
+    ::selection { background: #8b5cf6; color: #fff; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 2px; }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    body {
-      background: #000000;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #e5e5e5;
-      scroll-behavior: smooth;
+    /* ── GRID BG ── */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(139,92,246,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
-    .portfolio-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
-    }
+    /* ── GLOW ORBS ── */
+    .orb-1 { position:fixed; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.07) 0%, transparent 70%); top:-200px; left:-100px; pointer-events:none; z-index:0; }
+    .orb-2 { position:fixed; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(109,40,217,.06) 0%, transparent 70%); bottom:-100px; right:-100px; pointer-events:none; z-index:0; }
 
-    /* header */
-    .brand-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 2px solid rgba(128, 0, 255, 0.3);
-    }
-    .brand-name {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #FFFFFF 0%, #b0a0ff 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-family: 'Space Grotesk', monospace;
-    }
-    .brand-name i {
-      background: none;
-      -webkit-background-clip: unset;
-      background-clip: unset;
-      color: #a855f7;
-      margin-right: 6px;
-      font-size: 2rem;
-    }
-    .tagline {
-      color: #9ca3af;
-      font-weight: 500;
-      background: rgba(128, 128, 128, 0.1);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-    .tagline i {
-      margin-right: 6px;
-      color: #a855f7;
-    }
+    /* ── NAV ── */
+    .nav-link { position:relative; padding-bottom:2px; }
+    .nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:#8b5cf6; transition:width .3s; }
+    .nav-link:hover::after { width:100%; }
 
-    /* grade de layouts */
-    .layouts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0 3rem;
-    }
-
-    .layout-card {
-      background: #0c0c0c;
-      border-radius: 2rem;
+    /* ── PROJECT CARDS ── */
+    .proj-card {
+      background: #0f0f0f;
+      border: 1px solid rgba(139,92,246,.12);
+      transition: transform .4s cubic-bezier(.2,.9,.4,1.05), border-color .3s, box-shadow .3s;
+      position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      border: 1px solid rgba(168, 85, 247, 0.2);
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
     }
-    .layout-card:hover {
-      transform: translateY(-8px);
-      border-color: #a855f7;
-      box-shadow: 0 25px 40px -12px rgba(168, 85, 247, 0.25);
-      background: #111111;
+    .proj-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(139,92,246,.04) 0%, transparent 60%);
+      opacity: 0; transition: opacity .4s;
     }
+    .proj-card:hover { transform: translateY(-6px); border-color: rgba(139,92,246,.45); box-shadow: 0 24px 60px -12px rgba(139,92,246,.18); }
+    .proj-card:hover::before { opacity: 1; }
 
-    /* Preview responsivo do iframe - MELHORIAS SIGNIFICATIVAS */
-    .card-preview {
+    /* ── IFRAME PREVIEW ── */
+    .preview-wrap {
       position: relative;
       width: 100%;
-      background: #000000;
+      aspect-ratio: 16/9;
       overflow: hidden;
-      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-      /* Altura dinâmica baseada em aspect ratio para melhor responsividade */
-      aspect-ratio: 16 / 9;
-    }
-
-    /* Container do iframe com scroll para melhor visualização em dispositivos pequenos */
-    .iframe-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
       background: #000;
     }
-
-    .card-preview iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .preview-wrap iframe {
+      position: absolute; inset: 0;
+      width: 300%; height: 300%;
+      transform: scale(.333);
+      transform-origin: top left;
       border: none;
       pointer-events: none;
-      /* Usamos object-fit para garantir que o conteúdo seja visível */
-      object-fit: contain;
-      background: #fff;
+    }
+    .preview-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(0deg, rgba(8,8,8,.7) 0%, transparent 50%);
+    }
+    .preview-badge {
+      position: absolute; top:12px; right:12px; z-index:3;
+      font-size:.6rem; letter-spacing:.12em; text-transform:uppercase;
+      background: rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.35);
+      color:#a78bfa; padding:4px 10px; border-radius:40px;
+      font-family:'Syne',sans-serif; backdrop-filter:blur(6px);
     }
 
-    /* Fallback para ícone quando não há iframe (landing page) */
-    .preview-icon-fallback {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+    /* ── CAROUSEL ── */
+    .car-track { display:flex; transition:transform .55s cubic-bezier(.4,0,.2,1); will-change:transform; }
+    .car-slide { flex:0 0 100%; position:relative; overflow:hidden; }
+    .car-slide img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease; }
+    .car-slide:hover img { transform:scale(1.025); }
+    .car-caption {
+      position:absolute; bottom:0; inset-x:0; z-index:3;
+      padding:2rem 2rem 1.5rem;
+      background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,transparent 100%);
     }
-    .preview-icon-fallback i {
-      font-size: 4rem;
-      color: #a855f7;
-      filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
-      transition: transform 0.3s ease;
+    .car-btn {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:4;
+      width:42px; height:42px; border-radius:50%;
+      background:rgba(15,15,15,.75); border:1px solid rgba(139,92,246,.35);
+      color:#a78bfa; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:.25s; backdrop-filter:blur(8px);
     }
-    .layout-card:hover .preview-icon-fallback i {
-      transform: scale(1.1);
-    }
+    .car-btn:hover { background:rgba(139,92,246,.25); border-color:#8b5cf6; }
+    .car-dot { width:7px; height:7px; border-radius:50%; background:rgba(139,92,246,.25); border:none; cursor:pointer; transition:.3s; }
+    .car-dot.on { background:#8b5cf6; width:22px; border-radius:4px; }
 
-    .card-content {
-      padding: 1.6rem 1.5rem 2rem;
-      flex: 1;
+    /* ── TECH BADGE ── */
+    .t-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background: rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2);
+      color:#a78bfa; font-size:.72rem; padding:5px 13px; border-radius:40px;
+      font-family:'DM Sans',sans-serif; font-weight:500;
+      transition:background .2s, border-color .2s;
     }
-    .card-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: #f0f0f0;
-      font-family: 'Space Grotesk', monospace;
-      letter-spacing: -0.3px;
-    }
-    .card-desc {
-      color: #b0b0b0;
-      line-height: 1.5;
-      margin-bottom: 1.6rem;
-      font-size: 0.9rem;
-    }
-    .btn-layout {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: transparent;
-      border: 1.5px solid #a855f7;
-      color: #d1d1d1;
-      padding: 0.7rem 1.4rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.25s;
-      text-decoration: none;
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-    }
-    .btn-layout i {
-      font-size: 0.9rem;
-      transition: transform 0.2s;
-    }
-    .btn-layout:hover {
-      background: #a855f7;
-      color: #000000;
-      border-color: #a855f7;
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-    }
-    .btn-layout:hover i {
-      transform: translateX(4px);
-      color: #000;
-    }
+    .t-badge:hover { background:rgba(139,92,246,.15); border-color:rgba(139,92,246,.45); }
 
-    /* seção extra */
-    .highlight-section {
-      background: #0a0a0a;
-      border-radius: 2rem;
-      padding: 2rem 2rem;
-      margin-top: 4rem;
-      border: 1px solid #2a2a2a;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-    }
-    .highlight-text h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(120deg, #fff, #b27aff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    .highlight-text p {
-      color: #9ca3af;
-      max-width: 500px;
-    }
-    .tech-stack {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .tech-badge {
-      background: #1f1f1f;
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #c084fc;
-      border: 1px solid #3a2a4a;
-    }
+    /* ── STAT ── */
+    .stat-item { border-left:2px solid rgba(139,92,246,.2); transition:border-color .3s; }
+    .stat-item:hover { border-left-color:#8b5cf6; }
 
-    footer {
-      margin-top: 5rem;
-      text-align: center;
-      border-top: 1px solid rgba(128, 128, 128, 0.2);
-      padding-top: 2rem;
-      font-size: 0.85rem;
-      color: #6b7280;
-    }
-    footer i {
-      color: #a855f7;
-    }
+    /* ── SEPARATOR ── */
+    .sep { height:1px; background:linear-gradient(90deg,transparent,rgba(139,92,246,.35),transparent); }
 
-    /* WhatsApp Float Button - ADICIONADO CONFORME SOLICITAÇÃO */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-      z-index: 1000;
-      text-decoration: none;
-      animation: pulse 2s infinite;
-    }
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      background-color: #128C7E;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    }
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-      }
-      70% {
-        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-      }
-    }
-    /* Tooltip para o WhatsApp */
-    .whatsapp-float::before {
-      content: "Fale conosco";
-      position: absolute;
-      right: 70px;
-      background: #1f1f1f;
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      border: 1px solid #25D366;
-    }
-    .whatsapp-float:hover::before {
-      opacity: 1;
-      visibility: visible;
-      right: 80px;
-    }
+    /* ── SCROLL REVEAL ── */
+    .sr { opacity:0; transform:translateY(20px); transition:opacity .65s ease, transform .65s ease; }
+    .sr.vis { opacity:1; transform:translateY(0); }
 
-    /* responsividade refinada */
-    @media (max-width: 768px) {
-      .portfolio-container {
-        padding: 1.5rem 1rem 3rem;
-      }
-      .brand-name {
-        font-size: 1.6rem;
-      }
-      .card-title {
-        font-size: 1.4rem;
-      }
-      .highlight-section {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .layouts-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .card-preview {
-        aspect-ratio: 4 / 3; /* Altura um pouco maior em mobile para melhor visualização */
-      }
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        font-size: 1.6rem;
-        bottom: 20px;
-        right: 20px;
-      }
-      .whatsapp-float::before {
-        display: none; /* Esconde tooltip em mobile para evitar sobreposição */
-      }
-    }
-
-    @media (max-width: 480px) {
-      .card-preview {
-        aspect-ratio: 3 / 4; /* Ajuste para telas muito pequenas */
-      }
-      .brand-name {
-        font-size: 1.4rem;
-      }
-      .tagline {
-        font-size: 0.7rem;
-      }
-    }
-
-    /* Suporte para tablets */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .layouts-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .card-preview {
-        aspect-ratio: 16 / 10;
-      }
-    }
-
-    /* Efeitos visuais */
-    ::selection {
-      background: #a855f7;
-      color: #000;
-    }
-    body {
-      background: #000000 radial-gradient(circle at 20% 30%, #111111 0%, #000000 100%);
-      background-attachment: fixed;
-    }
-    .brand-name i, .tagline i {
-      filter: drop-shadow(0 0 3px #a855f7);
-    }
-    h1, .card-title {
-      letter-spacing: -0.02em;
-    }
-    .glow-text {
-      text-shadow: 0 0 2px rgba(168, 85, 247, 0.4);
-    }
+    /* ── WA FLOAT ── */
+    .wa-float { animation: pulseVio 2.5s ease-in-out infinite; }
+    @keyframes pulseVio { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 0 0 14px rgba(37,211,102,0)} }
   </style>
 </head>
-<body>
-<div class="portfolio-container">
-  
-  <div class="brand-header">
-    <div class="brand-name">
-      <i class="fas fa-code"></i> BRAGGA DEV
-    </div>
-    <div class="tagline">
-      <i class="fas fa-palette"></i> interfaces que conectam negócios
-    </div>
-  </div>
 
-  <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff, #b27aff); -webkit-background-clip: text; background-clip: text; color: transparent;">
-    Meus Projetos 
-  </h1>
-  <p style="color: #aaa; margin-bottom: 2rem; border-left: 3px solid #a855f7; padding-left: 1rem;">
-    <i class="fas fa-th-large"></i> Projetos exclusivos com foco em performance e identidade visual
-  </p>
+<body class="relative">
+  <div class="orb-1"></div>
+  <div class="orb-2"></div>
 
-  <div class="layouts-grid">
-    <!-- Layout Contábil - Abiú Consultoria -->
-    <a href="abiu.html" class="layout-card" id="">
-      <div class="card-preview">
-        <div class="iframe-container">
-          <iframe src="abiu.html" title="Preview Abiú Consultoria" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-        </div>
+  <!-- ══════════════ NAVBAR ══════════════ -->
+  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]" style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
+
+    <a href="#" class="flex items-center gap-2.5 no-underline group">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
+        <i class="fas fa-code text-vio text-xs"></i>
       </div>
-      <div class="card-content">
-        <div class="card-title">
-          Abiú Consultoria | Especialista em Departamento Pessoal
-        </div>
-        <div class="card-desc">
-          Soluções trabalhistas com precisão e segurança jurídica. Com mais de 20 anos de atuação, a Abiú Consultoria oferece soluções estratégicas para proteger sua empresa, otimizar processos e impulsionar resultados — com excelência em cada etapa.
-        </div>
-      </div>
+      <span class="font-syne font-800 text-bright text-base tracking-tight" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
     </a>
 
-    <!-- Layout Médico - Daniela Faria Contadora -->
-    <a href="dani.html" class="layout-card" id="">
-      <div class="card-preview">
-        <div class="iframe-container">
-          <iframe src="dani.html" title="Preview Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-        </div>
-      </div>
-      <div class="card-content">
-        <div class="card-title">Daniela Faria Contadora</div>
-        <div class="card-desc">
-          Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão.
-        </div>
-      </div>
-    </a>
-     <!-- Layout Médico - Daniela Faria Contadora -->
-    <a href="kayani.html" class="layout-card" id="">
-      <div class="card-preview">
-        <div class="iframe-container">
-          <iframe src="kayani.html" title="Preview Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-        </div>
-      </div>
-      <div class="card-content">
-        <div class="card-title">Daniela Faria Contadora</div>
-        <div class="card-desc">
-          Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão.
-        </div>
-      </div>
-    </a>
-    <!-- Layout Médico - Daniela Faria Contadora -->
-    <a href="jessica.html" class="layout-card" id="">
-      <div class="card-preview">
-        <div class="iframe-container">
-          <iframe src="jessica.html" title="Preview Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-        </div>
-      </div>
-      <div class="card-content">
-        <div class="card-title">Daniela Faria Contadora</div>
-        <div class="card-desc">
-          Atuo há mais de 15 anos na área contábil, com foco em Departamento Pessoal, ajudando empresas a terem mais organização, segurança e tranquilidade na gestão.
-        </div>
-      </div>
-    </a>
-  </div>
+    <ul class="hidden md:flex gap-8 list-none m-0 p-0">
+      <li><a href="#projetos" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Projetos</a></li>
+      <li><a href="#galeria"  class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Galeria</a></li>
+      <li><a href="#stack"    class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Stack</a></li>
+      <li><a href="#contato"  class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
+    </ul>
 
-  <div class="highlight-section">
-    <div class="highlight-text">
-      <h3><i class="fas fa-crown" style="color:#a855f7"></i>  Tecnologia + design estratégico</h3>
-      <p>Layouts prontos para elevar a presença digital do seu negócio. Cada projeto é construído com foco em conversão e experiência do usuário.</p>
-    </div>
-    <div class="tech-stack">
-      <span class="tech-badge"><i class="fab fa-html5"></i> HTML5</span>
-      <span class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
-      <span class="tech-badge"><i class="fab fa-js"></i> JavaScript</span>
-      <span class="tech-badge"><i class="fas fa-mobile-alt"></i> 100% Responsivo</span>
+    <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
+       target="_blank" rel="noopener"
+       class="hidden md:inline-flex items-center gap-2 font-syne text-xs tracking-widest uppercase bg-vio text-white px-5 py-2.5 rounded-full hover:bg-vio-l transition-all duration-300 no-underline"
+       style="font-weight:600">
+      <i class="fab fa-whatsapp"></i> Orçamento
+    </a>
+
+    <!-- Mobile menu btn -->
+    <button id="mbtn" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] bg-transparent border-none cursor-pointer" aria-label="Menu">
+      <span id="mb1" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300 origin-center"></span>
+      <span id="mb2" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300"></span>
+      <span id="mb3" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300 origin-center"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="drawer" class="fixed inset-0 z-40 pointer-events-none" style="transition:background .35s">
+    <div id="dpanel" class="absolute top-0 right-0 bottom-0 w-72 flex flex-col pt-24 pb-10 px-8 border-l"
+         style="background:#0c0c0c;border-color:rgba(139,92,246,.15);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)">
+      <ul class="flex flex-col list-none m-0 p-0 gap-0 flex-1">
+        <li><a href="#projetos" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Projetos</a></li>
+        <li><a href="#galeria"  class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Galeria</a></li>
+        <li><a href="#stack"    class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Stack</a></li>
+        <li><a href="#contato"  class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
+      </ul>
+      <a href="https://wa.me/5573981683277" target="_blank"
+         class="flex items-center justify-center gap-2 py-3.5 rounded-full bg-vio text-white text-xs tracking-widest uppercase no-underline font-syne hover:bg-vio-l transition-all"
+         style="font-weight:600"><i class="fab fa-whatsapp"></i> Solicitar orçamento</a>
     </div>
   </div>
 
-  <footer>
-    <p><i class="fas fa-gem"></i> BRAGGA DEV · desenvolvimento web de alto nível.</p>
-    <p style="margin-top: 0.8rem;">&copy; 2025 — soluções que transformam presença digital</p>
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden pt-20">
+    <!-- Scan line effect -->
+    <div class="absolute inset-0 pointer-events-none z-0 opacity-20"
+         style="background:linear-gradient(0deg,transparent 50%,rgba(139,92,246,.03) 50%);background-size:100% 4px;animation:scan 8s linear infinite"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+
+      <!-- Eyebrow -->
+      <div class="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full border text-xs font-dm tracking-widest uppercase"
+           style="background:rgba(139,92,246,.07);border-color:rgba(139,92,246,.25);color:#a78bfa">
+        <span class="w-1.5 h-1.5 rounded-full bg-vio animate-pulse"></span>
+        Portfólio · Layouts Profissionais
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-syne leading-[.9] mb-8" style="font-size:clamp(4rem,12vw,9rem);font-weight:800;letter-spacing:-.04em">
+        <span class="text-bright">BRAGGA</span><br>
+        <span class="text-vio">DEV</span>
+      </h1>
+
+      <p class="font-dm text-muted leading-relaxed mb-12 mx-auto" style="font-size:clamp(.9rem,1.5vw,1.1rem);max-width:480px;font-weight:300">
+        Interfaces que conectam marcas a pessoas. Design estratégico, código limpo e foco total em conversão.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#projetos"
+           class="inline-flex items-center gap-2.5 font-syne text-xs tracking-widest uppercase bg-vio text-white px-8 py-4 rounded-full hover:bg-vio-l transition-all duration-300 no-underline"
+           style="font-weight:600">
+          Ver projetos <i class="fas fa-arrow-down text-[10px]"></i>
+        </a>
+        <a href="#galeria"
+           class="inline-flex items-center gap-2.5 font-syne text-xs tracking-widest uppercase border text-vio-l px-8 py-4 rounded-full hover:bg-vio/10 transition-all duration-300 no-underline"
+           style="border-color:rgba(139,92,246,.4);font-weight:600">
+          <i class="fas fa-images text-[10px]"></i> Galeria
+        </a>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="flex flex-wrap justify-center gap-12 mt-20 pt-12 border-t" style="border-color:rgba(139,92,246,.12)">
+        <div class="stat-item pl-5">
+          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">15+</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Projetos entregues</div>
+        </div>
+        <div class="stat-item pl-5">
+          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">100%</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Responsivo</div>
+        </div>
+        <div class="stat-item pl-5">
+          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">3+</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Anos de exp.</div>
+        </div>
+        <div class="stat-item pl-5">
+          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">∞</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Suporte</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- scroll cue -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      <span class="font-dm text-[.55rem] tracking-[.4em] uppercase text-dim">scroll</span>
+      <div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══════════════ PROJETOS ══════════════ -->
+  <section id="projetos" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="sr mb-16 max-w-2xl">
+        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-vio inline-block"></span> Portfólio
+        </p>
+        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
+          Projetos que<br>falam por si.
+        </h2>
+        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
+          Cada layout é desenvolvido com identidade visual única, código limpo e performance otimizada para conversão.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5" id="projetos-grid">
+
+        <!-- Card 1 — Abiú Consultoria -->
+        <a href="abiu.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
+          <div class="preview-wrap">
+            <div class="preview-badge">Ativo</div>
+            <div class="preview-overlay"></div>
+            <iframe src="abiu.html" title="Abiú Consultoria" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="p-7 flex flex-col flex-1">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Departamento Pessoal</p>
+                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Abiú Consultoria</h3>
+              </div>
+              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
+                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
+                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+              </span>
+            </div>
+            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
+              Soluções trabalhistas com precisão e segurança jurídica. Design institucional, sóbrio e focado em gerar confiança.
+            </p>
+            <div class="flex gap-2 mt-5 flex-wrap">
+              <span class="t-badge">HTML5</span>
+              <span class="t-badge">CSS3</span>
+              <span class="t-badge">Responsivo</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2 — Daniela Faria -->
+        <a href="dani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
+          <div class="preview-wrap">
+            <div class="preview-badge">Ativo</div>
+            <div class="preview-overlay"></div>
+            <iframe src="dani.html" title="Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="p-7 flex flex-col flex-1">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Contabilidade</p>
+                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Daniela Faria Contadora</h3>
+              </div>
+              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
+                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
+                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+              </span>
+            </div>
+            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
+              15 anos de atuação contábil, transformados em presença digital de autoridade. Foco em clareza e credibilidade.
+            </p>
+            <div class="flex gap-2 mt-5 flex-wrap">
+              <span class="t-badge">HTML5</span>
+              <span class="t-badge">CSS3</span>
+              <span class="t-badge">Responsivo</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3 — Kayani -->
+        <a href="kayani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
+          <div class="preview-wrap">
+            <div class="preview-badge">Ativo</div>
+            <div class="preview-overlay"></div>
+            <iframe src="kayani.html" title="Kayani" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="p-7 flex flex-col flex-1">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Serviços</p>
+                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Kayani</h3>
+              </div>
+              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
+                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
+                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+              </span>
+            </div>
+            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
+              Layout moderno para negócio local. Estrutura voltada à captação de clientes e experiência mobile-first.
+            </p>
+            <div class="flex gap-2 mt-5 flex-wrap">
+              <span class="t-badge">HTML5</span>
+              <span class="t-badge">CSS3</span>
+              <span class="t-badge">JS</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4 — Jessica -->
+        <a href="jessica.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
+          <div class="preview-wrap">
+            <div class="preview-badge">Ativo</div>
+            <div class="preview-overlay"></div>
+            <iframe src="jessica.html" title="Jessica" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="p-7 flex flex-col flex-1">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Profissional Liberal</p>
+                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Jessica</h3>
+              </div>
+              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
+                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
+                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+              </span>
+            </div>
+            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
+              Presença digital elegante para profissional autônoma. Identidade visual única e seção de serviços otimizada.
+            </p>
+            <div class="flex gap-2 mt-5 flex-wrap">
+              <span class="t-badge">HTML5</span>
+              <span class="t-badge">CSS3</span>
+              <span class="t-badge">Responsivo</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══════════════ GALERIA / CARROSSEL ══════════════ -->
+  <section id="galeria" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="sr mb-14 max-w-2xl">
+        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-vio inline-block"></span> Galeria
+        </p>
+        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
+          Detalhes que<br>fazem a diferença.
+        </h2>
+        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
+          Cada pixel é pensado. Veja alguns momentos dos projetos entregues.
+        </p>
+      </div>
+
+      <!-- CARROSSEL ESTÁTICO -->
+      <div class="sr relative overflow-hidden rounded-2xl" id="carousel" style="height:480px;border:1px solid rgba(139,92,246,.15)">
+
+        <div class="car-track h-full" id="car-track">
+
+          <!-- Slide 1 -->
+          <div class="car-slide h-full">
+            <div class="w-full h-full flex items-center justify-center relative"
+                 style="background:linear-gradient(135deg,#0d0518 0%,#1a0a35 40%,#0f0820 100%)">
+              <!-- Mock UI elements -->
+              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#8b5cf6"></div>
+              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#8b5cf6"></div>
+              <div class="absolute bottom-16 left-12 right-24 h-32 rounded-lg opacity-8" style="background:#8b5cf6"></div>
+              <div class="text-center relative z-10">
+                <i class="fas fa-briefcase mb-4 block" style="font-size:3rem;color:#8b5cf6;opacity:.7"></i>
+                <p class="font-syne text-vio-l text-sm tracking-[.3em] uppercase" style="font-weight:600">Abiú Consultoria</p>
+                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Departamento Pessoal</p>
+              </div>
+            </div>
+            <div class="car-caption">
+              <p class="font-syne text-bright text-sm" style="font-weight:700">Abiú Consultoria</p>
+              <p class="font-dm text-muted text-xs mt-1">Layout institucional · Foco em credibilidade e conversão</p>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="car-slide h-full">
+            <div class="w-full h-full flex items-center justify-center relative"
+                 style="background:linear-gradient(135deg,#050e1a 0%,#091828 40%,#050e1a 100%)">
+              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#3b82f6"></div>
+              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#3b82f6"></div>
+              <div class="absolute bottom-16 left-16 right-16 h-28 rounded-lg opacity-8" style="background:#3b82f6"></div>
+              <div class="text-center relative z-10">
+                <i class="fas fa-calculator mb-4 block" style="font-size:3rem;color:#60a5fa;opacity:.7"></i>
+                <p class="font-syne text-blue-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Daniela Faria</p>
+                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Contabilidade</p>
+              </div>
+            </div>
+            <div class="car-caption">
+              <p class="font-syne text-bright text-sm" style="font-weight:700">Daniela Faria Contadora</p>
+              <p class="font-dm text-muted text-xs mt-1">Layout contábil · Autoridade e organização</p>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="car-slide h-full">
+            <div class="w-full h-full flex items-center justify-center relative"
+                 style="background:linear-gradient(135deg,#0a100a 0%,#0f1c0f 40%,#0a100a 100%)">
+              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#22c55e"></div>
+              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#22c55e"></div>
+              <div class="absolute bottom-16 left-20 right-20 h-24 rounded-lg opacity-8" style="background:#22c55e"></div>
+              <div class="text-center relative z-10">
+                <i class="fas fa-leaf mb-4 block" style="font-size:3rem;color:#4ade80;opacity:.7"></i>
+                <p class="font-syne text-green-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Kayani</p>
+                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Serviços</p>
+              </div>
+            </div>
+            <div class="car-caption">
+              <p class="font-syne text-bright text-sm" style="font-weight:700">Kayani</p>
+              <p class="font-dm text-muted text-xs mt-1">Layout de serviços · Mobile-first & captação</p>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="car-slide h-full">
+            <div class="w-full h-full flex items-center justify-center relative"
+                 style="background:linear-gradient(135deg,#12080f 0%,#1f0a18 40%,#12080f 100%)">
+              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#ec4899"></div>
+              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#ec4899"></div>
+              <div class="absolute bottom-16 left-14 right-14 h-28 rounded-lg opacity-8" style="background:#ec4899"></div>
+              <div class="text-center relative z-10">
+                <i class="fas fa-user-tie mb-4 block" style="font-size:3rem;color:#f472b6;opacity:.7"></i>
+                <p class="font-syne text-pink-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Jessica</p>
+                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Profissional Liberal</p>
+              </div>
+            </div>
+            <div class="car-caption">
+              <p class="font-syne text-bright text-sm" style="font-weight:700">Jessica</p>
+              <p class="font-dm text-muted text-xs mt-1">Layout pessoal · Elegância e autoridade</p>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="car-slide h-full">
+            <div class="w-full h-full flex items-center justify-center relative"
+                 style="background:linear-gradient(135deg,#10090a 0%,#1f1209 40%,#10090a 100%)">
+              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#f59e0b"></div>
+              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#f59e0b"></div>
+              <div class="absolute bottom-16 left-12 right-12 h-24 rounded-lg opacity-8" style="background:#f59e0b"></div>
+              <div class="text-center relative z-10">
+                <i class="fas fa-rocket mb-4 block" style="font-size:3rem;color:#fbbf24;opacity:.7"></i>
+                <p class="font-syne text-amber-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Próximo Projeto</p>
+                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Em desenvolvimento</p>
+              </div>
+            </div>
+            <div class="car-caption">
+              <p class="font-syne text-bright text-sm" style="font-weight:700">Seu projeto aqui</p>
+              <p class="font-dm text-muted text-xs mt-1">Entre em contato · Vamos construir juntos</p>
+            </div>
+          </div>
+
+        </div><!-- /track -->
+
+        <!-- Gradient sides -->
+        <div class="absolute inset-y-0 left-0 w-20 pointer-events-none z-10" style="background:linear-gradient(90deg,rgba(8,8,8,.6),transparent)"></div>
+        <div class="absolute inset-y-0 right-0 w-20 pointer-events-none z-10" style="background:linear-gradient(-90deg,rgba(8,8,8,.6),transparent)"></div>
+
+        <!-- Prev / Next -->
+        <button class="car-btn left-4" id="car-prev" aria-label="Anterior">
+          <i class="fas fa-chevron-left text-xs"></i>
+        </button>
+        <button class="car-btn right-4" id="car-next" aria-label="Próximo">
+          <i class="fas fa-chevron-right text-xs"></i>
+        </button>
+
+        <!-- Counter badge -->
+        <div class="absolute top-4 right-4 z-20 font-syne text-[.58rem] tracking-[.2em] text-vio-l rounded-full px-3 py-1.5 backdrop-blur-sm"
+             style="background:rgba(15,15,15,.8);border:1px solid rgba(139,92,246,.25);font-weight:600">
+          <span id="car-counter">01</span> / 05
+        </div>
+      </div>
+
+      <!-- Dots + caption -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-5 px-1">
+        <p class="font-dm text-muted text-xs tracking-[.15em] uppercase" id="car-caption-out">Abiú Consultoria · Departamento Pessoal</p>
+        <div class="flex items-center gap-2" id="car-dots">
+          <button class="car-dot on" data-i="0"></button>
+          <button class="car-dot" data-i="1"></button>
+          <button class="car-dot" data-i="2"></button>
+          <button class="car-dot" data-i="3"></button>
+          <button class="car-dot" data-i="4"></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══════════════ STACK ══════════════ -->
+  <section id="stack" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-28 items-center">
+
+      <div class="sr">
+        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-vio inline-block"></span> Tecnologia
+        </p>
+        <h2 class="font-syne text-bright leading-[1.05] mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
+          Tecnologia +<br>Design estratégico.
+        </h2>
+        <p class="font-dm text-muted leading-relaxed mb-10" style="font-weight:300">
+          Cada projeto é construído com as ferramentas certas para o objetivo certo. Performance, acessibilidade e conversão em primeiro lugar.
+        </p>
+
+        <!-- Feature list -->
+        <ul class="flex flex-col gap-4 list-none m-0 p-0">
+          <li class="flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+              <i class="fas fa-bolt text-vio text-xs"></i>
+            </span>
+            <div>
+              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Performance máxima</p>
+              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Carregamento otimizado, imagens comprimidas e código enxuto.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+              <i class="fas fa-mobile-alt text-vio text-xs"></i>
+            </span>
+            <div>
+              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Mobile-first sempre</p>
+              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Experiência perfeita em qualquer tela, do celular ao monitor ultrawide.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+              <i class="fas fa-chart-line text-vio text-xs"></i>
+            </span>
+            <div>
+              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Focado em conversão</p>
+              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Hierarquia visual e CTAs estrategicamente posicionados para gerar resultados.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tech grid -->
+      <div class="sr grid grid-cols-2 gap-3">
+        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card" style="">
+          <i class="fab fa-html5 text-2xl" style="color:#e34f26"></i>
+          <div>
+            <p class="font-syne text-bright text-sm" style="font-weight:700">HTML5</p>
+            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Semântico & acessível</p>
+          </div>
+        </div>
+        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
+          <i class="fab fa-css3-alt text-2xl" style="color:#1572b6"></i>
+          <div>
+            <p class="font-syne text-bright text-sm" style="font-weight:700">CSS3</p>
+            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Animações & layout</p>
+          </div>
+        </div>
+        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
+          <i class="fab fa-js text-2xl" style="color:#f7df1e"></i>
+          <div>
+            <p class="font-syne text-bright text-sm" style="font-weight:700">JavaScript</p>
+            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Interatividade</p>
+          </div>
+        </div>
+        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
+          <i class="fas fa-wind text-2xl text-sky-400"></i>
+          <div>
+            <p class="font-syne text-bright text-sm" style="font-weight:700">Tailwind CSS</p>
+            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Utility-first</p>
+          </div>
+        </div>
+        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card col-span-2">
+          <i class="fas fa-mobile-alt text-2xl text-vio"></i>
+          <div>
+            <p class="font-syne text-bright text-sm" style="font-weight:700">100% Responsivo</p>
+            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Funciona em todos os dispositivos sem exceção</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══════════════ CONTATO / CTA ══════════════ -->
+  <section id="contato" class="relative z-10 py-24 md:py-36 px-6 md:px-14 grid-bg">
+    <div class="max-w-3xl mx-auto text-center sr">
+
+      <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-5 flex items-center justify-center gap-3">
+        <span class="w-8 h-px bg-vio inline-block"></span> Contato
+        <span class="w-8 h-px bg-vio inline-block"></span>
+      </p>
+
+      <h2 class="font-syne text-bright leading-[1.0] mb-6" style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-.04em">
+        Pronto para<br>elevar sua marca?
+      </h2>
+
+      <p class="font-dm text-muted leading-relaxed mb-12 mx-auto max-w-md" style="font-weight:300;font-size:1.05rem">
+        Vamos conversar sobre o seu projeto. Resposta rápida, orçamento sem compromisso e entrega com excelência.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
+           target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full no-underline transition-all duration-300 hover:scale-105 active:scale-95"
+           style="background:#25d366;color:#000;font-weight:700;box-shadow:0 0 40px rgba(37,211,102,.25)">
+          <i class="fab fa-whatsapp text-base"></i> Falar no WhatsApp
+        </a>
+        <a href="https://www.instagram.com/edivanfigueiredobraga/"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full border no-underline transition-all duration-300 hover:bg-vio/10"
+           style="border-color:rgba(139,92,246,.35);color:#a78bfa;font-weight:700">
+          <i class="fab fa-instagram text-base"></i> Instagram
+        </a>
+      </div>
+
+      <!-- Info strip -->
+      <div class="flex flex-wrap justify-center gap-10 pt-10 border-t" style="border-color:rgba(139,92,246,.12)">
+        <div class="flex items-center gap-3 text-muted">
+          <i class="fas fa-clock text-vio text-sm"></i>
+          <span class="font-dm text-sm" style="font-weight:300">Resposta em até 2h</span>
+        </div>
+        <div class="flex items-center gap-3 text-muted">
+          <i class="fas fa-map-marker-alt text-vio text-sm"></i>
+          <span class="font-dm text-sm" style="font-weight:300">Jequié, Bahia — Atendo online</span>
+        </div>
+        <div class="flex items-center gap-3 text-muted">
+          <i class="fas fa-shield-alt text-vio text-sm"></i>
+          <span class="font-dm text-sm" style="font-weight:300">Pagamento seguro</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="relative z-10 py-10 px-6 md:px-14 border-t" style="border-color:rgba(139,92,246,.1)">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
+          <i class="fas fa-code text-vio" style="font-size:.6rem"></i>
+        </div>
+        <span class="font-syne text-bright text-sm" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
+      </div>
+
+      <p class="font-dm text-dim text-xs tracking-[.1em] text-center" style="font-weight:300">
+        © 2025 BRAGGA DEV · Desenvolvimento web de alto nível<br class="md:hidden"> · Jequié, Bahia
+      </p>
+
+      <div class="flex gap-5">
+        <a href="https://wa.me/5573981683277" target="_blank" class="text-dim hover:text-vio-l transition-colors text-sm no-underline">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://instagram.com/bragga.dev" target="_blank" class="text-dim hover:text-vio-l transition-colors text-sm no-underline">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
   </footer>
-</div>
 
-<!-- Ícone do WhatsApp Flutuante - NÚMERO 73981683277 -->
-<a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20saber%20mais%20sobre%20os%20layouts." 
-   class="whatsapp-float" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   aria-label="Fale conosco no WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
+     target="_blank" rel="noopener" aria-label="WhatsApp"
+     class="wa-float fixed bottom-7 right-7 z-[200] w-14 h-14 rounded-full flex items-center justify-center no-underline transition-all duration-300 hover:scale-110 group"
+     style="background:#25d366">
+    <div class="absolute right-16 font-dm text-[.7rem] tracking-[.05em] whitespace-nowrap px-4 py-2 rounded-full opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden md:block"
+         style="background:#1a1a1a;border:1px solid rgba(37,211,102,.35);color:#fff;font-weight:500">
+      Fale conosco
+    </div>
+    <i class="fab fa-whatsapp text-white text-2xl"></i>
+  </a>
 
-<script>
-  (function() {
-    // Função para mostrar modal informativo quando layout não estiver disponível
-    function showLayoutInfo(title, description, iconClass, isLanding = false) {
-      const modalOverlay = document.createElement('div');
-      modalOverlay.style.position = 'fixed';
-      modalOverlay.style.top = '0';
-      modalOverlay.style.left = '0';
-      modalOverlay.style.width = '100%';
-      modalOverlay.style.height = '100%';
-      modalOverlay.style.backgroundColor = 'rgba(0,0,0,0.92)';
-      modalOverlay.style.backdropFilter = 'blur(12px)';
-      modalOverlay.style.zIndex = '10001';
-      modalOverlay.style.display = 'flex';
-      modalOverlay.style.alignItems = 'center';
-      modalOverlay.style.justifyContent = 'center';
-      modalOverlay.style.fontFamily = "'Inter', system-ui, sans-serif";
-      
-      const modalCard = document.createElement('div');
-      modalCard.style.maxWidth = '500px';
-      modalCard.style.width = '90%';
-      modalCard.style.backgroundColor = '#0c0c0c';
-      modalCard.style.borderRadius = '2rem';
-      modalCard.style.border = '1px solid #a855f7';
-      modalCard.style.padding = '2rem';
-      modalCard.style.boxShadow = '0 25px 40px rgba(0,0,0,0.6)';
-      modalCard.style.textAlign = 'center';
-      modalCard.style.color = '#f0f0f0';
-      
-      const whatsappNumber = "5573981683277";
-      const whatsappLink = `https://wa.me/${whatsappNumber}?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20layout%20"${encodeURIComponent(title)}"`;
-      
-      modalCard.innerHTML = `
-        <div style="font-size: 3rem; margin-bottom: 1rem; color: #a855f7;">
-          <i class="${iconClass}"></i>
-        </div>
-        <h2 style="font-size: 1.9rem; margin-bottom: 0.5rem; font-weight: 700; background: linear-gradient(135deg,#fff,#c084fc); -webkit-background-clip:text; background-clip:text; color:transparent;">${title}</h2>
-        <p style="margin: 1rem 0 0.8rem; line-height:1.5; color:#bcbcbc;">${description}</p>
-        <div style="margin: 1.5rem 0; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-          <span style="background:#1f1f1f; padding:6px 14px; border-radius:30px; font-size:0.8rem; border-left:3px solid #a855f7;"><i class="fas fa-palette"></i> Roxo/Preto</span>
-          <span style="background:#1f1f1f; padding:6px 14px; border-radius:30px; font-size:0.8rem;"><i class="fas fa-code"></i> HTML5 + CSS3</span>
-          <span style="background:#1f1f1f; padding:6px 14px; border-radius:30px; font-size:0.8rem;"><i class="fas fa-mobile"></i> Responsivo</span>
-        </div>
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 1rem;">
-          <button id="closeModalBtn" style="background:#a855f7; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; color:#000; cursor:pointer; transition:0.2s;"><i class="fas fa-check-circle"></i> Entendi</button>
-          <a href="${whatsappLink}" target="_blank" style="background:#25D366; border:none; padding:12px 24px; border-radius:40px; font-weight:bold; color:#000; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:0.2s;"><i class="fab fa-whatsapp"></i> Solicitar via WhatsApp</a>
-        </div>
-        <p style="font-size:0.75rem; margin-top:1.2rem; color:#7e7e7e;">* Este layout está em desenvolvimento. Entre em contato para implementação personalizada e exclusiva.</p>
-      `;
-      
-      modalOverlay.appendChild(modalCard);
-      document.body.appendChild(modalOverlay);
-      document.body.style.overflow = 'hidden';
-      
-      const closeBtn = modalCard.querySelector('#closeModalBtn');
-      closeBtn.addEventListener('click', () => {
-        modalOverlay.remove();
-        document.body.style.overflow = '';
+  <script>
+    // ── MOBILE MENU ──────────────────────────────────────────
+    const mbtn   = document.getElementById('mbtn');
+    const drawer = document.getElementById('drawer');
+    const dpanel = document.getElementById('dpanel');
+    const mb1=document.getElementById('mb1'),mb2=document.getElementById('mb2'),mb3=document.getElementById('mb3');
+    let mOpen = false;
+
+    function toggleMenu() {
+      mOpen = !mOpen;
+      dpanel.style.transform   = mOpen ? 'translateX(0)' : 'translateX(100%)';
+      drawer.style.background  = mOpen ? 'rgba(0,0,0,.6)' : 'transparent';
+      drawer.style.pointerEvents = mOpen ? 'all' : 'none';
+      document.body.style.overflow = mOpen ? 'hidden' : '';
+      // Hamburger → X
+      mb1.style.transform = mOpen ? 'translateY(7px) rotate(45deg)'  : '';
+      mb2.style.opacity   = mOpen ? '0' : '1';
+      mb3.style.transform = mOpen ? 'translateY(-7px) rotate(-45deg)' : '';
+    }
+
+    mbtn.addEventListener('click', toggleMenu);
+    drawer.addEventListener('click', e => { if(e.target===drawer) toggleMenu(); });
+    document.querySelectorAll('.mlink').forEach(l => l.addEventListener('click', () => { if(mOpen) toggleMenu(); }));
+
+    // ── SCROLL REVEAL ────────────────────────────────────────
+    const srObs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 70);
       });
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-          modalOverlay.remove();
-          document.body.style.overflow = '';
-        }
+    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.sr').forEach(el => srObs.observe(el));
+
+    // ── SMOOTH SCROLL ────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = a.getAttribute('href');
+        if(t && t !== '#') { e.preventDefault(); document.querySelector(t)?.scrollIntoView({ behavior:'smooth' }); }
       });
+    });
+
+    // ── CAROUSEL ─────────────────────────────────────────────
+    const captions = [
+      'Abiú Consultoria · Departamento Pessoal',
+      'Daniela Faria · Contabilidade & Gestão',
+      'Kayani · Layout de Serviços',
+      'Jessica · Profissional Liberal',
+      'Próximo projeto · Entre em contato'
+    ];
+
+    let cur = 0, total = 5, autoT;
+    const track    = document.getElementById('car-track');
+    const counter  = document.getElementById('car-counter');
+    const capOut   = document.getElementById('car-caption-out');
+    const dots     = [...document.querySelectorAll('.car-dot')];
+
+    function goTo(n) {
+      cur = ((n % total) + total) % total;
+      track.style.transform = `translateX(-${cur * 100}%)`;
+      counter.textContent   = String(cur + 1).padStart(2,'0');
+      capOut.textContent    = captions[cur];
+      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
     }
 
-    // Verificar se os arquivos existem antes de navegar
-    async function checkAndNavigate(url, title, description, iconClass) {
-      try {
-        const response = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
-        if (response.ok) {
-          window.location.href = url;
-        } else {
-          showLayoutInfo(title, description, iconClass);
-        }
-      } catch (err) {
-        showLayoutInfo(title, description, iconClass);
-      }
-    }
+    function startAuto() { autoT = setInterval(() => goTo(cur + 1), 4500); }
+    function resetAuto() { clearInterval(autoT); startAuto(); }
 
-    // Configurar cards para navegação inteligente
-    const cardAbiu = document.getElementById('cardAbiu');
-    if (cardAbiu) {
-      cardAbiu.addEventListener('click', (e) => {
-        e.preventDefault();
-        checkAndNavigate('abiu.html', 
-          'Abiú Consultoria', 
-          'Layout profissional para consultoria em departamento pessoal com design moderno e foco em conversão.',
-          'fas fa-chart-line');
-      });
-    }
+    document.getElementById('car-prev').addEventListener('click', () => { goTo(cur - 1); resetAuto(); });
+    document.getElementById('car-next').addEventListener('click', () => { goTo(cur + 1); resetAuto(); });
+    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetAuto(); }));
 
-    const cardDani = document.getElementById('cardDani');
-    if (cardDani) {
-      cardDani.addEventListener('click', (e) => {
-        e.preventDefault();
-        checkAndNavigate('dani.html',
-          'Daniela Faria Contadora',
-          'Layout contábil completo com áreas de serviço, depoimentos e seção de contato integrada.',
-          'fas fa-calculator');
-      });
-    }
+    // Touch/swipe
+    let sx = 0;
+    const car = document.getElementById('carousel');
+    car.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive:true });
+    car.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) { goTo(cur + (dx < 0 ? 1 : -1)); resetAuto(); }
+    });
 
-    const cardLanding = document.getElementById('cardLanding');
-    const btnLanding = document.getElementById('btnLanding');
-    
-    const handleLandingClick = (e) => {
-      e.preventDefault();
-      showLayoutInfo(
-        'Landing Page Moderna',
-        'Layout contemporâneo com animações suaves, seções otimizadas para conversão e design responsivo de alta performance. Ideal para campanhas de marketing digital.',
-        'fas fa-rocket'
-      );
-    };
-    
-    if (cardLanding) {
-      cardLanding.addEventListener('click', handleLandingClick);
-    }
-    if (btnLanding) {
-      btnLanding.addEventListener('click', handleLandingClick);
-    }
+    startAuto();
 
-    // Adicionar lazy loading para iframes e melhorar performance
-    const iframes = document.querySelectorAll('iframe');
+    // ── IFRAME LAZY LOAD ─────────────────────────────────────
     if ('IntersectionObserver' in window) {
-      const iframeObserver = new IntersectionObserver((entries, observer) => {
+      const iObs = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const iframe = entry.target;
             const src = iframe.getAttribute('src');
-            if (src && iframe.getAttribute('data-loaded') !== 'true') {
-              iframe.setAttribute('data-loaded', 'true');
-              // Recarregar o iframe quando visível para garantir renderização correta
+            if (src && !iframe.getAttribute('data-loaded')) {
+              iframe.setAttribute('data-loaded','1');
               iframe.src = src;
             }
-            observer.unobserve(iframe);
+            obs.unobserve(iframe);
           }
         });
       });
-      iframes.forEach(iframe => iframeObserver.observe(iframe));
+      document.querySelectorAll('iframe').forEach(f => iObs.observe(f));
     }
-  })();
-</script>
-
-<!-- CSS adicional para garantir que os iframes sejam responsivos e não quebrem o layout -->
-<style>
-  .iframe-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: white;
-  }
-  /* Garantir que os cards tenham altura consistente */
-  .layout-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  .card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .btn-layout {
-    margin-top: auto;
-    align-self: flex-start;
-  }
-  /* Scroll suave para toda a página */
-  html {
-    scroll-behavior: smooth;
-  }
-  /* Melhorar acessibilidade do botão WhatsApp */
-  .whatsapp-float:focus-visible {
-    outline: 3px solid #25D366;
-    outline-offset: 2px;
-  }
-</style>
+  </script>
 </body>
 </html>
