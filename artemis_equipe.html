@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espaço Ártemis — Nossa Equipe · Tatuagem · Piercing · Fisioterapia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#c9a84c",
+            "gold-light": "#e8c97a",
+            "gold-dim": "#8a6e30",
+            dark: "#111111",
+            dark2: "#1a1a1a",
+            dark3: "#222222",
+            cream: "#ede8de",
+            "red-artemis": "#8b1a1a",
+            "text-muted": "#888888",
+          },
+          fontFamily: {
+            cormorant: ["Cormorant Garamond", "serif"],
+            bebas: ["Bebas Neue", "sans-serif"],
+            josefin: ["Josefin Sans", "sans-serif"],
+          },
+          animation: {
+            float: "floatArcher 6s ease-in-out infinite",
+            "scroll-bounce": "scrollBounce 2s ease infinite",
+            "hero-reveal": "heroReveal 1.2s ease both",
+            "card-float": "cardFloat 0.6s ease forwards",
+            "avatar-glow": "avatarGlow 3s ease-in-out infinite",
+          },
+          keyframes: {
+            floatArcher: {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-12px)" },
+            },
+            scrollBounce: {
+              "0%, 100%": { transform: "translateX(-50%) translateY(0)" },
+              "50%": { transform: "translateX(-50%) translateY(6px)" },
+            },
+            heroReveal: {
+              from: { opacity: "0", transform: "translateY(30px)" },
+              to: { opacity: "1", transform: "translateY(0)" },
+            },
+            cardFloat: {
+              from: { opacity: "0", transform: "translateY(30px)" },
+              to: { opacity: "1", transform: "translateY(0)" },
+            },
+            avatarGlow: {
+              "0%, 100%": { boxShadow: "0 0 0 0 rgba(201,168,76,0.3)" },
+              "50%": { boxShadow: "0 0 0 12px rgba(201,168,76,0)" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #c9a84c; }
+    body { overflow-x: hidden; background-color: #0a0a0a; }
+
+    .hero-noise {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open { transform: translateX(0); }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: #c9a84c;
+      transition: all 0.35s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .team-card {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+    }
+    .team-card:hover .team-overlay {
+      opacity: 1;
+    }
+    .team-overlay {
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%);
+    }
+    
+    .skill-badge {
+      transition: all 0.2s;
+    }
+    .skill-badge:hover {
+      background: #c9a84c;
+      color: #0a0a0a;
+      border-color: #c9a84c;
+    }
+
+    .timeline-dot {
+      transition: all 0.3s;
+    }
+    .timeline-item:hover .timeline-dot {
+      background: #c9a84c;
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.2);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .nav-logo-svg {
+      width: 32px; height: 32px; flex-shrink: 0;
+    }
+
+    .avatar-placeholder {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-placeholder::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    }
+
+    @media (max-width: 768px) {
+      .hero-line-dec { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-josefin font-light overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-6 md:px-16 py-4 bg-gradient-to-b from-[#0a0a0a]/97 to-transparent backdrop-blur-sm">
+    <a href="index.html" class="flex items-center gap-3 no-underline group">
+      <svg class="nav-logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/>
+        <path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+        <line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+        <polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/>
+      </svg>
+      <div class="font-cormorant text-sm font-light tracking-[0.3em] uppercase text-gold leading-none">
+        Espaço <span class="italic text-white">Ártemis</span>
+      </div>
+    </a>
+
+    <ul class="hidden md:flex gap-10 list-none">
+      <li><a href="space-artemis.html#inicio" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Início</a></li>
+      <li><a href="space-artemis.html#sobre" class="nav-link text-xs tracking-[0.2em] uppercase text-gold transition-all duration-300">Sobre</a></li>
+      <li><a href="space-artemis.html#servicos" class="nav-link text-xs tracking-[0.2em] uppercase text-gold transition-all duration-300">Serviços</a></li>
+      <li><a href="artemis_equipe.html" class="nav-link text-xs tracking-[0.2em] uppercase text-gold transition-all duration-300">Equipe</a></li>
+      <li><a href="artemis_portifolio.html" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Portifólio</a></li>
+      <li><a href="space-artemis.html#avaliacoes" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Valores</a></li>
+      <li><a href="space-artemis.html#contato" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Contato</a></li>
+    </ul>
+
+    <a class="hidden md:block text-[0.65rem] tracking-[0.2em] uppercase text-black bg-gold px-5 py-2.5 hover:bg-gold-light transition-all duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar</a>
+
+    <button id="hamburger" class="hamburger md:hidden flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-2 -mr-2" aria-label="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 z-[99] w-[80vw] max-w-[320px] bg-[#0a0a0a] border-l border-gold/15 flex flex-col pt-24 pb-10 px-8">
+    <ul class="flex flex-col gap-1 list-none flex-1">
+      <li><a href="space-artemis.html" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Início</a></li>
+      <li><a href="space-artemis.html#sobre" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-gold border-b border-white/5 transition-colors">Sobre</a></li>
+      <li><a href="space-artemis.html#servicos" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Serviços</a></li>
+      <li><a href="artemis_equipe.html" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Equipe</a></li>
+      <li><a href="artemis_portifolio.html" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Portifólio</a></li>
+      <li><a href="space-artemis.html#avaliacoes" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold transition-colors">Avaliações</a></li>
+      <li><a href="space-artemis.html#contato" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold transition-colors">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5573999999999" target="_blank" class="w-full py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase text-center hover:bg-gold-light transition-all duration-300 flex items-center justify-center gap-2">
+      <i class="fab fa-whatsapp"></i> Agendar agora
+    </a>
+    <p class="text-[0.55rem] tracking-[0.2em] text-text-muted text-center mt-6 uppercase">Jequié, Bahia — BA</p>
+  </div>
+  <div id="menu-overlay" class="fixed inset-0 z-[98] bg-black/60 backdrop-blur-sm hidden"></div>
+
+  <!-- HERO EQUIPE -->
+  <section id="inicio" class="relative min-h-[55vh] flex items-center justify-center overflow-hidden pt-28">
+    <div class="absolute inset-0 bg-black">
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);"></div>
+    </div>
+    <div class="hero-noise"></div>
+    <div class="relative z-10 text-center px-8 animate-hero-reveal">
+      <div class="text-[0.65rem] tracking-[0.5em] uppercase text-gold mb-6 flex items-center justify-center gap-4">
+        <span class="block w-10 h-px bg-gold-dim"></span>
+        Os profissionais
+        <span class="block w-10 h-px bg-gold-dim"></span>
+      </div>
+      <h1 class="font-bebas text-[clamp(3.5rem,10vw,7rem)] leading-[0.9] tracking-[0.04em] text-white">
+        Nossa <em class="text-gold">Equipe</em>
+      </h1>
+      <p class="mt-6 text-[0.7rem] tracking-[0.3em] uppercase text-text-muted max-w-2xl mx-auto">
+        Talentos apaixonados que transformam arte, segurança e bem-estar em experiências únicas.
+      </p>
+    </div>
+    <a class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[0.5rem] tracking-[0.4em] uppercase text-text-muted no-underline animate-scroll-bounce" href="#equipe">
+      scroll
+      <span class="block w-px h-8 bg-gradient-to-b from-gold-dim to-transparent"></span>
+    </a>
+  </section>
+
+  <!-- SEÇÃO EQUIPE PRINCIPAL -->
+  <section id="equipe" class="py-20 md:py-28 px-6 md:px-16 bg-dark">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Conheça quem faz acontecer</span>
+        <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">Mestres da <em class="italic text-gold">Arte e Cuidado</em></h2>
+        <div class="w-20 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-6 mb-5"></div>
+        <p class="text-text-muted text-sm max-w-2xl mx-auto">Dois pilares, uma missão: entregar excelência com alma, técnica e segurança.</p>
+      </div>
+
+      <!-- Cards da equipe - 2 profissionais principais -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+        
+        <!-- Marcon Santtana - Tatuador -->
+        <div class="team-card bg-dark2 rounded-sm overflow-hidden border border-gold/10 hover:border-gold/30 transition-all duration-300 fade-in">
+          <div class="relative">
+            <div class="aspect-[4/3] avatar-placeholder w-full flex items-center justify-center">
+              <div class="text-center">
+                <i class="fas fa-paintbrush text-7xl text-gold/20 mb-3"></i>
+                <div class="text-gold text-sm tracking-wider uppercase">Artista residente</div>
+              </div>
+            </div>
+            <div class="team-overlay absolute inset-0 flex items-center justify-center">
+              <div class="text-center p-8">
+                <i class="fas fa-star text-gold text-2xl mb-2"></i>
+                <p class="text-white text-xs tracking-wider">+8 anos de experiência</p>
+                <p class="text-gold text-xs mt-2">Centenas de artes exclusivas</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-8 md:p-10">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-cormorant text-3xl font-light text-white">Marcon <span class="text-gold">Santtana</span></h3>
+                <p class="text-[0.6rem] tracking-[0.3em] uppercase text-gold mt-1">Tatuador · Artista Visual · Professor</p>
+              </div>
+              <div class="flex gap-2">
+                <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fab fa-instagram text-sm"></i></a>
+                <a href="https://wa.me/5573999999999" target="_blank" class="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fab fa-whatsapp text-sm"></i></a>
+              </div>
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed mb-6">Especialista em Black-Work, traços marcantes, rastelado e estilo mangá/quadrinhos. Cada arte é criada e digitalizada exclusivamente para você — sem cópias, com alma e técnica apurada.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Black-Work</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Traços Finos</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Rastelado</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Mangá/Quadrinhos</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Professor de Tatuagem</span>
+            </div>
+            <div class="pt-4 border-t border-gold/10 flex justify-between items-center">
+              <div class="flex items-center gap-2 text-[0.6rem] text-text-muted">
+                <i class="fas fa-clock text-gold-dim"></i>
+                <span>Atendimento: Seg–Sáb</span>
+              </div>
+              <a href="https://wa.me/5573999999999" class="text-[0.6rem] tracking-[0.2em] uppercase text-gold hover:text-gold-light transition-colors">Ver portfólio →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Giulia - Fisioterapeuta & Piercer -->
+        <div class="team-card bg-dark2 rounded-sm overflow-hidden border border-gold/10 hover:border-gold/30 transition-all duration-300 fade-in">
+          <div class="relative">
+            <div class="aspect-[4/3] avatar-placeholder w-full flex items-center justify-center">
+              <div class="text-center">
+                <i class="fas fa-hand-holding-heart text-7xl text-gold/20 mb-3"></i>
+                <div class="text-gold text-sm tracking-wider uppercase">Saúde & Segurança</div>
+              </div>
+            </div>
+            <div class="team-overlay absolute inset-0 flex items-center justify-center">
+              <div class="text-center p-8">
+                <i class="fas fa-shield-alt text-gold text-2xl mb-2"></i>
+                <p class="text-white text-xs tracking-wider">1ª Safe Piercer da cidade</p>
+                <p class="text-gold text-xs mt-2">Fisioterapeuta UESB</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-8 md:p-10">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-cormorant text-3xl font-light text-white">Giulia <span class="text-gold">Marcon</span></h3>
+                <p class="text-[0.6rem] tracking-[0.3em] uppercase text-gold mt-1">Fisioterapeuta · Safe Piercer</p>
+              </div>
+              <div class="flex gap-2">
+                <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fab fa-instagram text-sm"></i></a>
+                <a href="https://wa.me/5573999999999" target="_blank" class="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fab fa-whatsapp text-sm"></i></a>
+              </div>
+            </div>
+            <p class="text-white/60 text-sm leading-relaxed mb-6">Fisioterapeuta formada pela UESB e pioneira como Safe Piercer na cidade. Une conhecimento científico e técnica apurada para oferecer procedimentos 100% seguros, com materiais esterilizados em autoclave e joias biocompatíveis.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Safe Piercer</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Fisioterapia Clínica</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Atendimento Domiciliar</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Joias Grau Implante</span>
+              <span class="skill-badge text-[0.55rem] tracking-[0.2em] uppercase border border-gold/30 text-text-muted px-3 py-1.5 rounded-full">Autoclave</span>
+            </div>
+            <div class="pt-4 border-t border-gold/10 flex justify-between items-center">
+              <div class="flex items-center gap-2 text-[0.6rem] text-text-muted">
+                <i class="fas fa-calendar-alt text-gold-dim"></i>
+                <span>Mediante agendamento</span>
+              </div>
+              <a href="https://wa.me/5573999999999" class="text-[0.6rem] tracking-[0.2em] uppercase text-gold hover:text-gold-light transition-colors">Agendar avaliação →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO HISTÓRIA / TIMELINE -->
+  <section id="historia" class="py-20 md:py-28 px-6 md:px-16 bg-black">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Trajetória</span>
+        <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">A história por trás <em class="italic text-gold">da equipe</em></h2>
+        <div class="w-20 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-6 mb-5"></div>
+      </div>
+
+      <div class="space-y-8">
+        <div class="timeline-item flex gap-6 fade-in">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot w-4 h-4 rounded-full bg-gold-dim border-2 border-gold/30"></div>
+            <div class="w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
+          </div>
+          <div class="pb-8">
+            <div class="text-gold text-[0.6rem] tracking-[0.3em] mb-2">2016 — O começo</div>
+            <p class="text-white/70 text-sm leading-relaxed">Marcon inicia sua jornada como tatuador autodidata, desenvolvendo um estilo único que mescla traços fortes e referências da cultura geek e mangá.</p>
+          </div>
+        </div>
+        <div class="timeline-item flex gap-6 fade-in">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot w-4 h-4 rounded-full bg-gold-dim border-2 border-gold/30"></div>
+            <div class="w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
+          </div>
+          <div class="pb-8">
+            <div class="text-gold text-[0.6rem] tracking-[0.3em] mb-2">2019 — Primeiro estúdio</div>
+            <p class="text-white/70 text-sm leading-relaxed">Inauguração do Espaço Ártemis (inicialmente focado em tatuagem e piercings). Giulia já atuava como piercing profissional com foco em biossegurança.</p>
+          </div>
+        </div>
+        <div class="timeline-item flex gap-6 fade-in">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot w-4 h-4 rounded-full bg-gold-dim border-2 border-gold/30"></div>
+            <div class="w-px h-full bg-gradient-to-b from-gold/30 to-transparent"></div>
+          </div>
+          <div class="pb-8">
+            <div class="text-gold text-[0.6rem] tracking-[0.3em] mb-2">2022 — Formatura e certificação</div>
+            <p class="text-white/70 text-sm leading-relaxed">Giulia se forma em Fisioterapia pela UESB e se torna a primeira Safe Piercer certificada de Jequié, elevando o padrão de segurança do estúdio.</p>
+          </div>
+        </div>
+        <div class="timeline-item flex gap-6 fade-in">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot w-4 h-4 rounded-full bg-gold border-2 border-gold/50"></div>
+          </div>
+          <div class="pb-0">
+            <div class="text-gold text-[0.6rem] tracking-[0.3em] mb-2">2024 — Hoje</div>
+            <p class="text-white/70 text-sm leading-relaxed">Espaço Ártemis consolida-se como referência em arte corporal, fisioterapia e bem-estar, unindo estética e saúde em um só lugar com atendimento humanizado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO VALORES E FILOSOFIA -->
+  <section id="valores" class="py-20 md:py-28 px-6 md:px-16 bg-dark">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Nossa essência</span>
+        <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">O que nos <em class="italic text-gold">move</em></h2>
+        <div class="w-20 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-6 mb-5"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-[2px]">
+        <div class="bg-dark2 p-10 text-center hover:bg-black transition-colors duration-300 fade-in">
+          <div class="w-16 h-16 rounded-full border border-gold/30 flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-shield-alt text-2xl text-gold"></i>
+          </div>
+          <h3 class="font-cormorant text-xl text-white mb-3">Segurança acima de tudo</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Materiais 100% descartáveis, esterilização em autoclave e joias biocompatíveis com laudo. Não abrimos mão da sua saúde.</p>
+        </div>
+        <div class="bg-dark2 p-10 text-center hover:bg-black transition-colors duration-300 fade-in">
+          <div class="w-16 h-16 rounded-full border border-gold/30 flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-palette text-2xl text-gold"></i>
+          </div>
+          <h3 class="font-cormorant text-xl text-white mb-3">Arte exclusiva</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Cada tatuagem é desenhada do zero para você. Nada de cópias — criamos algo único que carrega sua personalidade.</p>
+        </div>
+        <div class="bg-dark2 p-10 text-center hover:bg-black transition-colors duration-300 fade-in">
+          <div class="w-16 h-16 rounded-full border border-gold/30 flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-heart text-2xl text-gold"></i>
+          </div>
+          <h3 class="font-cormorant text-xl text-white mb-3">Cuidado humanizado</h3>
+          <p class="text-text-muted text-sm leading-relaxed">Do primeiro contato ao pós-procedimento. Acompanhamos sua cicatrização por até 8 meses e estamos sempre disponíveis.</p>
+        </div>
+      </div>
+
+      <!-- Citação inspiradora -->
+      <div class="mt-16 text-center fade-in">
+        <div class="inline-block border-l-2 border-gold pl-6 py-2">
+          <p class="font-cormorant text-xl italic text-white/70 max-w-2xl mx-auto">"Somos mais que profissionais — somos guardiões da sua confiança. Cada traço, cada piercing, cada sessão de fisioterapia é um compromisso com a excelência."</p>
+          <p class="text-gold text-sm tracking-wider mt-4">— Marcon & Giulia</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO CHAMADA PARA AÇÃO -->
+  <section id="contato" class="py-20 md:py-24 px-6 md:px-16 bg-gradient-to-br from-dark2 to-black">
+    <div class="max-w-4xl mx-auto text-center fade-in">
+      <i class="fas fa-handshake text-5xl text-gold mb-6"></i>
+      <h2 class="font-cormorant text-3xl md:text-4xl font-light text-white">Agende sua <em class="italic text-gold">experiência</em></h2>
+      <p class="text-text-muted mt-4 mb-8 text-sm">Escolha o profissional e o serviço — estamos prontos para realizar sua ideia ou cuidar da sua saúde.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="https://wa.me/5573999999999" class="inline-flex items-center gap-3 px-8 py-4 bg-gold text-black text-[0.7rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all"><i class="fab fa-whatsapp"></i> Falar com Marcon</a>
+        <a href="https://wa.me/5573999999999" class="inline-flex items-center gap-3 px-8 py-4 border border-gold/50 text-gold text-[0.7rem] tracking-[0.3em] uppercase hover:bg-gold/10 transition-all"><i class="fas fa-leaf"></i> Falar com Giulia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark py-12 px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gold/10">
+    <div class="flex items-center gap-3">
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+        <path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/>
+        <path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5"/>
+        <polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/>
+      </svg>
+      <div class="font-cormorant text-lg font-light tracking-[0.2em] uppercase text-gold">Espaço <span class="italic text-white">Ártemis</span></div>
+    </div>
+    <div class="text-[0.55rem] tracking-[0.15em] text-text-muted text-center">© 2025 Espaço Ártemis · Tatuagem · Piercing · Fisioterapia · Jequié, BA</div>
+    <div class="flex gap-5">
+      <a class="text-text-muted text-[0.6rem] tracking-[0.2em] hover:text-gold" href="https://instagram.com" target="_blank"><i class="fab fa-instagram mr-1"></i> Instagram</a>
+      <a class="text-text-muted text-[0.6rem] tracking-[0.2em] hover:text-gold" href="https://wa.me/5573999999999" target="_blank"><i class="fab fa-whatsapp mr-1"></i> WhatsApp</a>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a class="fixed bottom-8 right-8 z-[200] w-[52px] h-[52px] bg-[#25d366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 group" href="https://wa.me/5573999999999" target="_blank">
+    <i class="fab fa-whatsapp text-2xl text-white"></i>
+  </a>
+
+  <script>
+    // MOBILE MENU
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('menu-overlay');
+    function openMenu() { hamburger.classList.add('open'); mobileMenu.classList.add('open'); overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); overlay.classList.add('hidden'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
+    overlay.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    // FADE-IN ON SCROLL
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', e => { const href = a.getAttribute('href'); if(href && href !== '#') { e.preventDefault(); const target = document.querySelector(href); if(target) target.scrollIntoView({ behavior: 'smooth' }); } }); });
+  </script>
+</body>
+</html>
