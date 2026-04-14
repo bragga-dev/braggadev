@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espaço Ártemis — Portfólio · Tatuagem · Piercing · Fisioterapia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#c9a84c",
+            "gold-light": "#e8c97a",
+            "gold-dim": "#8a6e30",
+            dark: "#111111",
+            dark2: "#1a1a1a",
+            dark3: "#222222",
+            cream: "#ede8de",
+            "red-artemis": "#8b1a1a",
+            "text-muted": "#888888",
+          },
+          fontFamily: {
+            cormorant: ["Cormorant Garamond", "serif"],
+            bebas: ["Bebas Neue", "sans-serif"],
+            josefin: ["Josefin Sans", "sans-serif"],
+          },
+          animation: {
+            float: "floatArcher 6s ease-in-out infinite",
+            "scroll-bounce": "scrollBounce 2s ease infinite",
+            "hero-reveal": "heroReveal 1.2s ease both",
+            "gallery-fade": "galleryFade 0.6s ease forwards",
+          },
+          keyframes: {
+            floatArcher: {
+              "0%, 100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-12px)" },
+            },
+            scrollBounce: {
+              "0%, 100%": { transform: "translateX(-50%) translateY(0)" },
+              "50%": { transform: "translateX(-50%) translateY(6px)" },
+            },
+            heroReveal: {
+              from: { opacity: "0", transform: "translateY(30px)" },
+              to: { opacity: "1", transform: "translateY(0)" },
+            },
+            galleryFade: {
+              from: { opacity: "0", transform: "scale(0.96)" },
+              to: { opacity: "1", transform: "scale(1)" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #c9a84c; }
+    body { overflow-x: hidden; background-color: #0a0a0a; }
+
+    .hero-noise {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open { transform: translateX(0); }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: #c9a84c;
+      transition: all 0.35s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .portfolio-category-btn {
+      transition: all 0.3s;
+      position: relative;
+    }
+    .portfolio-category-btn.active {
+      background: #c9a84c;
+      color: #0a0a0a;
+      border-color: #c9a84c;
+    }
+    .portfolio-category-btn.active::before {
+      opacity: 1;
+    }
+    
+    .gallery-item {
+      opacity: 0;
+      animation: galleryFade 0.5s ease forwards;
+    }
+    
+    .gallery-card {
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .gallery-card:hover {
+      transform: translateY(-8px);
+    }
+    .gallery-card:hover .gallery-overlay {
+      opacity: 1;
+    }
+    
+    .gallery-overlay {
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%);
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .nav-logo-svg {
+      width: 32px; height: 32px; flex-shrink: 0;
+    }
+    
+    /* Estilo para imagens placeholder */
+    .placeholder-img {
+      background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-line-dec { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-josefin font-light overflow-x-hidden">
+
+  <!-- NAVBAR (igual ao original, adaptado para portfólio) -->
+  <nav class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-6 md:px-16 py-4 bg-gradient-to-b from-[#0a0a0a]/97 to-transparent backdrop-blur-sm">
+    <a href="#inicio" class="flex items-center gap-3 no-underline group">
+      <svg class="nav-logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/>
+        <path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+        <line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
+        <polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/>
+      </svg>
+      <div class="font-cormorant text-sm font-light tracking-[0.3em] uppercase text-gold leading-none">
+        Espaço <span class="italic text-white">Ártemis</span>
+      </div>
+    </a>
+
+    <ul class="hidden md:flex gap-10 list-none">
+      <li><a href="space-artemis.html#inicio" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Início</a></li>
+      <li><a href="space-artemis.html#sobre" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Sobre</a></li>
+      <li><a href="space-artemis.html#servicos" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Serviços</a></li>
+      <li><a href="space-artemis.html#equipe" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Equipe</a></li>
+      <li><a href="artemis_portifolio.html" class="nav-link text-xs tracking-[0.2em] uppercase text-gold transition-all duration-300">Portfólio</a></li>
+      <li><a href="space-artemis.html#avaliacoes" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Avaliações</a></li>
+      <li><a href="space-artemis.html#contato" class="nav-link text-xs tracking-[0.2em] uppercase text-white/70 hover:text-gold transition-all duration-300">Contato</a></li>
+    </ul>
+
+    <a class="hidden md:block text-[0.65rem] tracking-[0.2em] uppercase text-black bg-gold px-5 py-2.5 hover:bg-gold-light transition-all duration-300" href="https://wa.me/5573999999999" target="_blank">Agendar</a>
+
+    <button id="hamburger" class="hamburger md:hidden flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-2 -mr-2" aria-label="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 z-[99] w-[80vw] max-w-[320px] bg-[#0a0a0a] border-l border-gold/15 flex flex-col pt-24 pb-10 px-8">
+    <ul class="flex flex-col gap-1 list-none flex-1">
+      <li><a href="space-artemis.html#inicio" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Início</a></li>
+      <li><a href="space-artemis.html#sobre" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Sobre</a></li>
+      <li><a href="space-artemis.html#servicos" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Serviços</a></li>
+      <li><a href="space-artemis.html#equipe" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Equipe</a></li>
+      <li><a href="artemis_portifolio.html" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-gold border-b border-white/5 transition-colors">Portfólio</a></li>
+      <li><a href="space-artemis.html#avaliacoes" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold border-b border-white/5 transition-colors">Avaliações</a></li>
+      <li><a href="space-artemis.html#contato" class="mobile-link block py-4 text-sm tracking-[0.25em] uppercase text-white/70 hover:text-gold transition-colors">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5573999999999" target="_blank" class="w-full py-4 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase text-center hover:bg-gold-light transition-all duration-300 flex items-center justify-center gap-2">
+      <i class="fab fa-whatsapp"></i> Agendar agora
+    </a>
+    <p class="text-[0.55rem] tracking-[0.2em] text-text-muted text-center mt-6 uppercase">Jequié, Bahia — BA</p>
+  </div>
+  <div id="menu-overlay" class="fixed inset-0 z-[98] bg-black/60 backdrop-blur-sm hidden"></div>
+
+  <!-- HERO PORTFÓLIO -->
+  <section id="inicio" class="relative min-h-[50vh] flex items-center justify-center overflow-hidden pt-28">
+    <div class="absolute inset-0 bg-black">
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);"></div>
+    </div>
+    <div class="hero-noise"></div>
+    <div class="relative z-10 text-center px-8 animate-hero-reveal">
+      <div class="text-[0.65rem] tracking-[0.5em] uppercase text-gold mb-6 flex items-center justify-center gap-4">
+        <span class="block w-10 h-px bg-gold-dim"></span>
+        Nossa arte
+        <span class="block w-10 h-px bg-gold-dim"></span>
+      </div>
+      <h1 class="font-bebas text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-[0.04em] text-white">
+        Portfólio
+      </h1>
+      <p class="mt-6 text-[0.7rem] tracking-[0.3em] uppercase text-text-muted max-w-2xl mx-auto">
+        Cada traço, cada joia, cada movimento — a materialização da excelência em arte corporal e bem-estar.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEÇÃO PORTFÓLIO COM 3 CATEGORIAS SEPARADAS -->
+  <section id="portfolio" class="py-20 md:py-28 px-6 md:px-16 bg-dark">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- FILTROS / CATEGORIAS (cada uma leva a um portfólio diferente) -->
+      <div class="fade-in flex flex-wrap justify-center gap-4 mb-16">
+        <button class="portfolio-category-btn active px-8 py-3 bg-transparent border border-gold/50 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold/10 transition-all" data-category="tatuagem">
+          <i class="fas fa-paintbrush mr-2"></i> Tatuagem
+        </button>
+        <button class="portfolio-category-btn px-8 py-3 bg-transparent border border-gold/50 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold/10 transition-all" data-category="piercing">
+          <i class="fas fa-gem mr-2"></i> Piercing
+        </button>
+        <button class="portfolio-category-btn px-8 py-3 bg-transparent border border-gold/50 text-gold text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold/10 transition-all" data-category="fisioterapia">
+          <i class="fas fa-leaf mr-2"></i> Fisioterapia
+        </button>
+      </div>
+
+      <!-- PORTFÓLIO TATUAGEM (completamente independente) -->
+      <div id="portfolio-tatuagem" class="portfolio-category-content active">
+        <div class="text-center mb-12">
+          <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Galeria exclusiva</span>
+          <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">Trabalhos de <em class="italic text-gold">Marcon Santtana</em></h2>
+          <div class="w-16 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-5 mb-4"></div>
+          <p class="text-text-muted text-sm max-w-2xl mx-auto">Black-Work · Traços marcantes · Rastelado · Estilo mangá/quadrinhos — cada arte é única e desenhada exclusivamente para você.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- 6 trabalhos de tatuagem -->
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-paintbrush text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Black-Work</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Arte exclusiva · Traço fino</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Dragão & Flores</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Black-Work · 20cm</p>
+            </div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-dragon text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Mangá Style</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Referência em animes</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Personagem Geek</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Mangá/Quadrinhos · 15cm</p>
+            </div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-feather-alt text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Rastelado</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Textura única</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Lobo & Lua</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Rastelado · 25cm</p>
+            </div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-skull text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Black-Work</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Traços expressivos</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Arte Expressionista</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Black-Work · 18cm</p>
+            </div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-tree text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Natureza</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Detalhamento</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Floresta Mística</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Pontilhismo · 30cm</p>
+            </div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-crown text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Custom</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6">
+                  <i class="fas fa-expand-alt text-gold text-2xl mb-2"></i>
+                  <p class="text-white text-xs tracking-wider">Exclusividade</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10">
+              <h3 class="text-gold text-sm tracking-wider uppercase">Coroa & Folhas</h3>
+              <p class="text-text-muted text-[0.7rem] mt-1">Fine Line · 12cm</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="https://wa.me/5573999999999" class="inline-block px-8 py-3 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all">Quero uma arte exclusiva →</a>
+        </div>
+      </div>
+
+      <!-- PORTFÓLIO PIERCING (completamente independente) -->
+      <div id="portfolio-piercing" class="portfolio-category-content hidden">
+        <div class="text-center mb-12">
+          <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Segurança e estilo</span>
+          <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">Perfurações por <em class="italic text-gold">Giulia</em></h2>
+          <div class="w-16 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-5 mb-4"></div>
+          <p class="text-text-muted text-sm max-w-2xl mx-auto">Safe Piercer certificada · Joias em grau implante · Esterilização em autoclave · Acompanhamento completo da cicatrização.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-gem text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Septum</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Joia biocompatível</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Septum Ouro</h3><p class="text-text-muted text-[0.7rem] mt-1">Joia em titânio G23</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-ear-deaf text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Industrial</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Ângulo preciso</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Industrial Bar</h3><p class="text-text-muted text-[0.7rem] mt-1">Aço cirúrgico</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-circle text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Lábio</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Posição anatômica</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Labret</h3><p class="text-text-muted text-[0.7rem] mt-1">Joia interna rosqueável</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-dot-circle text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Tragus</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Precisão milimétrica</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Tragus Micro</h3><p class="text-text-muted text-[0.7rem] mt-1">Cristal zircônia</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-ring text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Nariz</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Nostril</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Nostril</h3><p class="text-text-muted text-[0.7rem] mt-1">Joia com zircônia</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-splotches text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Diversos</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">+30 modelos</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Coleção Exclusiva</h3><p class="text-text-muted text-[0.7rem] mt-1">Joias importadas</p></div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="https://wa.me/5573999999999" class="inline-block px-8 py-3 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all">Agende sua perfuração segura →</a>
+        </div>
+      </div>
+
+      <!-- PORTFÓLIO FISIOTERAPIA (completamente independente) -->
+      <div id="portfolio-fisioterapia" class="portfolio-category-content hidden">
+        <div class="text-center mb-12">
+          <span class="text-[0.55rem] tracking-[0.5em] uppercase text-gold">✦ Movimento e vida</span>
+          <h2 class="font-cormorant text-4xl md:text-5xl font-light text-white mt-3">Atendimentos de <em class="italic text-gold">Giulia, Fisio</em></h2>
+          <div class="w-16 h-px bg-gradient-to-r from-gold to-transparent mx-auto mt-5 mb-4"></div>
+          <p class="text-text-muted text-sm max-w-2xl mx-auto">Atendimento clínico humanizado · Reabilitação postural · Terapias manuais · Atendimento a domicílio disponível.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-hand-holding-heart text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Terapia Manual</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Técnica especializada</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Liberação Miofascial</h3><p class="text-text-muted text-[0.7rem] mt-1">Alívio de tensões</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-spine text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Posturologia</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Reeducação postural</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Correção Postural</h3><p class="text-text-muted text-[0.7rem] mt-1">Biofotogrametria</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-home text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Domicílio</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Conforto do seu lar</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Atendimento Domiciliar</h3><p class="text-text-muted text-[0.7rem] mt-1">Disponível em Jequié</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-running text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Esportiva</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Prevenção de lesões</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Fisioterapia Esportiva</h3><p class="text-text-muted text-[0.7rem] mt-1">Recondicionamento</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-user-md text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Clínica</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Atendimento individual</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Avaliação Clínica</h3><p class="text-text-muted text-[0.7rem] mt-1">Anamnese completa</p></div>
+          </div>
+          <div class="gallery-card relative group overflow-hidden bg-dark2 rounded-sm">
+            <div class="aspect-square placeholder-img relative">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-gold">
+                <i class="fas fa-heartbeat text-5xl mb-3 opacity-30"></i>
+                <span class="text-[0.6rem] tracking-wider uppercase">Bem-estar</span>
+              </div>
+              <div class="gallery-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                <div class="text-center p-6"><i class="fas fa-expand-alt text-gold text-2xl mb-2"></i><p class="text-white text-xs">Qualidade de vida</p></div>
+              </div>
+            </div>
+            <div class="p-5 border-t border-gold/10"><h3 class="text-gold text-sm tracking-wider uppercase">Programa de Bem-Estar</h3><p class="text-text-muted text-[0.7rem] mt-1">Prevenção e saúde</p></div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="https://wa.me/5573999999999" class="inline-block px-8 py-3 bg-gold text-black text-[0.65rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all">Agende sua avaliação →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO SOBRE (resumida para contexto) -->
+  <section id="sobre" class="py-20 md:py-24 px-8 md:px-16 bg-black">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div class="fade-in">
+        <div class="text-[0.6rem] tracking-[0.5em] uppercase text-gold mb-4">✦ Nosso legado</div>
+        <h2 class="font-cormorant text-3xl md:text-4xl font-light text-white">Mais que arte, <em class="italic text-gold">cuidado</em> e segurança</h2>
+        <div class="w-[60px] h-px bg-gradient-to-r from-gold to-transparent my-6"></div>
+        <p class="text-white/70 leading-7">O Espaço Ártemis nasceu da paixão pela arte corporal e evoluiu para um centro de estética e bem-estar completo. Aqui, cada procedimento é realizado com responsabilidade, materiais certificados e o mais alto padrão de biossegurança.</p>
+      </div>
+      <div class="fade-in bg-dark2 p-10 border-l-2 border-gold">
+        <i class="fas fa-quote-left text-gold text-2xl mb-4 opacity-50"></i>
+        <p class="font-cormorant text-xl italic text-white/80 leading-relaxed">"Valor é diferente de preço. Nossa missão é entregar excelência em cada detalhe — do desenho à cicatrização, da avaliação à alta."</p>
+        <div class="mt-6 text-right text-gold text-sm tracking-wider">— Marcon & Giulia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO RÁPIDO -->
+  <section id="contato" class="py-16 md:py-20 px-8 md:px-16 bg-dark2 border-t border-gold/10">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="fade-in">
+        <i class="fab fa-whatsapp text-4xl text-gold mb-4"></i>
+        <h2 class="font-cormorant text-3xl md:text-4xl font-light text-white">Vamos criar algo <em class="italic text-gold">incrível</em> juntos?</h2>
+        <p class="text-text-muted mt-4 mb-8">Entre em contato pelo WhatsApp e agende sua consulta, avaliação ou sessão.</p>
+        <a href="https://wa.me/5573999999999" class="inline-flex items-center gap-3 px-10 py-4 bg-gold text-black text-[0.7rem] tracking-[0.3em] uppercase hover:bg-gold-light transition-all"><i class="fab fa-whatsapp text-xl"></i> Falar agora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark py-12 px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-gold/10">
+    <div class="flex items-center gap-3">
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M30 8C24 8 18 13 18 24C18 35 24 40 30 40C20 40 10 33 10 24C10 15 20 8 30 8Z" fill="#c9a84c" opacity="0.9"/><path d="M34 14L14 24L34 34" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.5"/><line x1="14" y1="24" x2="44" y2="24" stroke="#c9a84c" stroke-width="1.5"/><polyline points="38,19 44,24 38,29" stroke="#c9a84c" stroke-width="1.5" fill="none"/><circle cx="14" cy="24" r="1.5" fill="#c9a84c" opacity="0.7"/></svg>
+      <div class="font-cormorant text-lg font-light tracking-[0.2em] uppercase text-gold">Espaço <span class="italic text-white">Ártemis</span></div>
+    </div>
+    <div class="text-[0.55rem] tracking-[0.15em] text-text-muted text-center">© 2025 Espaço Ártemis · Tatuagem · Piercing · Fisioterapia · Jequié, BA</div>
+    <div class="flex gap-5"><a class="text-text-muted text-[0.6rem] tracking-[0.2em] hover:text-gold" href="https://instagram.com" target="_blank"><i class="fab fa-instagram mr-1"></i> IG</a><a class="text-text-muted text-[0.6rem] tracking-[0.2em] hover:text-gold" href="https://wa.me/5573999999999" target="_blank"><i class="fab fa-whatsapp mr-1"></i> WA</a></div>
+  </footer>
+
+  <a class="fixed bottom-8 right-8 z-[200] w-[52px] h-[52px] bg-[#25d366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all" href="https://wa.me/5573999999999" target="_blank"><i class="fab fa-whatsapp text-2xl text-white"></i></a>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('menu-overlay');
+    function openMenu() { hamburger.classList.add('open'); mobileMenu.classList.add('open'); overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); overlay.classList.add('hidden'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
+    overlay.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    // Fade-in scroll
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', e => { const href = a.getAttribute('href'); if(href && href !== '#') { e.preventDefault(); const target = document.querySelector(href); if(target) target.scrollIntoView({ behavior: 'smooth' }); } }); });
+
+    // PORTFOLIO CATEGORIES (3 portfólios completamente separados)
+    const tatuagemDiv = document.getElementById('portfolio-tatuagem');
+    const piercingDiv = document.getElementById('portfolio-piercing');
+    const fisioDiv = document.getElementById('portfolio-fisioterapia');
+    const btns = document.querySelectorAll('.portfolio-category-btn');
+
+    function showPortfolio(category) {
+      // Esconde todos
+      tatuagemDiv.classList.add('hidden');
+      piercingDiv.classList.add('hidden');
+      fisioDiv.classList.add('hidden');
+      // Mostra o selecionado
+      if(category === 'tatuagem') tatuagemDiv.classList.remove('hidden');
+      if(category === 'piercing') piercingDiv.classList.remove('hidden');
+      if(category === 'fisioterapia') fisioDiv.classList.remove('hidden');
+      // Ativa estilo do botão
+      btns.forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.dataset.category === category) btn.classList.add('active');
+      });
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.category;
+        showPortfolio(cat);
+      });
+    });
+
+    // Inicia com tatuagem visível
+    showPortfolio('tatuagem');
+  </script>
+</body>
+</html>
