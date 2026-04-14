@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Nogueira — Clínica Integrada de Saúde</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FBF8F4;
+    --sage: #7A9E87;
+    --sage-light: #A8C4B0;
+    --sage-dark: #4A7A5A;
+    --brown: #7C5E48;
+    --brown-light: #C8A882;
+    --dark: #2A2218;
+    --mid: #5C4F3A;
+    --text: #3D3428;
+    --border: rgba(122,158,135,0.25);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5vw;
+    background: rgba(251,248,244,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(42,34,24,0.08); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon { width: 38px; height: 38px; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--dark); letter-spacing: -0.3px; }
+  .nav-logo-text span { color: var(--sage-dark); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 13.5px; font-weight: 500; color: var(--mid); text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--sage-dark); }
+  .nav-cta {
+    background: var(--sage-dark); color: #fff; padding: 10px 22px; border-radius: 30px;
+    font-size: 13px; font-weight: 500; text-decoration: none; letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--sage); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: 0.3s; }
+
+  /* ── HERO ── */
+  #inicio {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 5vw 80px 8vw; position: relative;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(122,158,135,0.12); border: 1px solid var(--border);
+    border-radius: 30px; padding: 6px 16px; font-size: 12px; font-weight: 500;
+    color: var(--sage-dark); letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 28px; width: fit-content;
+  }
+  .hero-badge i { font-size: 10px; }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 5vw, 68px); font-weight: 300; line-height: 1.1;
+    color: var(--dark); margin-bottom: 24px; letter-spacing: -1px;
+  }
+  .hero-h1 em { font-style: italic; color: var(--sage-dark); }
+  .hero-p { font-size: 16px; color: var(--mid); line-height: 1.75; max-width: 420px; margin-bottom: 40px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--sage-dark); color: #fff; padding: 14px 30px; border-radius: 40px;
+    font-size: 14px; font-weight: 500; text-decoration: none; transition: 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--sage); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(74,122,90,0.3); }
+  .btn-outline {
+    border: 1.5px solid var(--brown-light); color: var(--brown); padding: 14px 30px; border-radius: 40px;
+    font-size: 14px; font-weight: 500; text-decoration: none; transition: 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { background: rgba(200,168,130,0.1); transform: translateY(-2px); }
+  .hero-stats { display: flex; gap: 36px; margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--border); }
+  .hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; color: var(--sage-dark); }
+  .hero-stat-label { font-size: 12px; color: var(--mid); letter-spacing: 0.3px; }
+
+  .hero-right {
+    position: relative; background: linear-gradient(135deg, #E8F0EA 0%, #D4E8DA 100%);
+    overflow: hidden;
+  }
+  .hero-img-wrap {
+    position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(122,158,135,0.25) 0%, transparent 60%);
+  }
+  .hero-card {
+    position: absolute; bottom: 40px; left: -30px;
+    background: rgba(251,248,244,0.95); backdrop-filter: blur(10px);
+    border-radius: 16px; padding: 18px 22px;
+    box-shadow: 0 12px 40px rgba(42,34,24,0.12);
+    border: 1px solid rgba(255,255,255,0.8);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .hero-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .hero-card-icon { width: 36px; height: 36px; background: var(--sage); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+  .hero-card-title { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .hero-card-sub { font-size: 11px; color: var(--mid); }
+  .hero-card-stars { color: #F0A500; font-size: 12px; letter-spacing: 1px; }
+  .hero-leaf { position: absolute; top: 30px; right: 30px; opacity: 0.15; }
+
+  /* ── SOBRE ── */
+  #sobre { padding: 100px 8vw; background: var(--cream); }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--sage-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--sage-dark); }
+  .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .sobre-img-wrap { position: relative; }
+  .sobre-img-main {
+    width: 100%; border-radius: 24px; object-fit: cover; height: 500px;
+    box-shadow: 20px 20px 60px rgba(42,34,24,0.12);
+  }
+  .sobre-img-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--sage-dark); color: #fff; border-radius: 16px;
+    padding: 20px 24px; text-align: center;
+    box-shadow: 0 10px 30px rgba(74,122,90,0.4);
+  }
+  .sobre-img-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 600; line-height: 1; }
+  .sobre-img-badge-text { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+  .sobre-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3vw, 50px); font-weight: 300; color: var(--dark); line-height: 1.2; margin-bottom: 20px; }
+  .sobre-p { font-size: 15px; color: var(--mid); line-height: 1.8; margin-bottom: 30px; }
+  .sobre-vals { display: flex; flex-direction: column; gap: 16px; }
+  .sobre-val { display: flex; align-items: flex-start; gap: 14px; }
+  .sobre-val-icon { width: 44px; height: 44px; background: rgba(122,158,135,0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--sage-dark); font-size: 18px; flex-shrink: 0; }
+  .sobre-val-title { font-weight: 600; font-size: 14px; color: var(--dark); margin-bottom: 2px; }
+  .sobre-val-desc { font-size: 13px; color: var(--mid); line-height: 1.6; }
+
+  /* ── SERVIÇOS ── */
+  #servicos { padding: 100px 8vw; background: var(--warm-white); }
+  .section-header { text-align: center; max-width: 560px; margin: 0 auto 60px; }
+  .section-label-center { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--sage-dark); margin-bottom: 14px; }
+  .section-label-center::before, .section-label-center::after { content: ''; width: 24px; height: 1.5px; background: var(--sage-dark); }
+  .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3vw, 48px); font-weight: 300; color: var(--dark); line-height: 1.2; margin-bottom: 16px; }
+  .section-p { font-size: 15px; color: var(--mid); line-height: 1.75; }
+  .servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .servico-card {
+    background: var(--cream); border-radius: 20px; padding: 32px 28px;
+    border: 1px solid transparent; transition: 0.3s;
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .servico-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 20px;
+    background: linear-gradient(135deg, rgba(122,158,135,0.05), transparent);
+    opacity: 0; transition: 0.3s;
+  }
+  .servico-card:hover { border-color: var(--border); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(42,34,24,0.08); }
+  .servico-card:hover::before { opacity: 1; }
+  .servico-icon { width: 56px; height: 56px; background: rgba(122,158,135,0.12); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--sage-dark); margin-bottom: 20px; }
+  .servico-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--dark); margin-bottom: 10px; }
+  .servico-desc { font-size: 13.5px; color: var(--mid); line-height: 1.7; }
+  .servico-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--sage-dark); margin-top: 18px; text-decoration: none; transition: gap 0.2s; }
+  .servico-link:hover { gap: 10px; }
+
+  /* ── EQUIPE ── */
+  #equipe { padding: 100px 8vw; background: var(--cream); }
+  .equipe-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .equipe-card { text-align: center; }
+  .equipe-img-wrap { position: relative; width: 160px; height: 160px; margin: 0 auto 18px; }
+  .equipe-img {
+    width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+    border: 3px solid var(--sage-light); filter: grayscale(20%);
+    transition: filter 0.3s;
+  }
+  .equipe-card:hover .equipe-img { filter: grayscale(0); }
+  .equipe-badge-icon {
+    position: absolute; bottom: 4px; right: 4px;
+    width: 36px; height: 36px; background: var(--sage-dark); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;
+    border: 2.5px solid var(--cream);
+  }
+  .equipe-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .equipe-role { font-size: 12.5px; color: var(--sage-dark); font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .equipe-crm { font-size: 12px; color: var(--mid); }
+  .equipe-socials { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
+  .equipe-social { width: 32px; height: 32px; border-radius: 50%; background: rgba(122,158,135,0.1); display: flex; align-items: center; justify-content: center; color: var(--sage-dark); font-size: 13px; text-decoration: none; transition: 0.2s; }
+  .equipe-social:hover { background: var(--sage-dark); color: #fff; }
+
+  /* ── AVALIAÇÕES ── */
+  #avaliacoes { padding: 100px 8vw; background: var(--sage-dark); }
+  #avaliacoes .section-label-center { color: var(--sage-light); }
+  #avaliacoes .section-label-center::before, #avaliacoes .section-label-center::after { background: var(--sage-light); }
+  #avaliacoes .section-h2 { color: #fff; }
+  #avaliacoes .section-p { color: rgba(255,255,255,0.7); }
+  .aval-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .aval-card {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 30px 28px; backdrop-filter: blur(4px);
+    transition: 0.3s;
+  }
+  .aval-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-4px); }
+  .aval-stars { color: #FFD166; font-size: 14px; letter-spacing: 2px; margin-bottom: 16px; }
+  .aval-text { font-size: 14.5px; color: rgba(255,255,255,0.85); line-height: 1.75; margin-bottom: 22px; font-style: italic; }
+  .aval-author { display: flex; align-items: center; gap: 12px; }
+  .aval-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sage-light); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--sage-dark); }
+  .aval-name { font-weight: 600; font-size: 14px; color: #fff; }
+  .aval-source { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .aval-google-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* ── BLOG ── */
+  #blog { padding: 100px 8vw; background: var(--warm-white); }
+  .blog-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; }
+  .blog-card { border-radius: 20px; overflow: hidden; background: var(--cream); transition: 0.3s; cursor: pointer; }
+  .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(42,34,24,0.1); }
+  .blog-img { width: 100%; height: 220px; object-fit: cover; background: linear-gradient(135deg, var(--sage-light), var(--sage)); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+  .blog-card:first-child .blog-img { height: 280px; }
+  .blog-body { padding: 24px 22px; }
+  .blog-tag { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--sage-dark); background: rgba(122,158,135,0.12); border-radius: 20px; padding: 4px 12px; margin-bottom: 12px; }
+  .blog-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--dark); line-height: 1.35; margin-bottom: 10px; }
+  .blog-card:first-child .blog-title { font-size: 24px; }
+  .blog-excerpt { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .blog-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-top: 1px solid var(--border); }
+  .blog-date { font-size: 12px; color: var(--mid); }
+  .blog-read { font-size: 12px; font-weight: 500; color: var(--sage-dark); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+
+  /* ── CONTATO ── */
+  #contato { padding: 100px 8vw; background: var(--cream); }
+  .contato-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+  .contato-info { }
+  .contato-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3vw, 48px); font-weight: 300; color: var(--dark); line-height: 1.2; margin-bottom: 20px; }
+  .contato-p { font-size: 15px; color: var(--mid); line-height: 1.8; margin-bottom: 36px; }
+  .contato-items { display: flex; flex-direction: column; gap: 20px; }
+  .contato-item { display: flex; align-items: flex-start; gap: 14px; }
+  .contato-item-icon { width: 46px; height: 46px; background: rgba(122,158,135,0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--sage-dark); font-size: 18px; flex-shrink: 0; }
+  .contato-item-title { font-weight: 600; font-size: 14px; color: var(--dark); margin-bottom: 2px; }
+  .contato-item-val { font-size: 13.5px; color: var(--mid); }
+  .contato-form { background: var(--warm-white); border-radius: 24px; padding: 40px 36px; box-shadow: 0 8px 40px rgba(42,34,24,0.06); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--cream); outline: none; transition: border-color 0.2s;
+    appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--sage); }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    width: 100%; padding: 15px; background: var(--sage-dark); color: #fff;
+    border: none; border-radius: 40px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer; transition: 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .form-submit:hover { background: var(--sage); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,122,90,0.3); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.7);
+    padding: 60px 8vw 30px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand .nav-logo-text { color: #fff; font-size: 24px; }
+  .footer-brand-p { font-size: 13px; line-height: 1.7; margin-top: 14px; max-width: 260px; }
+  .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+  .footer-soc-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none; transition: 0.2s; }
+  .footer-soc-btn:hover { background: var(--sage); color: #fff; }
+  .footer-col-title { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 18px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13.5px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--sage-light); }
+  .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 12.5px; }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { font-size: 12.5px; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-bottom-links a:hover { color: var(--sage-light); }
+
+  /* ── WHATSAPP BUTTON ── */
+  .whatsapp-btn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366; color: #fff; font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.45);
+    text-decoration: none; transition: 0.25s;
+    animation: pulse-wa 2.5s infinite;
+  }
+  .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,0.55); }
+  @keyframes pulse-wa {
+    0%,100%{ box-shadow: 0 8px 24px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.4); }
+    50%{ box-shadow: 0 8px 24px rgba(37,211,102,0.45), 0 0 0 12px rgba(37,211,102,0); }
+  }
+  .whatsapp-tooltip {
+    position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+    background: var(--dark); color: #fff; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 20px; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .whatsapp-btn:hover .whatsapp-tooltip { opacity: 1; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    #inicio { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 100px 6vw 60px; }
+    .sobre-grid, .contato-grid { grid-template-columns: 1fr; gap: 48px; }
+    .sobre-img-wrap { max-width: 480px; }
+    .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+    .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+    .aval-grid { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-card:first-child { grid-column: span 2; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .servicos-grid, .aval-grid, .blog-grid { grid-template-columns: 1fr; }
+    .blog-card:first-child { grid-column: span 1; }
+    .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#inicio">
+    <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="19" stroke="#7A9E87" stroke-width="1.5"/>
+      <path d="M20 8 C16 12 12 16 12 22 C12 27 15.5 31 20 31 C24.5 31 28 27 28 22 C28 16 24 12 20 8Z" fill="#7A9E87" opacity="0.7"/>
+      <path d="M20 14 C20 14 24 18 24 22 C24 25 22.2 27 20 27" stroke="#4A7A5A" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M20 18 C18 18 15 16 14 14" stroke="#4A7A5A" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-logo-text">no<span>gueira</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#avaliacoes">Avaliações</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/5573999999999" target="_blank"><i class="fa-solid fa-calendar-check"></i> Agendar Consulta</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-left">
+    <div class="hero-badge fade-in"><i class="fa-solid fa-circle-check"></i> Clínica Integrada de Saúde</div>
+    <h1 class="hero-h1 fade-in fade-in-delay-1">Cuidado <em>integral</em><br>com quem você ama</h1>
+    <p class="hero-p fade-in fade-in-delay-2">Na Clínica Nogueira, unimos saúde, bem-estar e acolhimento em um só lugar. Porque cada paciente merece atenção personalizada e um sorriso verdadeiro.</p>
+    <div class="hero-btns fade-in fade-in-delay-3">
+      <a class="btn-primary" href="#contato"><i class="fa-solid fa-calendar-days"></i> Agendar Consulta</a>
+      <a class="btn-outline" href="#sobre"><i class="fa-solid fa-play"></i> Conhecer a Clínica</a>
+    </div>
+    <div class="hero-stats fade-in fade-in-delay-4">
+      <div>
+        <div class="hero-stat-num">+8k</div>
+        <div class="hero-stat-label">Pacientes atendidos</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">12+</div>
+        <div class="hero-stat-label">Anos de experiência</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">98%</div>
+        <div class="hero-stat-label">Satisfação dos pacientes</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div style="width:100%;height:100%;background:linear-gradient(160deg,#C8E0CC 0%,#E8F4EB 50%,#D4EAD8 100%);display:flex;align-items:center;justify-content:center;">
+        <svg width="220" height="320" viewBox="0 0 220 320" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.4">
+          <ellipse cx="110" cy="290" rx="80" ry="30" fill="#7A9E87"/>
+          <path d="M110 20 C80 60 55 100 55 155 C55 215 78 260 110 260 C142 260 165 215 165 155 C165 100 140 60 110 20Z" fill="#4A7A5A" opacity="0.6"/>
+          <path d="M110 60 C110 60 148 100 148 155 C148 200 132 235 110 235" stroke="#2A5A35" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+          <path d="M110 100 C90 95 68 80 60 60" stroke="#2A5A35" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          <path d="M110 140 C130 132 148 115 152 90" stroke="#2A5A35" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="hero-card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div>
+          <div class="hero-card-title">Avaliação Integrada</div>
+          <div class="hero-card-sub">Consulta holística completa</div>
+        </div>
+      </div>
+      <div class="hero-card-stars">★★★★★</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-grid">
+    <div class="sobre-img-wrap fade-in">
+      <div style="width:100%;height:500px;border-radius:24px;background:linear-gradient(135deg,#C8E0CC,#A8C4B0);display:flex;align-items:center;justify-content:center;box-shadow:20px 20px 60px rgba(42,34,24,0.12);">
+        <div style="text-align:center;color:#4A7A5A;">
+          <i class="fa-solid fa-leaf" style="font-size:80px;opacity:0.4;"></i>
+          <p style="margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:18px;opacity:0.6;">Clínica Nogueira</p>
+        </div>
+      </div>
+      <div class="sobre-img-badge">
+        <div class="sobre-img-badge-num">12+</div>
+        <div class="sobre-img-badge-text">Anos cuidando<br>da sua saúde</div>
+      </div>
+    </div>
+    <div class="fade-in fade-in-delay-1">
+      <div class="section-label">Sobre nós</div>
+      <h2 class="sobre-h2">Uma clínica feita com propósito e cuidado</h2>
+      <p class="sobre-p">A Clínica Nogueira nasceu do desejo de oferecer saúde com humanidade. Somos uma clínica integrada que acredita na conexão entre corpo, mente e emoção — e que cada paciente carrega uma história única que merece ser ouvida.</p>
+      <p class="sobre-p">Nossa missão é simples: cuidar de você e de quem você ama com excelência, tecnologia e o mais profundo respeito.</p>
+      <div class="sobre-vals">
+        <div class="sobre-val">
+          <div class="sobre-val-icon"><i class="fa-solid fa-shield-heart"></i></div>
+          <div>
+            <div class="sobre-val-title">Cuidado Humanizado</div>
+            <div class="sobre-val-desc">Cada paciente é único. Tratamos você com atenção, empatia e dedicação total.</div>
+          </div>
+        </div>
+        <div class="sobre-val">
+          <div class="sobre-val-icon"><i class="fa-solid fa-microscope"></i></div>
+          <div>
+            <div class="sobre-val-title">Tecnologia Avançada</div>
+            <div class="sobre-val-desc">Equipamentos modernos e profissionais altamente capacitados para diagnósticos precisos.</div>
+          </div>
+        </div>
+        <div class="sobre-val">
+          <div class="sobre-val-icon"><i class="fa-solid fa-users-between-lines"></i></div>
+          <div>
+            <div class="sobre-val-title">Abordagem Integrada</div>
+            <div class="sobre-val-desc">Múltiplas especialidades trabalhando juntas pela sua saúde completa.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-header fade-in">
+    <div class="section-label-center">Nossos Serviços</div>
+    <h2 class="section-h2">Especialidades pensadas para o seu bem-estar</h2>
+    <p class="section-p">Oferecemos uma gama completa de serviços de saúde, com profissionais especializados em cada área.</p>
+  </div>
+  <div class="servicos-grid">
+    <div class="servico-card fade-in">
+      <div class="servico-icon"><i class="fa-solid fa-stethoscope"></i></div>
+      <div class="servico-title">Clínica Médica</div>
+      <div class="servico-desc">Consultas de clínica geral com avaliação completa, diagnóstico preciso e acompanhamento contínuo da sua saúde.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="servico-card fade-in fade-in-delay-1">
+      <div class="servico-icon"><i class="fa-solid fa-brain"></i></div>
+      <div class="servico-title">Psicologia</div>
+      <div class="servico-desc">Suporte psicológico para crianças, adolescentes e adultos. Cuidamos da sua saúde mental com escuta ativa e acolhimento.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="servico-card fade-in fade-in-delay-2">
+      <div class="servico-icon"><i class="fa-solid fa-person-running"></i></div>
+      <div class="servico-title">Fisioterapia</div>
+      <div class="servico-desc">Reabilitação, prevenção de lesões e bem-estar físico com técnicas modernas e atendimento individualizado.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="servico-card fade-in fade-in-delay-1">
+      <div class="servico-icon"><i class="fa-solid fa-apple-whole"></i></div>
+      <div class="servico-title">Nutrição</div>
+      <div class="servico-desc">Planos alimentares personalizados que unem saúde e prazer. Nutrição como aliada da qualidade de vida.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="servico-card fade-in fade-in-delay-2">
+      <div class="servico-icon"><i class="fa-solid fa-tooth"></i></div>
+      <div class="servico-title">Odontologia</div>
+      <div class="servico-desc">Cuidados completos com a saúde bucal da sua família, desde prevenção até tratamentos estéticos modernos.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="servico-card fade-in fade-in-delay-3">
+      <div class="servico-icon"><i class="fa-solid fa-spa"></i></div>
+      <div class="servico-title">Bem-Estar & Estética</div>
+      <div class="servico-desc">Tratamentos que harmonizam beleza e saúde, promovendo autoestima e qualidade de vida com segurança.</div>
+      <a class="servico-link" href="#contato">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="section-header fade-in">
+    <div class="section-label-center">Nossa Equipe</div>
+    <h2 class="section-h2">Profissionais dedicados ao seu cuidado</h2>
+    <p class="section-p">Nossa equipe multidisciplinar une experiência, competência e humanidade em cada atendimento.</p>
+  </div>
+  <div class="equipe-grid">
+    <div class="equipe-card fade-in">
+      <div class="equipe-img-wrap">
+        <div style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#C8E0CC,#A8C4B0);display:flex;align-items:center;justify-content:center;border:3px solid var(--sage-light);">
+          <i class="fa-solid fa-user-doctor" style="font-size:52px;color:var(--sage-dark);opacity:0.6;"></i>
+        </div>
+        <div class="equipe-badge-icon"><i class="fa-solid fa-stethoscope"></i></div>
+      </div>
+      <div class="equipe-name">Dra. Ana Nogueira</div>
+      <div class="equipe-role">Clínica Geral</div>
+      <div class="equipe-crm">CRM 12345 — BA</div>
+      <div class="equipe-socials">
+        <a class="equipe-social" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="equipe-card fade-in fade-in-delay-1">
+      <div class="equipe-img-wrap">
+        <div style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#D4E8DA,#B8D4BE);display:flex;align-items:center;justify-content:center;border:3px solid var(--sage-light);">
+          <i class="fa-solid fa-brain" style="font-size:52px;color:var(--sage-dark);opacity:0.6;"></i>
+        </div>
+        <div class="equipe-badge-icon"><i class="fa-solid fa-brain"></i></div>
+      </div>
+      <div class="equipe-name">Dr. Lucas Ferreira</div>
+      <div class="equipe-role">Psicólogo</div>
+      <div class="equipe-crm">CRP 03/45678</div>
+      <div class="equipe-socials">
+        <a class="equipe-social" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="equipe-card fade-in fade-in-delay-2">
+      <div class="equipe-img-wrap">
+        <div style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#E0ECC0,#C8D8A0);display:flex;align-items:center;justify-content:center;border:3px solid var(--sage-light);">
+          <i class="fa-solid fa-person-running" style="font-size:52px;color:var(--sage-dark);opacity:0.6;"></i>
+        </div>
+        <div class="equipe-badge-icon"><i class="fa-solid fa-person-running"></i></div>
+      </div>
+      <div class="equipe-name">Dra. Camila Santos</div>
+      <div class="equipe-role">Fisioterapeuta</div>
+      <div class="equipe-crm">CREFITO 789012</div>
+      <div class="equipe-socials">
+        <a class="equipe-social" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="equipe-card fade-in fade-in-delay-3">
+      <div class="equipe-img-wrap">
+        <div style="width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#CCE4D4,#B0D0BC);display:flex;align-items:center;justify-content:center;border:3px solid var(--sage-light);">
+          <i class="fa-solid fa-apple-whole" style="font-size:52px;color:var(--sage-dark);opacity:0.6;"></i>
+        </div>
+        <div class="equipe-badge-icon"><i class="fa-solid fa-apple-whole"></i></div>
+      </div>
+      <div class="equipe-name">Dra. Priscila Alves</div>
+      <div class="equipe-role">Nutricionista</div>
+      <div class="equipe-crm">CRN 234567 — BA</div>
+      <div class="equipe-socials">
+        <a class="equipe-social" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="equipe-social" href="#"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<section id="avaliacoes">
+  <div class="section-header fade-in">
+    <div class="section-label-center">Avaliações</div>
+    <h2 class="section-h2">O que nossos pacientes dizem</h2>
+    <p class="section-p">Mais de 8.000 pacientes já confiaram seu cuidado à Clínica Nogueira. Veja o que eles falam.</p>
+  </div>
+  <div class="aval-grid">
+    <div class="aval-card fade-in">
+      <div class="aval-stars">★★★★★</div>
+      <p class="aval-text">"Atendimento incrível! A Dra. Ana é extremamente atenciosa e cuidadosa. Me senti acolhida desde o primeiro momento. Com certeza voltarei sempre."</p>
+      <div class="aval-author">
+        <div class="aval-avatar">M</div>
+        <div>
+          <div class="aval-name">Mariana Costa</div>
+          <div class="aval-google-badge"><i class="fa-brands fa-google"></i> Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card fade-in fade-in-delay-1">
+      <div class="aval-stars">★★★★★</div>
+      <p class="aval-text">"A fisioterapia mudou minha vida! Voltei a praticar esportes sem dor após 2 meses de tratamento. Equipe maravilhosa, super recomendo a clínica."</p>
+      <div class="aval-author">
+        <div class="aval-avatar">R</div>
+        <div>
+          <div class="aval-name">Rafael Oliveira</div>
+          <div class="aval-google-badge"><i class="fa-brands fa-google"></i> Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="aval-card fade-in fade-in-delay-2">
+      <div class="aval-stars">★★★★★</div>
+      <p class="aval-text">"Levo minha filha para a psicologia aqui e as mudanças foram notáveis. O Dr. Lucas tem um dom especial com crianças. Ambiente muito acolhedor."</p>
+      <div class="aval-author">
+        <div class="aval-avatar">J</div>
+        <div>
+          <div class="aval-name">Juliana Mendes</div>
+          <div class="aval-google-badge"><i class="fa-brands fa-google"></i> Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-header fade-in">
+    <div class="section-label-center">Blog & Saúde</div>
+    <h2 class="section-h2">Conteúdo para cuidar melhor de você</h2>
+    <p class="section-p">Dicas, novidades e informações de saúde selecionadas pela nossa equipe especializada.</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card fade-in">
+      <div class="blog-img" style="height:280px;background:linear-gradient(135deg,#7A9E87,#4A7A5A);">
+        <i class="fa-solid fa-apple-whole" style="color:rgba(255,255,255,0.6);font-size:60px;"></i>
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag">Nutrição</span>
+        <div class="blog-title">Como montar um prato equilibrado para toda a família sem complicações</div>
+        <div class="blog-excerpt">Dra. Priscila Alves compartilha estratégias simples e práticas para garantir refeições nutritivas no dia a dia.</div>
+      </div>
+      <div class="blog-footer">
+        <span class="blog-date"><i class="fa-regular fa-clock"></i> 15 Jan 2025</span>
+        <a class="blog-read" href="#">Ler mais <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="blog-card fade-in fade-in-delay-1">
+      <div class="blog-img" style="background:linear-gradient(135deg,#A8C4B0,#7A9E87);">
+        <i class="fa-solid fa-brain" style="color:rgba(255,255,255,0.6);font-size:48px;"></i>
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag">Saúde Mental</span>
+        <div class="blog-title">5 sinais de que seu filho pode precisar de apoio psicológico</div>
+        <div class="blog-excerpt">Identificar precocemente as necessidades emocionais das crianças faz toda a diferença no desenvolvimento.</div>
+      </div>
+      <div class="blog-footer">
+        <span class="blog-date"><i class="fa-regular fa-clock"></i> 8 Jan 2025</span>
+        <a class="blog-read" href="#">Ler mais <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="blog-card fade-in fade-in-delay-2">
+      <div class="blog-img" style="background:linear-gradient(135deg,#C8A882,#A87A52);">
+        <i class="fa-solid fa-person-running" style="color:rgba(255,255,255,0.6);font-size:48px;"></i>
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag">Fisioterapia</span>
+        <div class="blog-title">Postura no trabalho home office: como evitar dores lombares</div>
+        <div class="blog-excerpt">Dicas essenciais da nossa fisioterapeuta para quem passa horas em frente ao computador.</div>
+      </div>
+      <div class="blog-footer">
+        <span class="blog-date"><i class="fa-regular fa-clock"></i> 2 Jan 2025</span>
+        <a class="blog-read" href="#">Ler mais <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contato-grid">
+    <div class="contato-info fade-in">
+      <div class="section-label">Fale conosco</div>
+      <h2 class="contato-h2">Agende sua consulta hoje mesmo</h2>
+      <p class="contato-p">Estamos prontos para cuidar de você e da sua família. Entre em contato pelo formulário, WhatsApp ou visite-nos pessoalmente.</p>
+      <div class="contato-items">
+        <div class="contato-item">
+          <div class="contato-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="contato-item-title">Endereço</div>
+            <div class="contato-item-val">Rua das Flores, 123 — Centro<br>Jequié, BA — CEP 45200-000</div>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-item-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div>
+            <div class="contato-item-title">WhatsApp</div>
+            <div class="contato-item-val">(73) 99999-9999</div>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-item-icon"><i class="fa-solid fa-clock"></i></div>
+          <div>
+            <div class="contato-item-title">Horário de Atendimento</div>
+            <div class="contato-item-val">Seg–Sex: 7h às 19h<br>Sábado: 8h às 13h</div>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-item-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <div class="contato-item-title">E-mail</div>
+            <div class="contato-item-val">contato@clinicanogueira.com.br</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contato-form fade-in fade-in-delay-1">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nome</label>
+          <input class="form-input" type="text" placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Telefone</label>
+          <input class="form-input" type="tel" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input class="form-input" type="email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Especialidade</label>
+        <select class="form-select">
+          <option value="">Selecione o serviço desejado</option>
+          <option>Clínica Médica</option>
+          <option>Psicologia</option>
+          <option>Fisioterapia</option>
+          <option>Nutrição</option>
+          <option>Odontologia</option>
+          <option>Bem-Estar & Estética</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mensagem</label>
+        <textarea class="form-textarea" placeholder="Como podemos ajudá-lo?"></textarea>
+      </div>
+      <button class="form-submit"><i class="fa-solid fa-paper-plane"></i> Enviar Mensagem</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#inicio" style="text-decoration:none;">
+        <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="19" stroke="#7A9E87" stroke-width="1.5"/>
+          <path d="M20 8 C16 12 12 16 12 22 C12 27 15.5 31 20 31 C24.5 31 28 27 28 22 C28 16 24 12 20 8Z" fill="#7A9E87" opacity="0.7"/>
+          <path d="M20 14 C20 14 24 18 24 22 C24 25 22.2 27 20 27" stroke="#4A7A5A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-logo-text" style="color:#fff;">nogueira</span>
+      </a>
+      <p class="footer-brand-p">Clínica Integrada de Saúde comprometida com o seu bem-estar desde 2013. Cuidando de você e da sua família com excelência e humanidade.</p>
+      <div class="footer-social">
+        <a class="footer-soc-btn" href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a class="footer-soc-btn" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a class="footer-soc-btn" href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="footer-soc-btn" href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navegação</div>
+      <ul class="footer-links">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre Nós</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#equipe">Nossa Equipe</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Especialidades</div>
+      <ul class="footer-links">
+        <li><a href="#servicos">Clínica Médica</a></li>
+        <li><a href="#servicos">Psicologia</a></li>
+        <li><a href="#servicos">Fisioterapia</a></li>
+        <li><a href="#servicos">Nutrição</a></li>
+        <li><a href="#servicos">Odontologia</a></li>
+        <li><a href="#servicos">Bem-Estar & Estética</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contato</div>
+      <ul class="footer-links">
+        <li><a href="#">Rua das Flores, 123 — Jequié, BA</a></li>
+        <li><a href="tel:73999999999">(73) 99999-9999</a></li>
+        <li><a href="mailto:contato@clinicanogueira.com.br">contato@clinicanogueira.com.br</a></li>
+        <li><a href="#">Seg–Sex: 7h às 19h</a></li>
+        <li><a href="#">Sábado: 8h às 13h</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Clínica Nogueira — Todos os direitos reservados</span>
+    <div class="footer-bottom-links">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">LGPD</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a class="whatsapp-btn" href="https://wa.me/5573999999999" target="_blank" title="Fale no WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+  <span class="whatsapp-tooltip">Fale conosco agora</span>
+</a>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Form submit
+  document.querySelector('.form-submit').addEventListener('click', function(e) {
+    e.preventDefault();
+    this.innerHTML = '<i class="fa-solid fa-check"></i> Mensagem enviada! Entraremos em contato.';
+    this.style.background = 'var(--sage)';
+    setTimeout(() => {
+      this.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Mensagem';
+      this.style.background = '';
+    }, 3500);
+  });
+</script>
+</body>
+</html>

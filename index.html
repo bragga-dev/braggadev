@@ -33,18 +33,6 @@
             syne: ['Syne', 'sans-serif'],
             dm:   ['DM Sans', 'sans-serif'],
           },
-          animation: {
-            'fade-up':   'fadeUp 0.7s ease both',
-            'fade-in':   'fadeIn 0.5s ease both',
-            'pulse-vio': 'pulseVio 2.5s ease-in-out infinite',
-            'scan':      'scan 8s linear infinite',
-          },
-          keyframes: {
-            fadeUp:   { from:{opacity:'0',transform:'translateY(24px)'}, to:{opacity:'1',transform:'translateY(0)'} },
-            fadeIn:   { from:{opacity:'0'}, to:{opacity:'1'} },
-            pulseVio: { '0%,100%':{boxShadow:'0 0 0 0 rgba(139,92,246,.5)'}, '50%':{boxShadow:'0 0 0 14px rgba(139,92,246,0)'} },
-            scan:     { '0%':{backgroundPosition:'0% 0%'}, '100%':{backgroundPosition:'0% 200%'} },
-          },
         },
       },
     };
@@ -59,7 +47,6 @@
     ::-webkit-scrollbar-track { background: #080808; }
     ::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 2px; }
 
-    /* ── NOISE OVERLAY ── */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -67,7 +54,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ── GRID BG ── */
     .grid-bg {
       background-image:
         linear-gradient(rgba(139,92,246,.04) 1px, transparent 1px),
@@ -75,137 +61,255 @@
       background-size: 60px 60px;
     }
 
-    /* ── GLOW ORBS ── */
-    .orb-1 { position:fixed; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.07) 0%, transparent 70%); top:-200px; left:-100px; pointer-events:none; z-index:0; }
-    .orb-2 { position:fixed; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(109,40,217,.06) 0%, transparent 70%); bottom:-100px; right:-100px; pointer-events:none; z-index:0; }
+    .orb-1 { position:fixed; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.07) 0%, transparent 70%); top:-250px; left:-150px; pointer-events:none; z-index:0; }
+    .orb-2 { position:fixed; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(109,40,217,.06) 0%, transparent 70%); bottom:-150px; right:-150px; pointer-events:none; z-index:0; }
 
-    /* ── NAV ── */
     .nav-link { position:relative; padding-bottom:2px; }
     .nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:#8b5cf6; transition:width .3s; }
     .nav-link:hover::after { width:100%; }
 
-    /* ── PROJECT CARDS ── */
+    /* ── CARROSSEL HERO ── */
+    .hero-carousel { position:relative; overflow:hidden; width:100%; height:100vh; min-height:600px; }
+    .hero-track { display:flex; height:100%; transition:transform .7s cubic-bezier(.4,0,.2,1); will-change:transform; }
+    .hero-slide {
+      flex:0 0 100%; height:100%; position:relative;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-slide img {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; object-position:center top;
+    }
+    .hero-slide-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(8,8,8,.45) 0%, rgba(8,8,8,.75) 60%, rgba(8,8,8,.97) 100%);
+      z-index:1;
+    }
+    .hero-slide-overlay-left {
+      position:absolute; inset:0;
+      background:linear-gradient(90deg, rgba(8,8,8,.6) 0%, transparent 50%);
+      z-index:1;
+    }
+    .hero-content { position:relative; z-index:2; text-align:left; width:100%; max-width:1200px; padding:0 1.5rem; margin:0 auto; }
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:10px;
+      background:rgba(139,92,246,.1); border:1px solid rgba(139,92,246,.3);
+      color:#a78bfa; padding:6px 16px; border-radius:40px;
+      font-family:'DM Sans',sans-serif; font-size:.65rem; letter-spacing:.18em; text-transform:uppercase;
+      margin-bottom:1.5rem;
+    }
+    .hero-title {
+      font-family:'Syne',sans-serif; font-weight:800; letter-spacing:-.04em;
+      font-size:clamp(3rem,9vw,7.5rem); line-height:.9;
+      color:#f0f0f8; margin-bottom:1.25rem;
+    }
+    .hero-sub {
+      font-family:'DM Sans',sans-serif; font-weight:300;
+      font-size:clamp(.85rem,1.5vw,1.05rem); color:#8888a0;
+      max-width:420px; line-height:1.7; margin-bottom:2rem;
+    }
+    .hero-cta-group { display:flex; flex-wrap:wrap; gap:12px; }
+    .hero-btn-primary {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:'Syne',sans-serif; font-weight:700; font-size:.7rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      background:#8b5cf6; color:#fff;
+      padding:14px 28px; border-radius:40px;
+      text-decoration:none; transition:.3s;
+    }
+    .hero-btn-primary:hover { background:#a78bfa; transform:translateY(-2px); }
+    .hero-btn-ghost {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:'Syne',sans-serif; font-weight:700; font-size:.7rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      border:1px solid rgba(139,92,246,.4); color:#a78bfa;
+      padding:14px 28px; border-radius:40px;
+      text-decoration:none; transition:.3s;
+    }
+    .hero-btn-ghost:hover { background:rgba(139,92,246,.1); border-color:#8b5cf6; transform:translateY(-2px); }
+
+    /* carousel nav */
+    .hcar-btn {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+      width:46px; height:46px; border-radius:50%;
+      background:rgba(15,15,15,.7); border:1px solid rgba(139,92,246,.3);
+      color:#a78bfa; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:.25s; backdrop-filter:blur(10px);
+    }
+    .hcar-btn:hover { background:rgba(139,92,246,.25); border-color:#8b5cf6; }
+    .hcar-dot { width:8px; height:8px; border-radius:50%; background:rgba(139,92,246,.3); border:none; cursor:pointer; transition:.3s; }
+    .hcar-dot.on { background:#8b5cf6; width:26px; border-radius:4px; }
+
+    /* slide counter */
+    .hcar-counter {
+      position:absolute; bottom:2rem; right:2rem; z-index:10;
+      font-family:'Syne',sans-serif; font-size:.6rem; letter-spacing:.2em;
+      color:#a78bfa; background:rgba(15,15,15,.8); border:1px solid rgba(139,92,246,.25);
+      padding:6px 14px; border-radius:40px; backdrop-filter:blur(8px);
+    }
+
+    /* scroll cue */
+    .scroll-cue {
+      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:8px; z-index:10;
+    }
+
+    /* ── PROJ CARDS ── */
     .proj-card {
-      background: #0f0f0f;
-      border: 1px solid rgba(139,92,246,.12);
-      transition: transform .4s cubic-bezier(.2,.9,.4,1.05), border-color .3s, box-shadow .3s;
-      position: relative;
-      overflow: hidden;
+      background:#0f0f0f;
+      border:1px solid rgba(139,92,246,.12);
+      transition:transform .4s cubic-bezier(.2,.9,.4,1.05), border-color .3s, box-shadow .3s;
+      position:relative; overflow:hidden;
     }
     .proj-card::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(139,92,246,.04) 0%, transparent 60%);
-      opacity: 0; transition: opacity .4s;
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(139,92,246,.04) 0%,transparent 60%);
+      opacity:0; transition:opacity .4s;
     }
-    .proj-card:hover { transform: translateY(-6px); border-color: rgba(139,92,246,.45); box-shadow: 0 24px 60px -12px rgba(139,92,246,.18); }
-    .proj-card:hover::before { opacity: 1; }
+    .proj-card:hover { transform:translateY(-6px); border-color:rgba(139,92,246,.45); box-shadow:0 24px 60px -12px rgba(139,92,246,.18); }
+    .proj-card:hover::before { opacity:1; }
 
-    /* ── IFRAME PREVIEW ── */
-    .preview-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: #000;
-    }
+    /* iframe preview */
+    .preview-wrap { position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; background:#000; }
     .preview-wrap iframe {
-      position: absolute; inset: 0;
-      width: 300%; height: 300%;
-      transform: scale(.333);
-      transform-origin: top left;
-      border: none;
-      pointer-events: none;
+      position:absolute; inset:0; width:300%; height:300%;
+      transform:scale(.333); transform-origin:top left;
+      border:none; pointer-events:none;
     }
     .preview-overlay {
-      position: absolute; inset: 0; z-index: 2;
-      background: linear-gradient(0deg, rgba(8,8,8,.7) 0%, transparent 50%);
+      position:absolute; inset:0; z-index:2;
+      background:linear-gradient(0deg,rgba(8,8,8,.7) 0%,transparent 50%);
     }
     .preview-badge {
-      position: absolute; top:12px; right:12px; z-index:3;
+      position:absolute; top:12px; right:12px; z-index:3;
       font-size:.6rem; letter-spacing:.12em; text-transform:uppercase;
-      background: rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.35);
+      background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.35);
       color:#a78bfa; padding:4px 10px; border-radius:40px;
       font-family:'Syne',sans-serif; backdrop-filter:blur(6px);
     }
 
-    /* ── CAROUSEL ── */
-    .car-track { display:flex; transition:transform .55s cubic-bezier(.4,0,.2,1); will-change:transform; }
-    .car-slide { flex:0 0 100%; position:relative; overflow:hidden; }
-    .car-slide img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease; }
-    .car-slide:hover img { transform:scale(1.025); }
-    .car-caption {
-      position:absolute; bottom:0; inset-x:0; z-index:3;
-      padding:2rem 2rem 1.5rem;
-      background:linear-gradient(0deg,rgba(8,8,8,.92) 0%,transparent 100%);
+    /* ── SERVICE CARDS ── */
+    .svc-card {
+      background:#0d0d0d;
+      border:1px solid rgba(139,92,246,.1);
+      border-radius:20px; padding:2rem 1.75rem;
+      position:relative; overflow:hidden;
+      transition:transform .4s cubic-bezier(.2,.9,.4,1.05), border-color .3s, box-shadow .3s;
     }
-    .car-btn {
-      position:absolute; top:50%; transform:translateY(-50%); z-index:4;
-      width:42px; height:42px; border-radius:50%;
-      background:rgba(15,15,15,.75); border:1px solid rgba(139,92,246,.35);
-      color:#a78bfa; display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:.25s; backdrop-filter:blur(8px);
+    .svc-card::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,transparent,#8b5cf6,transparent);
+      opacity:0; transition:.4s;
     }
-    .car-btn:hover { background:rgba(139,92,246,.25); border-color:#8b5cf6; }
-    .car-dot { width:7px; height:7px; border-radius:50%; background:rgba(139,92,246,.25); border:none; cursor:pointer; transition:.3s; }
-    .car-dot.on { background:#8b5cf6; width:22px; border-radius:4px; }
+    .svc-card:hover { transform:translateY(-8px); border-color:rgba(139,92,246,.4); box-shadow:0 30px 70px -15px rgba(139,92,246,.2); }
+    .svc-card:hover::after { opacity:1; }
+    .svc-icon {
+      width:52px; height:52px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(139,92,246,.1); border:1px solid rgba(139,92,246,.2);
+      margin-bottom:1.5rem;
+    }
 
-    /* ── TECH BADGE ── */
+    /* ── PROCESS STEPS ── */
+    .step-num {
+      font-family:'Syne',sans-serif; font-weight:800;
+      font-size:3.5rem; line-height:1; letter-spacing:-.05em;
+      color:rgba(139,92,246,.15); margin-bottom:.5rem;
+    }
+
+    /* ── TESTIMONIAL ── */
+    .testi-card {
+      background:#0d0d0d; border:1px solid rgba(139,92,246,.12);
+      border-radius:20px; padding:2rem;
+      transition:border-color .3s;
+    }
+    .testi-card:hover { border-color:rgba(139,92,246,.35); }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom:1px solid rgba(139,92,246,.1);
+    }
+    .faq-q {
+      width:100%; background:transparent; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.4rem 0; text-align:left;
+      font-family:'Syne',sans-serif; font-weight:600; font-size:.95rem;
+      color:#d4d4e8; transition:color .3s;
+    }
+    .faq-q:hover { color:#a78bfa; }
+    .faq-icon { transition:transform .35s; flex-shrink:0; }
+    .faq-item.open .faq-icon { transform:rotate(45deg); }
+    .faq-a {
+      overflow:hidden; max-height:0; transition:max-height .4s ease;
+    }
+    .faq-item.open .faq-a { max-height:300px; }
+    .faq-a-inner { font-family:'DM Sans',sans-serif; font-weight:300; color:#8888a0; font-size:.9rem; line-height:1.75; padding-bottom:1.5rem; }
+
+    /* ── BADGE ── */
     .t-badge {
       display:inline-flex; align-items:center; gap:6px;
-      background: rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2);
-      color:#a78bfa; font-size:.72rem; padding:5px 13px; border-radius:40px;
+      background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2);
+      color:#a78bfa; font-size:.7rem; padding:5px 13px; border-radius:40px;
       font-family:'DM Sans',sans-serif; font-weight:500;
-      transition:background .2s, border-color .2s;
     }
-    .t-badge:hover { background:rgba(139,92,246,.15); border-color:rgba(139,92,246,.45); }
 
     /* ── STAT ── */
     .stat-item { border-left:2px solid rgba(139,92,246,.2); transition:border-color .3s; }
     .stat-item:hover { border-left-color:#8b5cf6; }
 
-    /* ── SEPARATOR ── */
+    /* ── SEP ── */
     .sep { height:1px; background:linear-gradient(90deg,transparent,rgba(139,92,246,.35),transparent); }
 
     /* ── SCROLL REVEAL ── */
-    .sr { opacity:0; transform:translateY(20px); transition:opacity .65s ease, transform .65s ease; }
+    .sr { opacity:0; transform:translateY(22px); transition:opacity .65s ease, transform .65s ease; }
     .sr.vis { opacity:1; transform:translateY(0); }
 
     /* ── WA FLOAT ── */
-    .wa-float { animation: pulseVio 2.5s ease-in-out infinite; }
-    @keyframes pulseVio { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 0 0 14px rgba(37,211,102,0)} }
+    @keyframes pulseGreen { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 0 0 14px rgba(37,211,102,0)} }
+    .wa-float { animation:pulseGreen 2.5s ease-in-out infinite; }
+
+    /* ── SCAN LINE ── */
+    @keyframes scan { 0%{background-position:0% 0%} 100%{background-position:0% 200%} }
+
+    /* ── MOBILE NAV ── */
+    @media (max-width:768px) {
+      .hero-content { text-align:center; }
+      .hero-sub { max-width:100%; }
+      .hero-cta-group { justify-content:center; }
+    }
   </style>
 </head>
-
 <body class="relative">
+
   <div class="orb-1"></div>
   <div class="orb-2"></div>
 
   <!-- ══════════════ NAVBAR ══════════════ -->
-  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]" style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
+  <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]"
+       style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
 
     <a href="#" class="flex items-center gap-2.5 no-underline group">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+           style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
         <i class="fas fa-code text-vio text-xs"></i>
       </div>
-      <span class="font-syne font-800 text-bright text-base tracking-tight" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
+      <span class="font-syne text-bright text-base tracking-tight" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
     </a>
 
     <ul class="hidden md:flex gap-8 list-none m-0 p-0">
+      <li><a href="#servicos" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Serviços</a></li>
       <li><a href="#projetos" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Projetos</a></li>
-      <li><a href="#galeria"  class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Galeria</a></li>
-      <li><a href="#stack"    class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Stack</a></li>
+      <li><a href="#processo" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Processo</a></li>
+      <li><a href="#faq"      class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">FAQ</a></li>
       <li><a href="#contato"  class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
     </ul>
 
     <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
        target="_blank" rel="noopener"
        class="hidden md:inline-flex items-center gap-2 font-syne text-xs tracking-widest uppercase bg-vio text-white px-5 py-2.5 rounded-full hover:bg-vio-l transition-all duration-300 no-underline"
-       style="font-weight:600">
+       style="font-weight:700">
       <i class="fab fa-whatsapp"></i> Orçamento
     </a>
 
-    <!-- Mobile menu btn -->
     <button id="mbtn" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] bg-transparent border-none cursor-pointer" aria-label="Menu">
       <span id="mb1" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300 origin-center"></span>
       <span id="mb2" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300"></span>
@@ -218,80 +322,259 @@
     <div id="dpanel" class="absolute top-0 right-0 bottom-0 w-72 flex flex-col pt-24 pb-10 px-8 border-l"
          style="background:#0c0c0c;border-color:rgba(139,92,246,.15);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)">
       <ul class="flex flex-col list-none m-0 p-0 gap-0 flex-1">
+        <li><a href="#servicos" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Serviços</a></li>
         <li><a href="#projetos" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Projetos</a></li>
-        <li><a href="#galeria"  class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Galeria</a></li>
-        <li><a href="#stack"    class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Stack</a></li>
+        <li><a href="#processo" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Processo</a></li>
+        <li><a href="#faq"      class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">FAQ</a></li>
         <li><a href="#contato"  class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
       </ul>
       <a href="https://wa.me/5573981683277" target="_blank"
          class="flex items-center justify-center gap-2 py-3.5 rounded-full bg-vio text-white text-xs tracking-widest uppercase no-underline font-syne hover:bg-vio-l transition-all"
-         style="font-weight:600"><i class="fab fa-whatsapp"></i> Solicitar orçamento</a>
+         style="font-weight:700"><i class="fab fa-whatsapp"></i> Solicitar orçamento</a>
     </div>
   </div>
 
-  <!-- ══════════════ HERO ══════════════ -->
-  <section class="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden pt-20">
-    <!-- Scan line effect -->
-    <div class="absolute inset-0 pointer-events-none z-0 opacity-20"
-         style="background:linear-gradient(0deg,transparent 50%,rgba(139,92,246,.03) 50%);background-size:100% 4px;animation:scan 8s linear infinite"></div>
+  <!-- ══════════════ HERO — CARROSSEL ══════════════ -->
+  <section class="hero-carousel" id="hero-carousel">
+    <div class="hero-track" id="hero-track">
 
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-
-      <!-- Eyebrow -->
-      <div class="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full border text-xs font-dm tracking-widest uppercase"
-           style="background:rgba(139,92,246,.07);border-color:rgba(139,92,246,.25);color:#a78bfa">
-        <span class="w-1.5 h-1.5 rounded-full bg-vio animate-pulse"></span>
-        Portfólio · Layouts Profissionais
+      <!-- Slide 1 — Abiú -->
+      <div class="hero-slide grid-bg">
+        <!-- Troque o src pela imagem real do projeto: img/abiu-preview.jpg -->
+        <img src="img/bragga-dev-logo.jpeg" alt="Abiú Consultoria" onerror="this.style.display='none'" />
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-overlay-left"></div>
+        <!-- Fallback visual quando não há imagem -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+             style="background:linear-gradient(135deg,#0d0518,#1a0a35,#0f0820)">
+          <i class="fas fa-briefcase" style="font-size:12rem;color:#8b5cf6"></i>
+        </div>
       </div>
 
-      <!-- Headline -->
-      <h1 class="font-syne leading-[.9] mb-8" style="font-size:clamp(4rem,12vw,9rem);font-weight:800;letter-spacing:-.04em">
-        <span class="text-bright">BRAGGA</span><br>
-        <span class="text-vio">DEV</span>
-      </h1>
-
-      <p class="font-dm text-muted leading-relaxed mb-12 mx-auto" style="font-size:clamp(.9rem,1.5vw,1.1rem);max-width:480px;font-weight:300">
-        Interfaces que conectam marcas a pessoas. Design estratégico, código limpo e foco total em conversão.
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <a href="#projetos"
-           class="inline-flex items-center gap-2.5 font-syne text-xs tracking-widest uppercase bg-vio text-white px-8 py-4 rounded-full hover:bg-vio-l transition-all duration-300 no-underline"
-           style="font-weight:600">
-          Ver projetos <i class="fas fa-arrow-down text-[10px]"></i>
-        </a>
-        <a href="#galeria"
-           class="inline-flex items-center gap-2.5 font-syne text-xs tracking-widest uppercase border text-vio-l px-8 py-4 rounded-full hover:bg-vio/10 transition-all duration-300 no-underline"
-           style="border-color:rgba(139,92,246,.4);font-weight:600">
-          <i class="fas fa-images text-[10px]"></i> Galeria
-        </a>
+      <!-- Slide 2 — Daniela -->
+      <div class="hero-slide">
+        <img src="img/chatbot.jpg" alt="Daniela Faria Contadora" onerror="this.style.display='none'" />
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-overlay-left"></div>
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+             style="background:linear-gradient(135deg,#050e1a,#091828,#050e1a)">
+          <i class="fas fa-calculator" style="font-size:12rem;color:#3b82f6"></i>
+        </div>
       </div>
 
-      <!-- Stats strip -->
-      <div class="flex flex-wrap justify-center gap-12 mt-20 pt-12 border-t" style="border-color:rgba(139,92,246,.12)">
+      <!-- Slide 3 — Kayani -->
+      <div class="hero-slide">
+        <img src="img/logo.jpg" alt="Kayani" onerror="this.style.display='none'" />
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-overlay-left"></div>
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+             style="background:linear-gradient(135deg,#0a100a,#0f1c0f,#0a100a)">
+          <i class="fas fa-leaf" style="font-size:12rem;color:#22c55e"></i>
+        </div>
+      </div>
+
+      <!-- Slide 4 — Jessica -->
+      <div class="hero-slide">
+        <img src="img/automacion.jpg" alt="Jessica" onerror="this.style.display='none'" />
+        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-overlay-left"></div>
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+             style="background:linear-gradient(135deg,#12080f,#1f0a18,#12080f)">
+          <i class="fas fa-user-tie" style="font-size:12rem;color:#ec4899"></i>
+        </div>
+      </div>
+
+    </div><!-- /hero-track -->
+
+    <!-- Prev / Next -->
+    <button class="hcar-btn" id="hcar-prev" style="left:1.5rem" aria-label="Anterior">
+      <i class="fas fa-chevron-left text-xs"></i>
+    </button>
+    <button class="hcar-btn" id="hcar-next" style="right:1.5rem" aria-label="Próximo">
+      <i class="fas fa-chevron-right text-xs"></i>
+    </button>
+
+    <!-- Dots -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10" id="hcar-dots">
+      <button class="hcar-dot on" data-i="0"></button>
+      <button class="hcar-dot" data-i="1"></button>
+      <button class="hcar-dot" data-i="2"></button>
+      <button class="hcar-dot" data-i="3"></button>
+    </div>
+
+    <!-- Counter -->
+    <div class="hcar-counter" id="hcar-counter">01 / 04</div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue hidden md:flex">
+      <span class="font-dm text-[.5rem] tracking-[.4em] uppercase text-dim">scroll</span>
+      <div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════ STATS STRIP ══════════════ -->
+  <section class="relative z-10 py-14 px-6 md:px-14 border-b" style="border-color:rgba(139,92,246,.1);background:#0a0a0a">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
         <div class="stat-item pl-5">
-          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">15+</div>
+          <div class="font-syne text-4xl text-bright" style="font-weight:800;letter-spacing:-.03em">15+</div>
           <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Projetos entregues</div>
         </div>
         <div class="stat-item pl-5">
-          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">100%</div>
+          <div class="font-syne text-4xl text-bright" style="font-weight:800;letter-spacing:-.03em">100%</div>
           <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Responsivo</div>
         </div>
         <div class="stat-item pl-5">
-          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">3+</div>
-          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Anos de exp.</div>
+          <div class="font-syne text-4xl text-bright" style="font-weight:800;letter-spacing:-.03em">3+</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Anos de experiência</div>
         </div>
         <div class="stat-item pl-5">
-          <div class="font-syne text-3xl text-bright" style="font-weight:800;letter-spacing:-.03em">∞</div>
-          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Suporte</div>
+          <div class="font-syne text-4xl text-bright" style="font-weight:800;letter-spacing:-.03em">∞</div>
+          <div class="font-dm text-[.65rem] tracking-widest uppercase text-muted mt-1">Suporte incluso</div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- scroll cue -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-      <span class="font-dm text-[.55rem] tracking-[.4em] uppercase text-dim">scroll</span>
-      <div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div>
+  <div class="sep"></div>
+
+  <!-- ══════════════ SERVIÇOS ══════════════ -->
+  <section id="servicos" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="sr mb-16 max-w-2xl">
+        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
+          <span class="w-8 h-px bg-vio inline-block"></span> O que eu faço
+        </p>
+        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
+          Soluções digitais<br>que geram resultado.
+        </h2>
+        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
+          Do conceito ao lançamento, entrego interfaces de alta performance que convertem visitantes em clientes.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <!-- Serviço 1 — Sites -->
+        <div class="svc-card sr">
+          <div class="svc-icon">
+            <i class="fas fa-globe text-vio text-lg"></i>
+          </div>
+          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Criação de Sites</h3>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
+            Sites institucionais, corporativos e empresariais com design único, identidade visual forte e foco em conversão.
+          </p>
+          <ul class="flex flex-col gap-2 list-none m-0 p-0">
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Design personalizado
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> SEO otimizado
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Carregamento rápido
+            </li>
+          </ul>
+          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
+            <a href="https://wa.me/5573981683277?text=Quero%20um%20site!" target="_blank"
+               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
+              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 2 — Blog / Portfólio -->
+        <div class="svc-card sr">
+          <div class="svc-icon">
+            <i class="fas fa-pen-nib text-vio text-lg"></i>
+          </div>
+          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Blog & Portfólio</h3>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
+            Plataformas elegantes para publicar conteúdo e exibir seus trabalhos com design que valoriza sua trajetória.
+          </p>
+          <ul class="flex flex-col gap-2 list-none m-0 p-0">
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Layout editorial
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Galeria de projetos
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Fácil atualização
+            </li>
+          </ul>
+          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
+            <a href="https://wa.me/5573981683277?text=Quero%20um%20portfólio!" target="_blank"
+               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
+              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 3 — Landing Page -->
+        <div class="svc-card sr" style="border-color:rgba(139,92,246,.28);box-shadow:0 0 40px rgba(139,92,246,.08)">
+          <!-- Destaque -->
+          <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#8b5cf6,transparent)"></div>
+          <div class="absolute top-4 right-4 font-dm text-[.55rem] tracking-widest uppercase px-3 py-1 rounded-full"
+               style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#a78bfa">
+            Mais vendido
+          </div>
+          <div class="svc-icon" style="background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.4)">
+            <i class="fas fa-rocket text-vio text-lg"></i>
+          </div>
+          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Landing Page</h3>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
+            Páginas de captura e vendas com copywriting estratégico, CTAs poderosas e estrutura validada para maximizar conversões.
+          </p>
+          <ul class="flex flex-col gap-2 list-none m-0 p-0">
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Alta taxa de conversão
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Integração WhatsApp
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Entrega expressa
+            </li>
+          </ul>
+          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.15)">
+            <a href="https://wa.me/5573981683277?text=Quero%20uma%20landing%20page!" target="_blank"
+               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
+              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Serviço 4 — Automações -->
+        <div class="svc-card sr">
+          <div class="svc-icon">
+            <i class="fas fa-robot text-vio text-lg"></i>
+          </div>
+          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Automações</h3>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
+            Automatize processos repetitivos, envio de mensagens, formulários e integrações para ganhar tempo e escalar seu negócio.
+          </p>
+          <ul class="flex flex-col gap-2 list-none m-0 p-0">
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> WhatsApp automático
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Formulários inteligentes
+            </li>
+            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
+              <i class="fas fa-check text-vio text-[10px]"></i> Integrações e APIs
+            </li>
+          </ul>
+          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
+            <a href="https://wa.me/5573981683277?text=Quero%20automações!" target="_blank"
+               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
+              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -313,7 +596,7 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-5" id="projetos-grid">
+      <div class="grid md:grid-cols-2 gap-5">
 
         <!-- Card 1 — Abiú Consultoria -->
         <a href="abiu.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
@@ -437,247 +720,224 @@
 
   <div class="sep"></div>
 
-  <!-- ══════════════ GALERIA / CARROSSEL ══════════════ -->
-  <section id="galeria" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+  <!-- ══════════════ PROCESSO ══════════════ -->
+  <section id="processo" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#080808">
     <div class="max-w-7xl mx-auto">
 
-      <div class="sr mb-14 max-w-2xl">
+      <div class="sr mb-16 max-w-2xl">
         <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Galeria
+          <span class="w-8 h-px bg-vio inline-block"></span> Como funciona
         </p>
         <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
-          Detalhes que<br>fazem a diferença.
+          Do briefing ao<br>lançamento.
         </h2>
         <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
-          Cada pixel é pensado. Veja alguns momentos dos projetos entregues.
+          Processo claro e transparente. Você acompanha cada etapa da criação do seu projeto.
         </p>
       </div>
 
-      <!-- CARROSSEL ESTÁTICO -->
-      <div class="sr relative overflow-hidden rounded-2xl" id="carousel" style="height:480px;border:1px solid rgba(139,92,246,.15)">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        <div class="car-track h-full" id="car-track">
-
-          <!-- Slide 1 -->
-          <div class="car-slide h-full">
-            <div class="w-full h-full flex items-center justify-center relative"
-                 style="background:linear-gradient(135deg,#0d0518 0%,#1a0a35 40%,#0f0820 100%)">
-              <!-- Mock UI elements -->
-              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#8b5cf6"></div>
-              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#8b5cf6"></div>
-              <div class="absolute bottom-16 left-12 right-24 h-32 rounded-lg opacity-8" style="background:#8b5cf6"></div>
-              <div class="text-center relative z-10">
-                <i class="fas fa-briefcase mb-4 block" style="font-size:3rem;color:#8b5cf6;opacity:.7"></i>
-                <p class="font-syne text-vio-l text-sm tracking-[.3em] uppercase" style="font-weight:600">Abiú Consultoria</p>
-                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Departamento Pessoal</p>
-              </div>
-            </div>
-            <div class="car-caption">
-              <p class="font-syne text-bright text-sm" style="font-weight:700">Abiú Consultoria</p>
-              <p class="font-dm text-muted text-xs mt-1">Layout institucional · Foco em credibilidade e conversão</p>
-            </div>
+        <div class="sr" style="transition-delay:.0s">
+          <div class="step-num">01</div>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+            <i class="fas fa-comments text-vio text-sm"></i>
           </div>
-
-          <!-- Slide 2 -->
-          <div class="car-slide h-full">
-            <div class="w-full h-full flex items-center justify-center relative"
-                 style="background:linear-gradient(135deg,#050e1a 0%,#091828 40%,#050e1a 100%)">
-              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#3b82f6"></div>
-              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#3b82f6"></div>
-              <div class="absolute bottom-16 left-16 right-16 h-28 rounded-lg opacity-8" style="background:#3b82f6"></div>
-              <div class="text-center relative z-10">
-                <i class="fas fa-calculator mb-4 block" style="font-size:3rem;color:#60a5fa;opacity:.7"></i>
-                <p class="font-syne text-blue-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Daniela Faria</p>
-                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Contabilidade</p>
-              </div>
-            </div>
-            <div class="car-caption">
-              <p class="font-syne text-bright text-sm" style="font-weight:700">Daniela Faria Contadora</p>
-              <p class="font-dm text-muted text-xs mt-1">Layout contábil · Autoridade e organização</p>
-            </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="car-slide h-full">
-            <div class="w-full h-full flex items-center justify-center relative"
-                 style="background:linear-gradient(135deg,#0a100a 0%,#0f1c0f 40%,#0a100a 100%)">
-              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#22c55e"></div>
-              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#22c55e"></div>
-              <div class="absolute bottom-16 left-20 right-20 h-24 rounded-lg opacity-8" style="background:#22c55e"></div>
-              <div class="text-center relative z-10">
-                <i class="fas fa-leaf mb-4 block" style="font-size:3rem;color:#4ade80;opacity:.7"></i>
-                <p class="font-syne text-green-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Kayani</p>
-                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Serviços</p>
-              </div>
-            </div>
-            <div class="car-caption">
-              <p class="font-syne text-bright text-sm" style="font-weight:700">Kayani</p>
-              <p class="font-dm text-muted text-xs mt-1">Layout de serviços · Mobile-first & captação</p>
-            </div>
-          </div>
-
-          <!-- Slide 4 -->
-          <div class="car-slide h-full">
-            <div class="w-full h-full flex items-center justify-center relative"
-                 style="background:linear-gradient(135deg,#12080f 0%,#1f0a18 40%,#12080f 100%)">
-              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#ec4899"></div>
-              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#ec4899"></div>
-              <div class="absolute bottom-16 left-14 right-14 h-28 rounded-lg opacity-8" style="background:#ec4899"></div>
-              <div class="text-center relative z-10">
-                <i class="fas fa-user-tie mb-4 block" style="font-size:3rem;color:#f472b6;opacity:.7"></i>
-                <p class="font-syne text-pink-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Jessica</p>
-                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Profissional Liberal</p>
-              </div>
-            </div>
-            <div class="car-caption">
-              <p class="font-syne text-bright text-sm" style="font-weight:700">Jessica</p>
-              <p class="font-dm text-muted text-xs mt-1">Layout pessoal · Elegância e autoridade</p>
-            </div>
-          </div>
-
-          <!-- Slide 5 -->
-          <div class="car-slide h-full">
-            <div class="w-full h-full flex items-center justify-center relative"
-                 style="background:linear-gradient(135deg,#10090a 0%,#1f1209 40%,#10090a 100%)">
-              <div class="absolute inset-8 border rounded-xl opacity-10" style="border-color:#f59e0b"></div>
-              <div class="absolute top-12 left-12 right-12 h-10 rounded-lg opacity-15" style="background:#f59e0b"></div>
-              <div class="absolute bottom-16 left-12 right-12 h-24 rounded-lg opacity-8" style="background:#f59e0b"></div>
-              <div class="text-center relative z-10">
-                <i class="fas fa-rocket mb-4 block" style="font-size:3rem;color:#fbbf24;opacity:.7"></i>
-                <p class="font-syne text-amber-400 text-sm tracking-[.3em] uppercase" style="font-weight:600">Próximo Projeto</p>
-                <p class="font-dm text-dim text-xs mt-2 tracking-[.2em] uppercase">Em desenvolvimento</p>
-              </div>
-            </div>
-            <div class="car-caption">
-              <p class="font-syne text-bright text-sm" style="font-weight:700">Seu projeto aqui</p>
-              <p class="font-dm text-muted text-xs mt-1">Entre em contato · Vamos construir juntos</p>
-            </div>
-          </div>
-
-        </div><!-- /track -->
-
-        <!-- Gradient sides -->
-        <div class="absolute inset-y-0 left-0 w-20 pointer-events-none z-10" style="background:linear-gradient(90deg,rgba(8,8,8,.6),transparent)"></div>
-        <div class="absolute inset-y-0 right-0 w-20 pointer-events-none z-10" style="background:linear-gradient(-90deg,rgba(8,8,8,.6),transparent)"></div>
-
-        <!-- Prev / Next -->
-        <button class="car-btn left-4" id="car-prev" aria-label="Anterior">
-          <i class="fas fa-chevron-left text-xs"></i>
-        </button>
-        <button class="car-btn right-4" id="car-next" aria-label="Próximo">
-          <i class="fas fa-chevron-right text-xs"></i>
-        </button>
-
-        <!-- Counter badge -->
-        <div class="absolute top-4 right-4 z-20 font-syne text-[.58rem] tracking-[.2em] text-vio-l rounded-full px-3 py-1.5 backdrop-blur-sm"
-             style="background:rgba(15,15,15,.8);border:1px solid rgba(139,92,246,.25);font-weight:600">
-          <span id="car-counter">01</span> / 05
+          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Briefing</h4>
+          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Conversamos sobre seus objetivos, público-alvo, referências visuais e prazo ideal.</p>
         </div>
-      </div>
 
-      <!-- Dots + caption -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-5 px-1">
-        <p class="font-dm text-muted text-xs tracking-[.15em] uppercase" id="car-caption-out">Abiú Consultoria · Departamento Pessoal</p>
-        <div class="flex items-center gap-2" id="car-dots">
-          <button class="car-dot on" data-i="0"></button>
-          <button class="car-dot" data-i="1"></button>
-          <button class="car-dot" data-i="2"></button>
-          <button class="car-dot" data-i="3"></button>
-          <button class="car-dot" data-i="4"></button>
+        <div class="sr" style="transition-delay:.1s">
+          <div class="step-num">02</div>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+            <i class="fas fa-pencil-ruler text-vio text-sm"></i>
+          </div>
+          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Design</h4>
+          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Criação do layout com identidade visual única. Você aprova cada detalhe antes de codar.</p>
         </div>
-      </div>
 
+        <div class="sr" style="transition-delay:.2s">
+          <div class="step-num">03</div>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+            <i class="fas fa-code text-vio text-sm"></i>
+          </div>
+          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Desenvolvimento</h4>
+          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Código limpo, responsivo e performático. Funciona perfeitamente em qualquer dispositivo.</p>
+        </div>
+
+        <div class="sr" style="transition-delay:.3s">
+          <div class="step-num">04</div>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
+            <i class="fas fa-rocket text-vio text-sm"></i>
+          </div>
+          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Entrega & Suporte</h4>
+          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Publicação, testes finais e suporte pós-entrega. Você nunca fica sozinho.</p>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- ══════════════ STACK ══════════════ -->
-  <section id="stack" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-28 items-center">
+  <!-- ══════════════ DEPOIMENTOS ══════════════ -->
+  <section class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto">
 
-      <div class="sr">
+      <div class="sr mb-14 max-w-xl">
         <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Tecnologia
+          <span class="w-8 h-px bg-vio inline-block"></span> Depoimentos
         </p>
-        <h2 class="font-syne text-bright leading-[1.05] mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
-          Tecnologia +<br>Design estratégico.
+        <h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">
+          O que dizem os<br>clientes.
         </h2>
-        <p class="font-dm text-muted leading-relaxed mb-10" style="font-weight:300">
-          Cada projeto é construído com as ferramentas certas para o objetivo certo. Performance, acessibilidade e conversão em primeiro lugar.
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+
+        <div class="testi-card sr">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+          </div>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
+            "Superou todas as expectativas. O site ficou profissional, rápido e meus clientes adoraram. Recomendo demais!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.3);color:#a78bfa;font-weight:700">AB</div>
+            <div>
+              <p class="font-syne text-bright text-xs" style="font-weight:700">Abiú Consultoria</p>
+              <p class="font-dm text-dim text-[.65rem]">Departamento Pessoal</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card sr">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+          </div>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
+            "Entrega rápida, atendimento excelente e resultado final impecável. Minha presença online mudou completamente."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.3);color:#93c5fd;font-weight:700">DF</div>
+            <div>
+              <p class="font-syne text-bright text-xs" style="font-weight:700">Daniela Faria</p>
+              <p class="font-dm text-dim text-[.65rem]">Contadora</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card sr">
+          <div class="flex items-center gap-1 mb-4">
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+            <i class="fas fa-star text-amber-400 text-xs"></i>
+          </div>
+          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
+            "Profissional de verdade. Criou exatamente o que eu precisava para atrair novos clientes pelo celular."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.3);color:#f9a8d4;font-weight:700">JE</div>
+            <div>
+              <p class="font-syne text-bright text-xs" style="font-weight:700">Jessica</p>
+              <p class="font-dm text-dim text-[.65rem]">Profissional Liberal</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ══════════════ FAQ ══════════════ -->
+  <section id="faq" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#090909">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="sr mb-12 text-center">
+        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center justify-center gap-3">
+          <span class="w-8 h-px bg-vio inline-block"></span> Dúvidas
+          <span class="w-8 h-px bg-vio inline-block"></span>
         </p>
-
-        <!-- Feature list -->
-        <ul class="flex flex-col gap-4 list-none m-0 p-0">
-          <li class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-              <i class="fas fa-bolt text-vio text-xs"></i>
-            </span>
-            <div>
-              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Performance máxima</p>
-              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Carregamento otimizado, imagens comprimidas e código enxuto.</p>
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-              <i class="fas fa-mobile-alt text-vio text-xs"></i>
-            </span>
-            <div>
-              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Mobile-first sempre</p>
-              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Experiência perfeita em qualquer tela, do celular ao monitor ultrawide.</p>
-            </div>
-          </li>
-          <li class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-              <i class="fas fa-chart-line text-vio text-xs"></i>
-            </span>
-            <div>
-              <p class="font-syne text-bright text-sm mb-1" style="font-weight:700">Focado em conversão</p>
-              <p class="font-dm text-muted text-xs leading-relaxed" style="font-weight:300">Hierarquia visual e CTAs estrategicamente posicionados para gerar resultados.</p>
-            </div>
-          </li>
-        </ul>
+        <h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">
+          Perguntas frequentes
+        </h2>
       </div>
 
-      <!-- Tech grid -->
-      <div class="sr grid grid-cols-2 gap-3">
-        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card" style="">
-          <i class="fab fa-html5 text-2xl" style="color:#e34f26"></i>
-          <div>
-            <p class="font-syne text-bright text-sm" style="font-weight:700">HTML5</p>
-            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Semântico & acessível</p>
-          </div>
-        </div>
-        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
-          <i class="fab fa-css3-alt text-2xl" style="color:#1572b6"></i>
-          <div>
-            <p class="font-syne text-bright text-sm" style="font-weight:700">CSS3</p>
-            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Animações & layout</p>
-          </div>
-        </div>
-        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
-          <i class="fab fa-js text-2xl" style="color:#f7df1e"></i>
-          <div>
-            <p class="font-syne text-bright text-sm" style="font-weight:700">JavaScript</p>
-            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Interatividade</p>
-          </div>
-        </div>
-        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card">
-          <i class="fas fa-wind text-2xl text-sky-400"></i>
-          <div>
-            <p class="font-syne text-bright text-sm" style="font-weight:700">Tailwind CSS</p>
-            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Utility-first</p>
-          </div>
-        </div>
-        <div class="rounded-xl p-5 flex flex-col gap-3 proj-card col-span-2">
-          <i class="fas fa-mobile-alt text-2xl text-vio"></i>
-          <div>
-            <p class="font-syne text-bright text-sm" style="font-weight:700">100% Responsivo</p>
-            <p class="font-dm text-dim text-xs mt-0.5" style="font-weight:300">Funciona em todos os dispositivos sem exceção</p>
-          </div>
-        </div>
-      </div>
+      <div class="flex flex-col sr">
 
+        <div class="faq-item">
+          <button class="faq-q">
+            Quanto tempo leva para criar meu site?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Depende da complexidade do projeto. Uma landing page simples pode ser entregue em 3 a 5 dias úteis. Sites completos ficam prontos em 7 a 15 dias úteis. Sempre alinhamos o prazo no briefing inicial.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Preciso ter domínio e hospedagem?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Você pode ter o seu ou eu te ajudo a contratar o melhor plano para o seu caso. Oriento em todo o processo de registro e configuração de domínio e hospedagem.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            O site funciona bem no celular?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Sim, 100%! Todos os projetos são desenvolvidos com abordagem mobile-first, ou seja, o layout é pensado primeiro para celular e depois adaptado para telas maiores. Testamos em múltiplos dispositivos antes da entrega.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Posso pedir alterações após a entrega?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Sim! Incluo rodadas de revisão durante o processo e suporte pós-entrega para ajustes pontuais. Para alterações maiores, posso fazer um orçamento específico.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Como funciona o pagamento?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Trabalhamos com 50% de entrada para início do projeto e 50% na entrega final. Aceito Pix, transferência bancária e outros meios mediante acordo.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" style="border:none">
+          <button class="faq-q">
+            Você também cria conteúdo para o site?
+            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
+          </button>
+          <div class="faq-a">
+            <p class="faq-a-inner">Posso ajudar com a estrutura dos textos e copywriting básico. Para conteúdo mais aprofundado (blog, artigos), indico especialistas parceiros. O importante é que seu site tenha textos que convertem.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -715,7 +975,6 @@
         </a>
       </div>
 
-      <!-- Info strip -->
       <div class="flex flex-wrap justify-center gap-10 pt-10 border-t" style="border-color:rgba(139,92,246,.12)">
         <div class="flex items-center gap-3 text-muted">
           <i class="fas fa-clock text-vio text-sm"></i>
@@ -723,7 +982,7 @@
         </div>
         <div class="flex items-center gap-3 text-muted">
           <i class="fas fa-map-marker-alt text-vio text-sm"></i>
-          <span class="font-dm text-sm" style="font-weight:300">Jequié, Bahia — Atendo online</span>
+          <span class="font-dm text-sm" style="font-weight:300">Jequié, Bahia · Atendo online</span>
         </div>
         <div class="flex items-center gap-3 text-muted">
           <i class="fas fa-shield-alt text-vio text-sm"></i>
@@ -735,29 +994,94 @@
   </section>
 
   <!-- ══════════════ FOOTER ══════════════ -->
-  <footer class="relative z-10 py-10 px-6 md:px-14 border-t" style="border-color:rgba(139,92,246,.1)">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <footer class="relative z-10 border-t" style="border-color:rgba(139,92,246,.1);background:#060606">
 
-      <div class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
-          <i class="fas fa-code text-vio" style="font-size:.6rem"></i>
+    <!-- Footer top -->
+    <div class="max-w-7xl mx-auto px-6 md:px-14 pt-16 pb-12 grid md:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <a href="#" class="flex items-center gap-2.5 no-underline mb-4">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
+            <i class="fas fa-code text-vio text-xs"></i>
+          </div>
+          <span class="font-syne text-bright text-base" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
+        </a>
+        <p class="font-dm text-dim text-xs leading-relaxed mb-5" style="font-weight:300">
+          Interfaces digitais de alto nível. Design estratégico e código limpo para marcas que querem crescer online.
+        </p>
+        <div class="flex gap-3">
+          <a href="https://wa.me/5573981683277" target="_blank"
+             class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110"
+             style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);color:#25d366">
+            <i class="fab fa-whatsapp text-sm"></i>
+          </a>
+          <a href="https://www.instagram.com/edivanfigueiredobraga/" target="_blank"
+             class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110"
+             style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#a78bfa">
+            <i class="fab fa-instagram text-sm"></i>
+          </a>
         </div>
-        <span class="font-syne text-bright text-sm" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
       </div>
 
-      <p class="font-dm text-dim text-xs tracking-[.1em] text-center" style="font-weight:300">
-        © 2025 BRAGGA DEV · Desenvolvimento web de alto nível<br class="md:hidden"> · Jequié, Bahia
-      </p>
+      <!-- Serviços -->
+      <div>
+        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Serviços</h5>
+        <ul class="flex flex-col gap-3 list-none m-0 p-0">
+          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Criação de Sites</a></li>
+          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Blog & Portfólio</a></li>
+          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Landing Page</a></li>
+          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Automações</a></li>
+        </ul>
+      </div>
 
-      <div class="flex gap-5">
-        <a href="https://wa.me/5573981683277" target="_blank" class="text-dim hover:text-vio-l transition-colors text-sm no-underline">
-          <i class="fab fa-whatsapp"></i>
+      <!-- Projetos -->
+      <div>
+        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Projetos</h5>
+        <ul class="flex flex-col gap-3 list-none m-0 p-0">
+          <li><a href="abiu.html"    class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Abiú Consultoria</a></li>
+          <li><a href="dani.html"    class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Daniela Faria</a></li>
+          <li><a href="kayani.html"  class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Kayani</a></li>
+          <li><a href="jessica.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Jessica</a></li>
+        </ul>
+      </div>
+
+      <!-- Contato -->
+      <div>
+        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Contato</h5>
+        <ul class="flex flex-col gap-3 list-none m-0 p-0">
+          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
+            <i class="fas fa-phone text-vio text-xs"></i> +55 73 98168-3277
+          </li>
+          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
+            <i class="fas fa-map-marker-alt text-vio text-xs"></i> Jequié, Bahia
+          </li>
+          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
+            <i class="fas fa-clock text-vio text-xs"></i> Seg–Sáb, 8h–18h
+          </li>
+        </ul>
+        <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
+           target="_blank"
+           class="inline-flex items-center gap-2 mt-5 font-syne text-xs tracking-widest uppercase px-5 py-3 rounded-full no-underline transition-all hover:scale-105"
+           style="background:#25d366;color:#000;font-weight:700">
+          <i class="fab fa-whatsapp"></i> Orçamento grátis
         </a>
-        <a href="https://instagram.com/bragga.dev" target="_blank" class="text-dim hover:text-vio-l transition-colors text-sm no-underline">
-          <i class="fab fa-instagram"></i>
-        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="border-t" style="border-color:rgba(139,92,246,.08)">
+      <div class="max-w-7xl mx-auto px-6 md:px-14 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-dm text-dim text-xs text-center" style="font-weight:300">
+          © 2025 BRAGGA DEV · Todos os direitos reservados · Jequié, Bahia
+        </p>
+        <p class="font-dm text-dim text-xs text-center" style="font-weight:300">
+          Desenvolvido com <span class="text-vio">♥</span> por BRAGGA DEV
+        </p>
       </div>
     </div>
+
   </footer>
 
   <!-- WhatsApp Float -->
@@ -774,101 +1098,91 @@
 
   <script>
     // ── MOBILE MENU ──────────────────────────────────────────
-    const mbtn   = document.getElementById('mbtn');
-    const drawer = document.getElementById('drawer');
-    const dpanel = document.getElementById('dpanel');
+    const mbtn=document.getElementById('mbtn'),drawer=document.getElementById('drawer'),dpanel=document.getElementById('dpanel');
     const mb1=document.getElementById('mb1'),mb2=document.getElementById('mb2'),mb3=document.getElementById('mb3');
-    let mOpen = false;
-
-    function toggleMenu() {
-      mOpen = !mOpen;
-      dpanel.style.transform   = mOpen ? 'translateX(0)' : 'translateX(100%)';
-      drawer.style.background  = mOpen ? 'rgba(0,0,0,.6)' : 'transparent';
-      drawer.style.pointerEvents = mOpen ? 'all' : 'none';
-      document.body.style.overflow = mOpen ? 'hidden' : '';
-      // Hamburger → X
-      mb1.style.transform = mOpen ? 'translateY(7px) rotate(45deg)'  : '';
-      mb2.style.opacity   = mOpen ? '0' : '1';
-      mb3.style.transform = mOpen ? 'translateY(-7px) rotate(-45deg)' : '';
+    let mOpen=false;
+    function toggleMenu(){
+      mOpen=!mOpen;
+      dpanel.style.transform=mOpen?'translateX(0)':'translateX(100%)';
+      drawer.style.background=mOpen?'rgba(0,0,0,.6)':'transparent';
+      drawer.style.pointerEvents=mOpen?'all':'none';
+      document.body.style.overflow=mOpen?'hidden':'';
+      mb1.style.transform=mOpen?'translateY(7px) rotate(45deg)':'';
+      mb2.style.opacity=mOpen?'0':'1';
+      mb3.style.transform=mOpen?'translateY(-7px) rotate(-45deg)':'';
     }
+    mbtn.addEventListener('click',toggleMenu);
+    drawer.addEventListener('click',e=>{if(e.target===drawer)toggleMenu();});
+    document.querySelectorAll('.mlink').forEach(l=>l.addEventListener('click',()=>{if(mOpen)toggleMenu();}));
 
-    mbtn.addEventListener('click', toggleMenu);
-    drawer.addEventListener('click', e => { if(e.target===drawer) toggleMenu(); });
-    document.querySelectorAll('.mlink').forEach(l => l.addEventListener('click', () => { if(mOpen) toggleMenu(); }));
+    // ── HERO CAROUSEL ────────────────────────────────────────
+    let hCur=0, hTotal=4, hAuto;
+    const hTrack=document.getElementById('hero-track');
+    const hCounter=document.getElementById('hcar-counter');
+    const hDots=[...document.querySelectorAll('.hcar-dot')];
+
+    function hGoTo(n){
+      hCur=((n%hTotal)+hTotal)%hTotal;
+      hTrack.style.transform=`translateX(-${hCur*100}%)`;
+      hCounter.textContent=String(hCur+1).padStart(2,'0')+' / 0'+hTotal;
+      hDots.forEach((d,i)=>d.classList.toggle('on',i===hCur));
+    }
+    function hReset(){clearInterval(hAuto);hAuto=setInterval(()=>hGoTo(hCur+1),5000);}
+
+    document.getElementById('hcar-prev').addEventListener('click',()=>{hGoTo(hCur-1);hReset();});
+    document.getElementById('hcar-next').addEventListener('click',()=>{hGoTo(hCur+1);hReset();});
+    hDots.forEach(d=>d.addEventListener('click',()=>{hGoTo(+d.dataset.i);hReset();}));
+
+    let hSx=0;
+    const hCar=document.getElementById('hero-carousel');
+    hCar.addEventListener('touchstart',e=>{hSx=e.touches[0].clientX;},{passive:true});
+    hCar.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-hSx;
+      if(Math.abs(dx)>45){hGoTo(hCur+(dx<0?1:-1));hReset();}
+    });
+    hAuto=setInterval(()=>hGoTo(hCur+1),5000);
 
     // ── SCROLL REVEAL ────────────────────────────────────────
-    const srObs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 70);
+    const srObs=new IntersectionObserver((entries)=>{
+      entries.forEach((e,i)=>{
+        if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*80);
       });
-    }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.sr').forEach(el => srObs.observe(el));
+    },{threshold:.07,rootMargin:'0px 0px -30px 0px'});
+    document.querySelectorAll('.sr').forEach(el=>srObs.observe(el));
 
     // ── SMOOTH SCROLL ────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = a.getAttribute('href');
-        if(t && t !== '#') { e.preventDefault(); document.querySelector(t)?.scrollIntoView({ behavior:'smooth' }); }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const t=a.getAttribute('href');
+        if(t&&t!=='#'){e.preventDefault();document.querySelector(t)?.scrollIntoView({behavior:'smooth'});}
       });
     });
 
-    // ── CAROUSEL ─────────────────────────────────────────────
-    const captions = [
-      'Abiú Consultoria · Departamento Pessoal',
-      'Daniela Faria · Contabilidade & Gestão',
-      'Kayani · Layout de Serviços',
-      'Jessica · Profissional Liberal',
-      'Próximo projeto · Entre em contato'
-    ];
-
-    let cur = 0, total = 5, autoT;
-    const track    = document.getElementById('car-track');
-    const counter  = document.getElementById('car-counter');
-    const capOut   = document.getElementById('car-caption-out');
-    const dots     = [...document.querySelectorAll('.car-dot')];
-
-    function goTo(n) {
-      cur = ((n % total) + total) % total;
-      track.style.transform = `translateX(-${cur * 100}%)`;
-      counter.textContent   = String(cur + 1).padStart(2,'0');
-      capOut.textContent    = captions[cur];
-      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
-    }
-
-    function startAuto() { autoT = setInterval(() => goTo(cur + 1), 4500); }
-    function resetAuto() { clearInterval(autoT); startAuto(); }
-
-    document.getElementById('car-prev').addEventListener('click', () => { goTo(cur - 1); resetAuto(); });
-    document.getElementById('car-next').addEventListener('click', () => { goTo(cur + 1); resetAuto(); });
-    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetAuto(); }));
-
-    // Touch/swipe
-    let sx = 0;
-    const car = document.getElementById('carousel');
-    car.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive:true });
-    car.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) { goTo(cur + (dx < 0 ? 1 : -1)); resetAuto(); }
+    // ── FAQ ──────────────────────────────────────────────────
+    document.querySelectorAll('.faq-q').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const item=btn.parentElement;
+        const wasOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+        if(!wasOpen)item.classList.add('open');
+      });
     });
 
-    startAuto();
-
     // ── IFRAME LAZY LOAD ─────────────────────────────────────
-    if ('IntersectionObserver' in window) {
-      const iObs = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const iframe = entry.target;
-            const src = iframe.getAttribute('src');
-            if (src && !iframe.getAttribute('data-loaded')) {
+    if('IntersectionObserver' in window){
+      const iObs=new IntersectionObserver((entries,obs)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const iframe=entry.target;
+            if(!iframe.getAttribute('data-loaded')){
               iframe.setAttribute('data-loaded','1');
-              iframe.src = src;
+              iframe.src=iframe.src;
             }
             obs.unobserve(iframe);
           }
         });
       });
-      document.querySelectorAll('iframe').forEach(f => iObs.observe(f));
+      document.querySelectorAll('iframe').forEach(f=>iObs.observe(f));
     }
   </script>
 </body>
