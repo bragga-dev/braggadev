@@ -267,10 +267,6 @@
     @keyframes pulseGreen { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 50%{box-shadow:0 0 0 14px rgba(37,211,102,0)} }
     .wa-float { animation:pulseGreen 2.5s ease-in-out infinite; }
 
-    /* ── SCAN LINE ── */
-    @keyframes scan { 0%{background-position:0% 0%} 100%{background-position:0% 200%} }
-
-    /* ── MOBILE NAV ── */
     @media (max-width:768px) {
       .hero-content { text-align:center; }
       .hero-sub { max-width:100%; }
@@ -286,30 +282,25 @@
   <!-- ══════════════ NAVBAR ══════════════ -->
   <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]"
        style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
-
     <a href="#" class="flex items-center gap-2.5 no-underline group">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center"
-           style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
         <i class="fas fa-code text-vio text-xs"></i>
       </div>
       <span class="font-syne text-bright text-base tracking-tight" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
     </a>
-
     <ul class="hidden md:flex gap-8 list-none m-0 p-0">
+      <li><a href="#sobre" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Sobre</a></li>
       <li><a href="#servicos" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Serviços</a></li>
       <li><a href="#projetos" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Projetos</a></li>
       <li><a href="#processo" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Processo</a></li>
-      <li><a href="#faq"      class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">FAQ</a></li>
-      <li><a href="#contato"  class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
+      <li><a href="#faq" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l transition-colors">FAQ</a></li>
     </ul>
-
     <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
        target="_blank" rel="noopener"
        class="hidden md:inline-flex items-center gap-2 font-syne text-xs tracking-widest uppercase bg-vio text-white px-5 py-2.5 rounded-full hover:bg-vio-l transition-all duration-300 no-underline"
        style="font-weight:700">
       <i class="fab fa-whatsapp"></i> Orçamento
     </a>
-
     <button id="mbtn" class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] bg-transparent border-none cursor-pointer" aria-label="Menu">
       <span id="mb1" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300 origin-center"></span>
       <span id="mb2" class="block w-5 h-[1.5px] bg-vio-l transition-all duration-300"></span>
@@ -317,16 +308,15 @@
     </button>
   </nav>
 
-  <!-- Mobile Drawer -->
   <div id="drawer" class="fixed inset-0 z-40 pointer-events-none" style="transition:background .35s">
     <div id="dpanel" class="absolute top-0 right-0 bottom-0 w-72 flex flex-col pt-24 pb-10 px-8 border-l"
          style="background:#0c0c0c;border-color:rgba(139,92,246,.15);transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1)">
       <ul class="flex flex-col list-none m-0 p-0 gap-0 flex-1">
+        <li><a href="#sobre" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Sobre</a></li>
         <li><a href="#servicos" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Serviços</a></li>
         <li><a href="#projetos" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Projetos</a></li>
         <li><a href="#processo" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">Processo</a></li>
-        <li><a href="#faq"      class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l border-b border-white/[.05] transition-colors">FAQ</a></li>
-        <li><a href="#contato"  class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l transition-colors">Contato</a></li>
+        <li><a href="#faq" class="mlink block py-4 text-sm tracking-widest uppercase text-muted hover:text-vio-l transition-colors">FAQ</a></li>
       </ul>
       <a href="https://wa.me/5573981683277" target="_blank"
          class="flex items-center justify-center gap-2 py-3.5 rounded-full bg-vio text-white text-xs tracking-widest uppercase no-underline font-syne hover:bg-vio-l transition-all"
@@ -334,812 +324,165 @@
     </div>
   </div>
 
-  <!-- ══════════════ HERO — CARROSSEL ══════════════ -->
+  <!-- ══════════════ HERO — CARROSSEL (mantido original) ══════════════ -->
   <section class="hero-carousel" id="hero-carousel">
     <div class="hero-track" id="hero-track">
-
-      <!-- Slide 1 — Abiú -->
-      <div class="hero-slide grid-bg">
-        <!-- Troque o src pela imagem real do projeto: img/abiu-preview.jpg -->
-        <img src="img/bragga-dev-logo.jpeg" alt="Abiú Consultoria" onerror="this.style.display='none'" />
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-overlay-left"></div>
-        <!-- Fallback visual quando não há imagem -->
-        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
-             style="background:linear-gradient(135deg,#0d0518,#1a0a35,#0f0820)">
-          <i class="fas fa-briefcase" style="font-size:12rem;color:#8b5cf6"></i>
-        </div>
-      </div>
-
-      <!-- Slide 2 — Daniela -->
-      <div class="hero-slide">
-        <img src="img/chatbot.jpg" alt="Daniela Faria Contadora" onerror="this.style.display='none'" />
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-overlay-left"></div>
-        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
-             style="background:linear-gradient(135deg,#050e1a,#091828,#050e1a)">
-          <i class="fas fa-calculator" style="font-size:12rem;color:#3b82f6"></i>
-        </div>
-      </div>
-
-      <!-- Slide 3 — Kayani -->
-      <div class="hero-slide">
-        <img src="img/logo.jpg" alt="Kayani" onerror="this.style.display='none'" />
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-overlay-left"></div>
-        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
-             style="background:linear-gradient(135deg,#0a100a,#0f1c0f,#0a100a)">
-          <i class="fas fa-leaf" style="font-size:12rem;color:#22c55e"></i>
-        </div>
-      </div>
-
-      <!-- Slide 4 — Jessica -->
-      <div class="hero-slide">
-        <img src="img/automacion.jpg" alt="Jessica" onerror="this.style.display='none'" />
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-overlay-left"></div>
-        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
-             style="background:linear-gradient(135deg,#12080f,#1f0a18,#12080f)">
-          <i class="fas fa-user-tie" style="font-size:12rem;color:#ec4899"></i>
-        </div>
-      </div>
-
-    </div><!-- /hero-track -->
-
-    <!-- Prev / Next -->
-    <button class="hcar-btn" id="hcar-prev" style="left:1.5rem" aria-label="Anterior">
-      <i class="fas fa-chevron-left text-xs"></i>
-    </button>
-    <button class="hcar-btn" id="hcar-next" style="right:1.5rem" aria-label="Próximo">
-      <i class="fas fa-chevron-right text-xs"></i>
-    </button>
-
-    <!-- Dots -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10" id="hcar-dots">
-      <button class="hcar-dot on" data-i="0"></button>
-      <button class="hcar-dot" data-i="1"></button>
-      <button class="hcar-dot" data-i="2"></button>
-      <button class="hcar-dot" data-i="3"></button>
+      <div class="hero-slide grid-bg"><img src="img/bragga-dev-logo.jpeg" alt="Abiú Consultoria" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#0d0518,#1a0a35,#0f0820)"><i class="fas fa-briefcase" style="font-size:12rem;color:#8b5cf6"></i></div></div>
+      <div class="hero-slide"><img src="img/chatbot.jpg" alt="Daniela Faria Contadora" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#050e1a,#091828,#050e1a)"><i class="fas fa-calculator" style="font-size:12rem;color:#3b82f6"></i></div></div>
+      <div class="hero-slide"><img src="img/logo.jpg" alt="Kayani" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#0a100a,#0f1c0f,#0a100a)"><i class="fas fa-leaf" style="font-size:12rem;color:#22c55e"></i></div></div>
+      <div class="hero-slide"><img src="img/automacion.jpg" alt="Jessica" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#12080f,#1f0a18,#12080f)"><i class="fas fa-user-tie" style="font-size:12rem;color:#ec4899"></i></div></div>
     </div>
-
-    <!-- Counter -->
+    <button class="hcar-btn" id="hcar-prev" style="left:1.5rem" aria-label="Anterior"><i class="fas fa-chevron-left text-xs"></i></button>
+    <button class="hcar-btn" id="hcar-next" style="right:1.5rem" aria-label="Próximo"><i class="fas fa-chevron-right text-xs"></i></button>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10" id="hcar-dots">
+      <button class="hcar-dot on" data-i="0"></button><button class="hcar-dot" data-i="1"></button><button class="hcar-dot" data-i="2"></button><button class="hcar-dot" data-i="3"></button>
+    </div>
     <div class="hcar-counter" id="hcar-counter">01 / 04</div>
+    <div class="scroll-cue hidden md:flex"><span class="font-dm text-[.5rem] tracking-[.4em] uppercase text-dim">scroll</span><div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div></div>
+  </section>
 
-    <!-- Scroll cue -->
-    <div class="scroll-cue hidden md:flex">
-      <span class="font-dm text-[.5rem] tracking-[.4em] uppercase text-dim">scroll</span>
-      <div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div>
+  <div class="sep"></div>
+
+  <!-- ══════════════ NOVA SEÇÃO: SOBRE MIM (foto + perfil + formação + tecnologias) ══════════════ -->
+  <section id="sobre" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Lado esquerdo: Foto + badge -->
+        <div class="sr flex flex-col items-center md:items-start">
+          <div class="relative w-80 h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden border-2 border-vio/30 shadow-2xl shadow-vio/20">
+            <!-- Foto placeholder (troque pelo caminho real da sua foto) -->
+            <img src="img/bragga.png" alt="Edivan Figueiredo Braga" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-void/70 to-transparent"></div>
+          </div>
+        </div>
+
+        <!-- Lado direito: texto profissional + formação + stacks -->
+        <div class="sr space-y-6">
+          <div>
+            <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-3 flex items-center gap-3">
+              <span class="w-8 h-px bg-vio inline-block"></span> Perfil profissional
+            </p>
+            <h2 class="font-syne text-bright text-4xl md:text-5xl leading-tight font-extrabold tracking-tight mb-5">
+              Edivan Figueiredo <span class="text-vio">Braga</span>
+            </h2>
+          </div>
+
+          <p class="font-dm text-light text-base leading-relaxed" style="font-weight:300">
+            Desenvolvedor de software com formação técnica em Informática pelo <strong class="text-vio">IFBA</strong> e especialização pelo <strong class="text-vio">Programa de Residência em Software do CEPEDI</strong>, com 18 meses de experiência no desenvolvimento de soluções reais para empresas parceiras. Especialista em <strong class="text-vio-l">Python, Django e Django REST Framework</strong>, com vivência em bancos de dados relacionais (MySQL, PostgreSQL), versionamento com Git/GitHub e metodologias ágeis (Scrum). Experiência complementar em suporte técnico e infraestrutura de TI, proporcionando visão sistêmica e capacidade analítica para resolução eficiente de problemas. Perfil proativo, colaborativo e orientado a resultados.
+          </p>
+
+          <!-- Formação acadêmica -->
+          <div class="pt-4">
+            <h3 class="font-syne text-bright text-xl flex items-center gap-3 mb-4" style="font-weight:700">
+              <i class="fas fa-graduation-cap text-vio text-sm"></i> Formação acadêmica
+            </h3>
+            <div class="flex flex-wrap gap-4">
+              <div class="bg-void2/60 border border-vio/15 rounded-xl px-5 py-3 backdrop-blur-sm">
+                <p class="font-syne text-bright text-sm font-semibold">Técnico em Informática</p>
+                <p class="font-dm text-dim text-xs">Instituto Federal da Bahia (IFBA) · Jequié, BA</p>
+                <p class="font-dm text-vio text-[10px] uppercase tracking-wider mt-1">Concluído</p>
+              </div>
+              <div class="bg-void2/60 border border-vio/15 rounded-xl px-5 py-3 backdrop-blur-sm">
+                <p class="font-syne text-bright text-sm font-semibold">Residência em Software</p>
+                <p class="font-dm text-dim text-xs">CEPEDI · Jequié, BA</p>
+                <p class="font-dm text-vio text-[10px] uppercase tracking-wider mt-1">18 meses (capacitação + projetos reais)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tecnologias com as quais trabalho (objetivo e em badge) -->
+          <div class="pt-2">
+            <h3 class="font-syne text-bright text-xl flex items-center gap-3 mb-4" style="font-weight:700">
+              <i class="fas fa-microchip text-vio text-sm"></i> Tech Stack & ferramentas
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Python</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Django</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Django REST Framework</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">PostgreSQL</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">MySQL</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Git/GitHub</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">HTML5/CSS3</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">JavaScript</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Bootstrap/Tailwind</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Scrum</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">APIs REST</span>
+              <span class="bg-vio/10 border border-vio/25 text-vio-l text-xs font-medium px-3 py-1.5 rounded-full">Docker</span>
+            </div>
+          </div>
+
+          <!-- Botão CTA personalizado (currículo / contato) -->
+          <div class="flex flex-wrap gap-4 pt-6">
+            <a href="#contato" class="inline-flex items-center gap-2 font-syne text-xs tracking-widest uppercase bg-vio text-white px-7 py-3.5 rounded-full hover:bg-vio-l transition-all no-underline">
+              <i class="fas fa-paper-plane"></i> Vamos conversar
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- ══════════════ SERVIÇOS ══════════════ -->
+  <!-- ══════════════ SERVIÇOS (mantido original) ══════════════ -->
   <section id="servicos" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
     <div class="max-w-7xl mx-auto">
-
-      <div class="sr mb-16 max-w-2xl">
-        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> O que eu faço
-        </p>
-        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
-          Soluções digitais<br>que geram resultado.
-        </h2>
-        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
-          Do conceito ao lançamento, entrego interfaces de alta performance que convertem visitantes em clientes.
-        </p>
-      </div>
-
+      <div class="sr mb-16 max-w-2xl"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> O que eu faço</p><h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">Soluções digitais<br>que geram resultado.</h2><p class="font-dm text-muted leading-relaxed" style="font-weight:300">Do conceito ao lançamento, entrego interfaces de alta performance que convertem visitantes em clientes.</p></div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-        <!-- Serviço 1 — Sites -->
-        <div class="svc-card sr">
-          <div class="svc-icon">
-            <i class="fas fa-globe text-vio text-lg"></i>
-          </div>
-          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Criação de Sites</h3>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
-            Sites institucionais, corporativos e empresariais com design único, identidade visual forte e foco em conversão.
-          </p>
-          <ul class="flex flex-col gap-2 list-none m-0 p-0">
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Design personalizado
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> SEO otimizado
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Carregamento rápido
-            </li>
-          </ul>
-          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
-            <a href="https://wa.me/5573981683277?text=Quero%20um%20site!" target="_blank"
-               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
-              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Serviço 2 — Blog / Portfólio -->
-        <div class="svc-card sr">
-          <div class="svc-icon">
-            <i class="fas fa-pen-nib text-vio text-lg"></i>
-          </div>
-          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Blog & Portfólio</h3>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
-            Plataformas elegantes para publicar conteúdo e exibir seus trabalhos com design que valoriza sua trajetória.
-          </p>
-          <ul class="flex flex-col gap-2 list-none m-0 p-0">
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Layout editorial
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Galeria de projetos
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Fácil atualização
-            </li>
-          </ul>
-          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
-            <a href="https://wa.me/5573981683277?text=Quero%20um%20portfólio!" target="_blank"
-               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
-              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Serviço 3 — Landing Page -->
-        <div class="svc-card sr" style="border-color:rgba(139,92,246,.28);box-shadow:0 0 40px rgba(139,92,246,.08)">
-          <!-- Destaque -->
-          <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#8b5cf6,transparent)"></div>
-          <div class="absolute top-4 right-4 font-dm text-[.55rem] tracking-widest uppercase px-3 py-1 rounded-full"
-               style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#a78bfa">
-            Mais vendido
-          </div>
-          <div class="svc-icon" style="background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.4)">
-            <i class="fas fa-rocket text-vio text-lg"></i>
-          </div>
-          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Landing Page</h3>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
-            Páginas de captura e vendas com copywriting estratégico, CTAs poderosas e estrutura validada para maximizar conversões.
-          </p>
-          <ul class="flex flex-col gap-2 list-none m-0 p-0">
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Alta taxa de conversão
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Integração WhatsApp
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Entrega expressa
-            </li>
-          </ul>
-          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.15)">
-            <a href="https://wa.me/5573981683277?text=Quero%20uma%20landing%20page!" target="_blank"
-               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
-              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Serviço 4 — Automações -->
-        <div class="svc-card sr">
-          <div class="svc-icon">
-            <i class="fas fa-robot text-vio text-lg"></i>
-          </div>
-          <h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Automações</h3>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">
-            Automatize processos repetitivos, envio de mensagens, formulários e integrações para ganhar tempo e escalar seu negócio.
-          </p>
-          <ul class="flex flex-col gap-2 list-none m-0 p-0">
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> WhatsApp automático
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Formulários inteligentes
-            </li>
-            <li class="flex items-center gap-2 font-dm text-xs text-muted" style="font-weight:300">
-              <i class="fas fa-check text-vio text-[10px]"></i> Integrações e APIs
-            </li>
-          </ul>
-          <div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)">
-            <a href="https://wa.me/5573981683277?text=Quero%20automações!" target="_blank"
-               class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">
-              Solicitar <i class="fas fa-arrow-right text-[10px]"></i>
-            </a>
-          </div>
-        </div>
-
+        <div class="svc-card sr"><div class="svc-icon"><i class="fas fa-globe text-vio text-lg"></i></div><h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Criação de Sites</h3><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">Sites institucionais, corporativos e empresariais com design único, identidade visual forte e foco em conversão.</p><ul class="flex flex-col gap-2 list-none m-0 p-0"><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Design personalizado</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> SEO otimizado</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Carregamento rápido</li></ul><div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)"><a href="https://wa.me/5573981683277?text=Quero%20um%20site!" target="_blank" class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">Solicitar <i class="fas fa-arrow-right text-[10px]"></i></a></div></div>
+        <div class="svc-card sr"><div class="svc-icon"><i class="fas fa-pen-nib text-vio text-lg"></i></div><h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Blog & Portfólio</h3><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">Plataformas elegantes para publicar conteúdo e exibir seus trabalhos com design que valoriza sua trajetória.</p><ul class="flex flex-col gap-2 list-none m-0 p-0"><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Layout editorial</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Galeria de projetos</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Fácil atualização</li></ul><div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)"><a href="https://wa.me/5573981683277?text=Quero%20um%20portfólio!" target="_blank" class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">Solicitar <i class="fas fa-arrow-right text-[10px]"></i></a></div></div>
+        <div class="svc-card sr" style="border-color:rgba(139,92,246,.28);box-shadow:0 0 40px rgba(139,92,246,.08)"><div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#8b5cf6,transparent)"></div><div class="absolute top-4 right-4 font-dm text-[.55rem] tracking-widest uppercase px-3 py-1 rounded-full" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#a78bfa">Mais vendido</div><div class="svc-icon" style="background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.4)"><i class="fas fa-rocket text-vio text-lg"></i></div><h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Landing Page</h3><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">Páginas de captura e vendas com copywriting estratégico, CTAs poderosas e estrutura validada para maximizar conversões.</p><ul class="flex flex-col gap-2 list-none m-0 p-0"><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Alta taxa de conversão</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Integração WhatsApp</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Entrega expressa</li></ul><div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.15)"><a href="https://wa.me/5573981683277?text=Quero%20uma%20landing%20page!" target="_blank" class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">Solicitar <i class="fas fa-arrow-right text-[10px]"></i></a></div></div>
+        <div class="svc-card sr"><div class="svc-icon"><i class="fas fa-robot text-vio text-lg"></i></div><h3 class="font-syne text-bright text-lg mb-3" style="font-weight:700;letter-spacing:-.02em">Automações</h3><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300">Automatize processos repetitivos, envio de mensagens, formulários e integrações para ganhar tempo e escalar seu negócio.</p><ul class="flex flex-col gap-2 list-none m-0 p-0"><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> WhatsApp automático</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Formulários inteligentes</li><li class="flex items-center gap-2 font-dm text-xs text-muted"><i class="fas fa-check text-vio text-[10px]"></i> Integrações e APIs</li></ul><div class="mt-6 pt-5 border-t" style="border-color:rgba(139,92,246,.1)"><a href="https://wa.me/5573981683277?text=Quero%20automações!" target="_blank" class="font-syne text-xs tracking-widest uppercase text-vio hover:text-vio-l transition-colors no-underline flex items-center gap-2" style="font-weight:700">Solicitar <i class="fas fa-arrow-right text-[10px]"></i></a></div></div>
       </div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- ══════════════ PROJETOS ══════════════ -->
+  <!-- ══════════════ PROJETOS (mantido original) ══════════════ -->
   <section id="projetos" class="relative z-10 py-24 md:py-36 px-6 md:px-14">
     <div class="max-w-7xl mx-auto">
-
-      <div class="sr mb-16 max-w-2xl">
-        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Portfólio
-        </p>
-        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
-          Projetos que<br>falam por si.
-        </h2>
-        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
-          Cada layout é desenvolvido com identidade visual única, código limpo e performance otimizada para conversão.
-        </p>
-      </div>
-
+      <div class="sr mb-16 max-w-2xl"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> Portfólio</p><h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">Projetos que<br>falam por si.</h2><p class="font-dm text-muted leading-relaxed" style="font-weight:300">Cada layout é desenvolvido com identidade visual única, código limpo e performance otimizada para conversão.</p></div>
       <div class="grid md:grid-cols-2 gap-5">
-
-        <!-- Card 1 — Abiú Consultoria -->
-        <a href="abiu.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
-          <div class="preview-wrap">
-            <div class="preview-badge">Ativo</div>
-            <div class="preview-overlay"></div>
-            <iframe src="abiu.html" title="Abiú Consultoria" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Advocacia</p>
-                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Abiú Consultoria</h3>
-              </div>
-              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
-                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
-                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-              </span>
-            </div>
-            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
-              Soluções trabalhistas com precisão e segurança jurídica. Design institucional, sóbrio e focado em gerar confiança.
-            </p>
-          </div>
-        </a>
-
-        <!-- Card 2 — Daniela Faria -->
-        <a href="dani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
-          <div class="preview-wrap">
-            <div class="preview-badge">Ativo</div>
-            <div class="preview-overlay"></div>
-            <iframe src="dani.html" title="Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Contabilidade</p>
-                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Daniela Faria Contadora</h3>
-              </div>
-              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
-                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
-                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-              </span>
-            </div>
-            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
-              15 anos de atuação contábil, transformados em presença digital de autoridade. Foco em clareza e credibilidade.
-            </p>
-          </div>
-        </a>
-
-        <!-- Card 3 — Kayani -->
-        <a href="kayani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
-          <div class="preview-wrap">
-            <div class="preview-badge">Ativo</div>
-            <div class="preview-overlay"></div>
-            <iframe src="kayani.html" title="Kayani" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Hipnoterapia</p>
-                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Kayani</h3>
-              </div>
-              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
-                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
-                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-              </span>
-            </div>
-            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
-              Bem-estar emocional e equilíbrio mental através da hipnoterapia. Um espaço seguro para você se curar e alcançar seu maior potencial.
-            </p>
-          </div>
-        </a>
-
-        <!-- Card 4 — Jessica -->
-        <a href="space-artemis.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit">
-          <div class="preview-wrap">
-            <div class="preview-badge">Ativo</div>
-            <div class="preview-overlay"></div>
-            <iframe src="space-artemis.html" title="Jessica" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe>
-          </div>
-          <div class="p-7 flex flex-col flex-1">
-            <div class="flex items-start justify-between mb-4">
-              <div>
-                <p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Piercing e Tatuagem</p>
-                <h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Espaço Ártemis</h3>
-              </div>
-              <span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20"
-                    style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)">
-                <i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
-              </span>
-            </div>
-            <p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">
-             Ártemis é a deusa da caça — símbolo de independência, força, perspicácia, destreza e ousadia. Aquela que vai à luta, que corre atrás dos seus objetivos e retorna vitoriosa para casa.
-            </p>
-          </div>
-        </a>
-
+        <a href="abiu.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit"><div class="preview-wrap"><div class="preview-badge">Ativo</div><div class="preview-overlay"></div><iframe src="abiu.html" title="Abiú Consultoria" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe></div><div class="p-7 flex flex-col flex-1"><div class="flex items-start justify-between mb-4"><div><p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Advocacia</p><h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Abiú Consultoria</h3></div><span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i></span></div><p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">Soluções trabalhistas com precisão e segurança jurídica. Design institucional, sóbrio e focado em gerar confiança.</p></div></a>
+        <a href="dani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit"><div class="preview-wrap"><div class="preview-badge">Ativo</div><div class="preview-overlay"></div><iframe src="dani.html" title="Daniela Faria Contadora" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe></div><div class="p-7 flex flex-col flex-1"><div class="flex items-start justify-between mb-4"><div><p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Contabilidade</p><h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Daniela Faria Contadora</h3></div><span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i></span></div><p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">15 anos de atuação contábil, transformados em presença digital de autoridade. Foco em clareza e credibilidade.</p></div></a>
+        <a href="kayani.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit"><div class="preview-wrap"><div class="preview-badge">Ativo</div><div class="preview-overlay"></div><iframe src="kayani.html" title="Kayani" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe></div><div class="p-7 flex flex-col flex-1"><div class="flex items-start justify-between mb-4"><div><p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Hipnoterapia</p><h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Kayani</h3></div><span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i></span></div><p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">Bem-estar emocional e equilíbrio mental através da hipnoterapia. Um espaço seguro para você se curar e alcançar seu maior potencial.</p></div></a>
+        <a href="space-artemis.html" class="proj-card rounded-2xl overflow-hidden no-underline flex flex-col sr group" style="color:inherit"><div class="preview-wrap"><div class="preview-badge">Ativo</div><div class="preview-overlay"></div><iframe src="space-artemis.html" title="Jessica" loading="lazy" sandbox="allow-same-origin allow-scripts"></iframe></div><div class="p-7 flex flex-col flex-1"><div class="flex items-start justify-between mb-4"><div><p class="font-dm text-[.6rem] tracking-[.3em] uppercase text-vio mb-1.5">Piercing e Tatuagem</p><h3 class="font-syne text-xl text-bright leading-tight" style="font-weight:700;letter-spacing:-.02em">Espaço Ártemis</h3></div><span class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-vio/20" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-arrow-right text-vio text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i></span></div><p class="font-dm text-muted text-sm leading-relaxed flex-1" style="font-weight:300">Ártemis é a deusa da caça — símbolo de independência, força, perspicácia, destreza e ousadia. Aquela que vai à luta, que corre atrás dos seus objetivos e retorna vitoriosa para casa.</p></div></a>
       </div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- ══════════════ PROCESSO ══════════════ -->
-  <section id="processo" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#080808">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="sr mb-16 max-w-2xl">
-        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Como funciona
-        </p>
-        <h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">
-          Do briefing ao<br>lançamento.
-        </h2>
-        <p class="font-dm text-muted leading-relaxed" style="font-weight:300">
-          Processo claro e transparente. Você acompanha cada etapa da criação do seu projeto.
-        </p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <div class="sr" style="transition-delay:.0s">
-          <div class="step-num">01</div>
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-            <i class="fas fa-comments text-vio text-sm"></i>
-          </div>
-          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Briefing</h4>
-          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Conversamos sobre seus objetivos, público-alvo, referências visuais e prazo ideal.</p>
-        </div>
-
-        <div class="sr" style="transition-delay:.1s">
-          <div class="step-num">02</div>
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-            <i class="fas fa-pencil-ruler text-vio text-sm"></i>
-          </div>
-          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Design</h4>
-          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Criação do layout com identidade visual única. Você aprova cada detalhe antes de codar.</p>
-        </div>
-
-        <div class="sr" style="transition-delay:.2s">
-          <div class="step-num">03</div>
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-            <i class="fas fa-code text-vio text-sm"></i>
-          </div>
-          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Desenvolvimento</h4>
-          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Código limpo, responsivo e performático. Funciona perfeitamente em qualquer dispositivo.</p>
-        </div>
-
-        <div class="sr" style="transition-delay:.3s">
-          <div class="step-num">04</div>
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)">
-            <i class="fas fa-rocket text-vio text-sm"></i>
-          </div>
-          <h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Entrega & Suporte</h4>
-          <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Publicação, testes finais e suporte pós-entrega. Você nunca fica sozinho.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
+  <!-- ═════════ PROCESSO / FAQ / CONTATO / FOOTER (mantido igual para consistência) ═════════ -->
+  <section id="processo" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#080808"><div class="max-w-7xl mx-auto"><div class="sr mb-16 max-w-2xl"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> Como funciona</p><h2 class="font-syne text-bright leading-[1.05] mb-5" style="font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.03em">Do briefing ao<br>lançamento.</h2><p class="font-dm text-muted leading-relaxed" style="font-weight:300">Processo claro e transparente. Você acompanha cada etapa da criação do seu projeto.</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"><div class="sr" style="transition-delay:.0s"><div class="step-num">01</div><div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-comments text-vio text-sm"></i></div><h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Briefing</h4><p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Conversamos sobre seus objetivos, público-alvo, referências visuais e prazo ideal.</p></div><div class="sr" style="transition-delay:.1s"><div class="step-num">02</div><div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-pencil-ruler text-vio text-sm"></i></div><h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Design</h4><p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Criação do layout com identidade visual única. Você aprova cada detalhe antes de codar.</p></div><div class="sr" style="transition-delay:.2s"><div class="step-num">03</div><div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-code text-vio text-sm"></i></div><h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Desenvolvimento</h4><p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Código limpo, responsivo e performático. Funciona perfeitamente em qualquer dispositivo.</p></div><div class="sr" style="transition-delay:.3s"><div class="step-num">04</div><div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2)"><i class="fas fa-rocket text-vio text-sm"></i></div><h4 class="font-syne text-bright text-base mb-2" style="font-weight:700">Entrega & Suporte</h4><p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Publicação, testes finais e suporte pós-entrega. Você nunca fica sozinho.</p></div></div></div></section>
   <div class="sep"></div>
-
-  <!-- ══════════════ DEPOIMENTOS ══════════════ -->
-  <section class="relative z-10 py-24 md:py-36 px-6 md:px-14">
-    <div class="max-w-7xl mx-auto">
-
-      <div class="sr mb-14 max-w-xl">
-        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Depoimentos
-        </p>
-        <h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">
-          O que dizem os<br>clientes.
-        </h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-5">
-
-        <div class="testi-card sr">
-          <div class="flex items-center gap-1 mb-4">
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-          </div>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
-            "Superou todas as expectativas. O site ficou profissional, rápido e meus clientes adoraram. Recomendo demais!"
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.3);color:#a78bfa;font-weight:700">AB</div>
-            <div>
-              <p class="font-syne text-bright text-xs" style="font-weight:700">Abiú Consultoria</p>
-              <p class="font-dm text-dim text-[.65rem]">Departamento Pessoal</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="testi-card sr">
-          <div class="flex items-center gap-1 mb-4">
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-          </div>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
-            "Entrega rápida, atendimento excelente e resultado final impecável. Minha presença online mudou completamente."
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.3);color:#93c5fd;font-weight:700">DF</div>
-            <div>
-              <p class="font-syne text-bright text-xs" style="font-weight:700">Daniela Faria</p>
-              <p class="font-dm text-dim text-[.65rem]">Contadora</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="testi-card sr">
-          <div class="flex items-center gap-1 mb-4">
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-            <i class="fas fa-star text-amber-400 text-xs"></i>
-          </div>
-          <p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">
-            "Profissional de verdade. Criou exatamente o que eu precisava para atrair novos clientes pelo celular."
-          </p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.3);color:#f9a8d4;font-weight:700">JE</div>
-            <div>
-              <p class="font-syne text-bright text-xs" style="font-weight:700">Jessica</p>
-              <p class="font-dm text-dim text-[.65rem]">Profissional Liberal</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
+  <section class="relative z-10 py-24 md:py-36 px-6 md:px-14"><div class="max-w-7xl mx-auto"><div class="sr mb-14 max-w-xl"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> Depoimentos</p><h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">O que dizem os<br>clientes.</h2></div><div class="grid md:grid-cols-3 gap-5"><div class="testi-card sr"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i></div><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">"Superou todas as expectativas. O site ficou profissional, rápido e meus clientes adoraram. Recomendo demais!"</p><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.3);color:#a78bfa;font-weight:700">AB</div><div><p class="font-syne text-bright text-xs" style="font-weight:700">Abiú Consultoria</p><p class="font-dm text-dim text-[.65rem]">Departamento Pessoal</p></div></div></div><div class="testi-card sr"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i></div><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">"Entrega rápida, atendimento excelente e resultado final impecável. Minha presença online mudou completamente."</p><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.3);color:#93c5fd;font-weight:700">DF</div><div><p class="font-syne text-bright text-xs" style="font-weight:700">Daniela Faria</p><p class="font-dm text-dim text-[.65rem]">Contadora</p></div></div></div><div class="testi-card sr"><div class="flex items-center gap-1 mb-4"><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i><i class="fas fa-star text-amber-400 text-xs"></i></div><p class="font-dm text-muted text-sm leading-relaxed mb-5" style="font-weight:300;font-style:italic">"Profissional de verdade. Criou exatamente o que eu precisava para atrair novos clientes pelo celular."</p><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full flex items-center justify-center font-syne text-xs" style="background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.3);color:#f9a8d4;font-weight:700">JE</div><div><p class="font-syne text-bright text-xs" style="font-weight:700">Jessica</p><p class="font-dm text-dim text-[.65rem]">Profissional Liberal</p></div></div></div></div></div></section>
   <div class="sep"></div>
-
-  <!-- ══════════════ FAQ ══════════════ -->
-  <section id="faq" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#090909">
-    <div class="max-w-3xl mx-auto">
-
-      <div class="sr mb-12 text-center">
-        <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center justify-center gap-3">
-          <span class="w-8 h-px bg-vio inline-block"></span> Dúvidas
-          <span class="w-8 h-px bg-vio inline-block"></span>
-        </p>
-        <h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">
-          Perguntas frequentes
-        </h2>
-      </div>
-
-      <div class="flex flex-col sr">
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Quanto tempo leva para criar meu site?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Depende da complexidade do projeto. Uma landing page simples pode ser entregue em 3 a 5 dias úteis. Sites completos ficam prontos em 7 a 15 dias úteis. Sempre alinhamos o prazo no briefing inicial.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Preciso ter domínio e hospedagem?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Você pode ter o seu ou eu te ajudo a contratar o melhor plano para o seu caso. Oriento em todo o processo de registro e configuração de domínio e hospedagem.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            O site funciona bem no celular?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Sim, 100%! Todos os projetos são desenvolvidos com abordagem mobile-first, ou seja, o layout é pensado primeiro para celular e depois adaptado para telas maiores. Testamos em múltiplos dispositivos antes da entrega.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Posso pedir alterações após a entrega?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Sim! Incluo rodadas de revisão durante o processo e suporte pós-entrega para ajustes pontuais. Para alterações maiores, posso fazer um orçamento específico.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Como funciona o pagamento?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Trabalhamos com 50% de entrada para início do projeto e 50% na entrega final. Aceito Pix, transferência bancária e outros meios mediante acordo.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" style="border:none">
-          <button class="faq-q">
-            Você também cria conteúdo para o site?
-            <i class="fas fa-plus text-vio text-xs faq-icon"></i>
-          </button>
-          <div class="faq-a">
-            <p class="faq-a-inner">Posso ajudar com a estrutura dos textos e copywriting básico. Para conteúdo mais aprofundado (blog, artigos), indico especialistas parceiros. O importante é que seu site tenha textos que convertem.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
+  <section id="faq" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="background:#090909"><div class="max-w-3xl mx-auto"><div class="sr mb-12 text-center"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-4 flex items-center justify-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> Dúvidas<span class="w-8 h-px bg-vio inline-block"></span></p><h2 class="font-syne text-bright leading-[1.05]" style="font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em">Perguntas frequentes</h2></div><div class="flex flex-col sr"><div class="faq-item"><button class="faq-q">Quanto tempo leva para criar meu site?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Depende da complexidade do projeto. Uma landing page simples pode ser entregue em 3 a 5 dias úteis. Sites completos ficam prontos em 7 a 15 dias úteis. Sempre alinhamos o prazo no briefing inicial.</p></div></div><div class="faq-item"><button class="faq-q">Preciso ter domínio e hospedagem?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Você pode ter o seu ou eu te ajudo a contratar o melhor plano para o seu caso. Oriento em todo o processo de registro e configuração de domínio e hospedagem.</p></div></div><div class="faq-item"><button class="faq-q">O site funciona bem no celular?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Sim, 100%! Todos os projetos são desenvolvidos com abordagem mobile-first, ou seja, o layout é pensado primeiro para celular e depois adaptado para telas maiores. Testamos em múltiplos dispositivos antes da entrega.</p></div></div><div class="faq-item"><button class="faq-q">Posso pedir alterações após a entrega?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Sim! Incluo rodadas de revisão durante o processo e suporte pós-entrega para ajustes pontuais. Para alterações maiores, posso fazer um orçamento específico.</p></div></div><div class="faq-item"><button class="faq-q">Como funciona o pagamento?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Trabalhamos com 50% de entrada para início do projeto e 50% na entrega final. Aceito Pix, transferência bancária e outros meios mediante acordo.</p></div></div><div class="faq-item" style="border:none"><button class="faq-q">Você também cria conteúdo para o site?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner">Posso ajudar com a estrutura dos textos e copywriting básico. Para conteúdo mais aprofundado (blog, artigos), indico especialistas parceiros. O importante é que seu site tenha textos que convertem.</p></div></div></div></div></section>
   <div class="sep"></div>
+  <section id="contato" class="relative z-10 py-24 md:py-36 px-6 md:px-14 grid-bg"><div class="max-w-3xl mx-auto text-center sr"><p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-5 flex items-center justify-center gap-3"><span class="w-8 h-px bg-vio inline-block"></span> Contato<span class="w-8 h-px bg-vio inline-block"></span></p><h2 class="font-syne text-bright leading-[1.0] mb-6" style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-.04em">Pronto para<br>elevar sua marca?</h2><p class="font-dm text-muted leading-relaxed mb-12 mx-auto max-w-md" style="font-weight:300;font-size:1.05rem">Vamos conversar sobre o seu projeto. Resposta rápida, orçamento sem compromisso e entrega com excelência.</p><div class="flex flex-wrap items-center justify-center gap-4 mb-16"><a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento." target="_blank" rel="noopener" class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full no-underline transition-all duration-300 hover:scale-105 active:scale-95" style="background:#25d366;color:#000;font-weight:700;box-shadow:0 0 40px rgba(37,211,102,.25)"><i class="fab fa-whatsapp text-base"></i> Falar no WhatsApp</a><a href="https://www.instagram.com/edivanfigueiredobraga/" target="_blank" rel="noopener" class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full border no-underline transition-all duration-300 hover:bg-vio/10" style="border-color:rgba(139,92,246,.35);color:#a78bfa;font-weight:700"><i class="fab fa-instagram text-base"></i> Instagram</a></div><div class="flex flex-wrap justify-center gap-10 pt-10 border-t" style="border-color:rgba(139,92,246,.12)"><div class="flex items-center gap-3 text-muted"><i class="fas fa-clock text-vio text-sm"></i><span class="font-dm text-sm" style="font-weight:300">Resposta em até 2h</span></div><div class="flex items-center gap-3 text-muted"><i class="fas fa-map-marker-alt text-vio text-sm"></i><span class="font-dm text-sm" style="font-weight:300">Jequié, Bahia · Atendo online</span></div><div class="flex items-center gap-3 text-muted"><i class="fas fa-shield-alt text-vio text-sm"></i><span class="font-dm text-sm" style="font-weight:300">Pagamento seguro</span></div></div></div></section>
 
-  <!-- ══════════════ CONTATO / CTA ══════════════ -->
-  <section id="contato" class="relative z-10 py-24 md:py-36 px-6 md:px-14 grid-bg">
-    <div class="max-w-3xl mx-auto text-center sr">
+  <footer class="relative z-10 border-t" style="border-color:rgba(139,92,246,.1);background:#060606"><div class="max-w-7xl mx-auto px-6 md:px-14 pt-16 pb-12 grid md:grid-cols-4 gap-10"><div class="md:col-span-1"><a href="#" class="flex items-center gap-2.5 no-underline mb-4"><div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)"><i class="fas fa-code text-vio text-xs"></i></div><span class="font-syne text-bright text-base" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span></a><p class="font-dm text-dim text-xs leading-relaxed mb-5" style="font-weight:300">Interfaces digitais de alto nível. Design estratégico e código limpo para marcas que querem crescer online.</p><div class="flex gap-3"><a href="https://wa.me/5573981683277" target="_blank" class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);color:#25d366"><i class="fab fa-whatsapp text-sm"></i></a><a href="https://www.instagram.com/edivanfigueiredobraga/" target="_blank" class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#a78bfa"><i class="fab fa-instagram text-sm"></i></a></div></div><div><h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Serviços</h5><ul class="flex flex-col gap-3 list-none m-0 p-0"><li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Criação de Sites</a></li><li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Blog & Portfólio</a></li><li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Landing Page</a></li><li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Automações</a></li></ul></div><div><h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Projetos</h5><ul class="flex flex-col gap-3 list-none m-0 p-0"><li><a href="abiu.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Abiú Consultoria</a></li><li><a href="dani.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Daniela Faria</a></li><li><a href="kayani.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Kayani</a></li><li><a href="jessica.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Jessica</a></li></ul></div><div><h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Contato</h5><ul class="flex flex-col gap-3 list-none m-0 p-0"><li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300"><i class="fas fa-phone text-vio text-xs"></i> +55 73 98168-3277</li><li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300"><i class="fas fa-map-marker-alt text-vio text-xs"></i> Jequié, Bahia</li><li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300"><i class="fas fa-clock text-vio text-xs"></i> Seg–Sáb, 8h–18h</li></ul><a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento." target="_blank" class="inline-flex items-center gap-2 mt-5 font-syne text-xs tracking-widest uppercase px-5 py-3 rounded-full no-underline transition-all hover:scale-105" style="background:#25d366;color:#000;font-weight:700"><i class="fab fa-whatsapp"></i> Orçamento grátis</a></div></div><div class="border-t" style="border-color:rgba(139,92,246,.08)"><div class="max-w-7xl mx-auto px-6 md:px-14 py-6 flex flex-col md:flex-row items-center justify-between gap-4"><p class="font-dm text-dim text-xs text-center" style="font-weight:300">© 2025 BRAGGA DEV · Todos os direitos reservados · Jequié, Bahia</p><p class="font-dm text-dim text-xs text-center" style="font-weight:300">Desenvolvido com <span class="text-vio">♥</span> por BRAGGA DEV</p></div></div></footer>
 
-      <p class="font-dm text-xs tracking-[.4em] uppercase text-vio mb-5 flex items-center justify-center gap-3">
-        <span class="w-8 h-px bg-vio inline-block"></span> Contato
-        <span class="w-8 h-px bg-vio inline-block"></span>
-      </p>
-
-      <h2 class="font-syne text-bright leading-[1.0] mb-6" style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-.04em">
-        Pronto para<br>elevar sua marca?
-      </h2>
-
-      <p class="font-dm text-muted leading-relaxed mb-12 mx-auto max-w-md" style="font-weight:300;font-size:1.05rem">
-        Vamos conversar sobre o seu projeto. Resposta rápida, orçamento sem compromisso e entrega com excelência.
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
-        <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
-           target="_blank" rel="noopener"
-           class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full no-underline transition-all duration-300 hover:scale-105 active:scale-95"
-           style="background:#25d366;color:#000;font-weight:700;box-shadow:0 0 40px rgba(37,211,102,.25)">
-          <i class="fab fa-whatsapp text-base"></i> Falar no WhatsApp
-        </a>
-        <a href="https://www.instagram.com/edivanfigueiredobraga/"
-           target="_blank" rel="noopener"
-           class="inline-flex items-center gap-3 font-syne text-sm tracking-wider uppercase px-10 py-5 rounded-full border no-underline transition-all duration-300 hover:bg-vio/10"
-           style="border-color:rgba(139,92,246,.35);color:#a78bfa;font-weight:700">
-          <i class="fab fa-instagram text-base"></i> Instagram
-        </a>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-10 pt-10 border-t" style="border-color:rgba(139,92,246,.12)">
-        <div class="flex items-center gap-3 text-muted">
-          <i class="fas fa-clock text-vio text-sm"></i>
-          <span class="font-dm text-sm" style="font-weight:300">Resposta em até 2h</span>
-        </div>
-        <div class="flex items-center gap-3 text-muted">
-          <i class="fas fa-map-marker-alt text-vio text-sm"></i>
-          <span class="font-dm text-sm" style="font-weight:300">Jequié, Bahia · Atendo online</span>
-        </div>
-        <div class="flex items-center gap-3 text-muted">
-          <i class="fas fa-shield-alt text-vio text-sm"></i>
-          <span class="font-dm text-sm" style="font-weight:300">Pagamento seguro</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════ FOOTER ══════════════ -->
-  <footer class="relative z-10 border-t" style="border-color:rgba(139,92,246,.1);background:#060606">
-
-    <!-- Footer top -->
-    <div class="max-w-7xl mx-auto px-6 md:px-14 pt-16 pb-12 grid md:grid-cols-4 gap-10">
-
-      <!-- Brand -->
-      <div class="md:col-span-1">
-        <a href="#" class="flex items-center gap-2.5 no-underline mb-4">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)">
-            <i class="fas fa-code text-vio text-xs"></i>
-          </div>
-          <span class="font-syne text-bright text-base" style="font-weight:800;letter-spacing:-.02em">BRAGGA<span class="text-vio">.</span>DEV</span>
-        </a>
-        <p class="font-dm text-dim text-xs leading-relaxed mb-5" style="font-weight:300">
-          Interfaces digitais de alto nível. Design estratégico e código limpo para marcas que querem crescer online.
-        </p>
-        <div class="flex gap-3">
-          <a href="https://wa.me/5573981683277" target="_blank"
-             class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110"
-             style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);color:#25d366">
-            <i class="fab fa-whatsapp text-sm"></i>
-          </a>
-          <a href="https://www.instagram.com/edivanfigueiredobraga/" target="_blank"
-             class="w-9 h-9 rounded-lg flex items-center justify-center no-underline transition-all hover:scale-110"
-             style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#a78bfa">
-            <i class="fab fa-instagram text-sm"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Serviços -->
-      <div>
-        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Serviços</h5>
-        <ul class="flex flex-col gap-3 list-none m-0 p-0">
-          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Criação de Sites</a></li>
-          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Blog & Portfólio</a></li>
-          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Landing Page</a></li>
-          <li><a href="#servicos" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Automações</a></li>
-        </ul>
-      </div>
-
-      <!-- Projetos -->
-      <div>
-        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Projetos</h5>
-        <ul class="flex flex-col gap-3 list-none m-0 p-0">
-          <li><a href="abiu.html"    class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Abiú Consultoria</a></li>
-          <li><a href="dani.html"    class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Daniela Faria</a></li>
-          <li><a href="kayani.html"  class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Kayani</a></li>
-          <li><a href="jessica.html" class="font-dm text-dim text-sm hover:text-vio-l transition-colors no-underline" style="font-weight:300">Jessica</a></li>
-        </ul>
-      </div>
-
-      <!-- Contato -->
-      <div>
-        <h5 class="font-syne text-bright text-xs tracking-widest uppercase mb-5" style="font-weight:700">Contato</h5>
-        <ul class="flex flex-col gap-3 list-none m-0 p-0">
-          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
-            <i class="fas fa-phone text-vio text-xs"></i> +55 73 98168-3277
-          </li>
-          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
-            <i class="fas fa-map-marker-alt text-vio text-xs"></i> Jequié, Bahia
-          </li>
-          <li class="flex items-center gap-2.5 font-dm text-dim text-sm" style="font-weight:300">
-            <i class="fas fa-clock text-vio text-xs"></i> Seg–Sáb, 8h–18h
-          </li>
-        </ul>
-        <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
-           target="_blank"
-           class="inline-flex items-center gap-2 mt-5 font-syne text-xs tracking-widest uppercase px-5 py-3 rounded-full no-underline transition-all hover:scale-105"
-           style="background:#25d366;color:#000;font-weight:700">
-          <i class="fab fa-whatsapp"></i> Orçamento grátis
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Footer bottom -->
-    <div class="border-t" style="border-color:rgba(139,92,246,.08)">
-      <div class="max-w-7xl mx-auto px-6 md:px-14 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="font-dm text-dim text-xs text-center" style="font-weight:300">
-          © 2025 BRAGGA DEV · Todos os direitos reservados · Jequié, Bahia
-        </p>
-        <p class="font-dm text-dim text-xs text-center" style="font-weight:300">
-          Desenvolvido com <span class="text-vio">♥</span> por BRAGGA DEV
-        </p>
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- WhatsApp Float -->
-  <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento."
-     target="_blank" rel="noopener" aria-label="WhatsApp"
-     class="wa-float fixed bottom-7 right-7 z-[200] w-14 h-14 rounded-full flex items-center justify-center no-underline transition-all duration-300 hover:scale-110 group"
-     style="background:#25d366">
-    <div class="absolute right-16 font-dm text-[.7rem] tracking-[.05em] whitespace-nowrap px-4 py-2 rounded-full opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden md:block"
-         style="background:#1a1a1a;border:1px solid rgba(37,211,102,.35);color:#fff;font-weight:500">
-      Fale conosco
-    </div>
-    <i class="fab fa-whatsapp text-white text-2xl"></i>
-  </a>
+  <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Gostaria%20de%20um%20orçamento." target="_blank" rel="noopener" aria-label="WhatsApp" class="wa-float fixed bottom-7 right-7 z-[200] w-14 h-14 rounded-full flex items-center justify-center no-underline transition-all duration-300 hover:scale-110 group" style="background:#25d366"><div class="absolute right-16 font-dm text-[.7rem] tracking-[.05em] whitespace-nowrap px-4 py-2 rounded-full opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden md:block" style="background:#1a1a1a;border:1px solid rgba(37,211,102,.35);color:#fff;font-weight:500">Fale conosco</div><i class="fab fa-whatsapp text-white text-2xl"></i></a>
 
   <script>
-    // ── MOBILE MENU ──────────────────────────────────────────
     const mbtn=document.getElementById('mbtn'),drawer=document.getElementById('drawer'),dpanel=document.getElementById('dpanel');
     const mb1=document.getElementById('mb1'),mb2=document.getElementById('mb2'),mb3=document.getElementById('mb3');
     let mOpen=false;
-    function toggleMenu(){
-      mOpen=!mOpen;
-      dpanel.style.transform=mOpen?'translateX(0)':'translateX(100%)';
-      drawer.style.background=mOpen?'rgba(0,0,0,.6)':'transparent';
-      drawer.style.pointerEvents=mOpen?'all':'none';
-      document.body.style.overflow=mOpen?'hidden':'';
-      mb1.style.transform=mOpen?'translateY(7px) rotate(45deg)':'';
-      mb2.style.opacity=mOpen?'0':'1';
-      mb3.style.transform=mOpen?'translateY(-7px) rotate(-45deg)':'';
-    }
-    mbtn.addEventListener('click',toggleMenu);
-    drawer.addEventListener('click',e=>{if(e.target===drawer)toggleMenu();});
-    document.querySelectorAll('.mlink').forEach(l=>l.addEventListener('click',()=>{if(mOpen)toggleMenu();}));
-
-    // ── HERO CAROUSEL ────────────────────────────────────────
-    let hCur=0, hTotal=4, hAuto;
-    const hTrack=document.getElementById('hero-track');
-    const hCounter=document.getElementById('hcar-counter');
-    const hDots=[...document.querySelectorAll('.hcar-dot')];
-
-    function hGoTo(n){
-      hCur=((n%hTotal)+hTotal)%hTotal;
-      hTrack.style.transform=`translateX(-${hCur*100}%)`;
-      hCounter.textContent=String(hCur+1).padStart(2,'0')+' / 0'+hTotal;
-      hDots.forEach((d,i)=>d.classList.toggle('on',i===hCur));
-    }
+    function toggleMenu(){ mOpen=!mOpen; dpanel.style.transform=mOpen?'translateX(0)':'translateX(100%)'; drawer.style.background=mOpen?'rgba(0,0,0,.6)':'transparent'; drawer.style.pointerEvents=mOpen?'all':'none'; document.body.style.overflow=mOpen?'hidden':''; mb1.style.transform=mOpen?'translateY(7px) rotate(45deg)':''; mb2.style.opacity=mOpen?'0':'1'; mb3.style.transform=mOpen?'translateY(-7px) rotate(-45deg)':''; }
+    mbtn.addEventListener('click',toggleMenu); drawer.addEventListener('click',e=>{if(e.target===drawer)toggleMenu();}); document.querySelectorAll('.mlink').forEach(l=>l.addEventListener('click',()=>{if(mOpen)toggleMenu();}));
+    let hCur=0, hTotal=4, hAuto; const hTrack=document.getElementById('hero-track'); const hCounter=document.getElementById('hcar-counter'); const hDots=[...document.querySelectorAll('.hcar-dot')];
+    function hGoTo(n){ hCur=((n%hTotal)+hTotal)%hTotal; hTrack.style.transform=`translateX(-${hCur*100}%)`; hCounter.textContent=String(hCur+1).padStart(2,'0')+' / 0'+hTotal; hDots.forEach((d,i)=>d.classList.toggle('on',i===hCur)); }
     function hReset(){clearInterval(hAuto);hAuto=setInterval(()=>hGoTo(hCur+1),5000);}
-
     document.getElementById('hcar-prev').addEventListener('click',()=>{hGoTo(hCur-1);hReset();});
-    document.getElementById('hcar-next').addEventListener('click',()=>{hGoTo(hCur+1);hReset();});
-    hDots.forEach(d=>d.addEventListener('click',()=>{hGoTo(+d.dataset.i);hReset();}));
-
-    let hSx=0;
-    const hCar=document.getElementById('hero-carousel');
-    hCar.addEventListener('touchstart',e=>{hSx=e.touches[0].clientX;},{passive:true});
-    hCar.addEventListener('touchend',e=>{
-      const dx=e.changedTouches[0].clientX-hSx;
-      if(Math.abs(dx)>45){hGoTo(hCur+(dx<0?1:-1));hReset();}
-    });
-    hAuto=setInterval(()=>hGoTo(hCur+1),5000);
-
-    // ── SCROLL REVEAL ────────────────────────────────────────
-    const srObs=new IntersectionObserver((entries)=>{
-      entries.forEach((e,i)=>{
-        if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*80);
-      });
-    },{threshold:.07,rootMargin:'0px 0px -30px 0px'});
-    document.querySelectorAll('.sr').forEach(el=>srObs.observe(el));
-
-    // ── SMOOTH SCROLL ────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const t=a.getAttribute('href');
-        if(t&&t!=='#'){e.preventDefault();document.querySelector(t)?.scrollIntoView({behavior:'smooth'});}
-      });
-    });
-
-    // ── FAQ ──────────────────────────────────────────────────
-    document.querySelectorAll('.faq-q').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const item=btn.parentElement;
-        const wasOpen=item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
-        if(!wasOpen)item.classList.add('open');
-      });
-    });
-
-    // ── IFRAME LAZY LOAD ─────────────────────────────────────
-    if('IntersectionObserver' in window){
-      const iObs=new IntersectionObserver((entries,obs)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const iframe=entry.target;
-            if(!iframe.getAttribute('data-loaded')){
-              iframe.setAttribute('data-loaded','1');
-              iframe.src=iframe.src;
-            }
-            obs.unobserve(iframe);
-          }
-        });
-      });
-      document.querySelectorAll('iframe').forEach(f=>iObs.observe(f));
-    }
+    document.getElementById('hcar-next').addEventListener('click',()=>{hGoTo(hCur+1);hReset();}); hDots.forEach(d=>d.addEventListener('click',()=>{hGoTo(+d.dataset.i);hReset();}));
+    let hSx=0; const hCar=document.getElementById('hero-carousel'); hCar.addEventListener('touchstart',e=>{hSx=e.touches[0].clientX;},{passive:true}); hCar.addEventListener('touchend',e=>{ const dx=e.changedTouches[0].clientX-hSx; if(Math.abs(dx)>45){hGoTo(hCur+(dx<0?1:-1));hReset();} }); hAuto=setInterval(()=>hGoTo(hCur+1),5000);
+    const srObs=new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*80); }); },{threshold:.07,rootMargin:'0px 0px -30px 0px'}); document.querySelectorAll('.sr').forEach(el=>srObs.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',e=>{ const t=a.getAttribute('href'); if(t&&t!=='#'){e.preventDefault();document.querySelector(t)?.scrollIntoView({behavior:'smooth'});} }); });
+    document.querySelectorAll('.faq-q').forEach(btn=>{ btn.addEventListener('click',()=>{ const item=btn.parentElement; const wasOpen=item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open')); if(!wasOpen)item.classList.add('open'); }); });
+    if('IntersectionObserver' in window){ const iObs=new IntersectionObserver((entries,obs)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ const iframe=entry.target; if(!iframe.getAttribute('data-loaded')){ iframe.setAttribute('data-loaded','1'); iframe.src=iframe.src; } obs.unobserve(iframe); } }); }); document.querySelectorAll('iframe').forEach(f=>iObs.observe(f)); }
   </script>
 </body>
 </html>
