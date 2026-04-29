@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BRAGGA · Social Media Estratégico | Case + Métricas</title>
+  <meta name="description" content="Portfólio de Social Media com case real (simulado): estratégia, calendário editorial, legendas criativas e dashboard de métricas com insights acionáveis." />
+  <meta name="theme-color" content="#080808" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void: '#080808', void2: '#0f0f0f', void3: '#161616', void4: '#1e1e1e',
+            vio: '#8b5cf6', 'vio-l': '#a78bfa', 'vio-d': '#5b21b6', 'vio-x': '#2d1458',
+            dim: '#5a5a6a', muted: '#8888a0', light: '#d4d4e8', bright: '#f0f0f8',
+          },
+          fontFamily: { syne: ['Syne', 'sans-serif'], dm: ['DM Sans', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080808; font-family: 'DM Sans', sans-serif; color: #d4d4e8; overflow-x: hidden; }
+    ::selection { background: #8b5cf6; color: #fff; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 2px; }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: .025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .grid-bg {
+      background-image: linear-gradient(rgba(139,92,246,.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(139,92,246,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .orb-1, .orb-2 { position: fixed; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(139,92,246,.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+    .orb-1 { top: -250px; left: -150px; }
+    .orb-2 { bottom: -150px; right: -150px; }
+    .sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,.35), transparent); }
+    .sr { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .sr.vis { opacity: 1; transform: translateY(0); }
+
+    .svc-card, .proj-card, .cal-card, .post-card {
+      background: #0f0f0f; border: 1px solid rgba(139,92,246,.12);
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .svc-card:hover, .proj-card:hover { transform: translateY(-6px); border-color: rgba(139,92,246,.45); box-shadow: 0 24px 60px -12px rgba(139,92,246,.18); }
+    .dashboard-panel { background: #0a0a0a; border: 1px solid rgba(139,92,246,.2); border-radius: 1.5rem; backdrop-filter: blur(4px); }
+    .stat-card { background: #0d0d0d; border-left: 3px solid #8b5cf6; transition: all .2s; }
+    .stat-card:hover { background: #121212; transform: translateX(4px); }
+    .badge-vio { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.3); color: #a78bfa; }
+    .post-img-placeholder { background: linear-gradient(145deg, #141414, #0a0a0a); border-radius: 1rem; height: 140px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(139,92,246,.2); }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .cal-day { background: #111; border-radius: 10px; padding: 8px 4px; text-align: center; font-size: 0.7rem; border: 1px solid rgba(139,92,246,.1); }
+    .cal-event { background: rgba(139,92,246,.2); border-radius: 20px; font-size: 0.6rem; padding: 2px 4px; margin-top: 4px; color: #a78bfa; }
+    .faq-q { width: 100%; background: transparent; border: none; cursor: pointer; display: flex; justify-content: space-between; padding: 1rem 0; font-family: 'Syne',sans-serif; font-weight: 600; color: #d4d4e8; transition: color .3s; }
+    .faq-q:hover { color: #a78bfa; }
+    .faq-icon { transition: transform .35s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { overflow: hidden; max-height: 0; transition: max-height .4s ease; }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .process-step { background: #0c0c0c; border: 1px solid rgba(139,92,246,.2); transition: all .3s; }
+    .process-step:hover { border-color: #8b5cf6; transform: translateY(-4px); }
+  </style>
+</head>
+<body class="relative">
+
+<div class="orb-1"></div><div class="orb-2"></div>
+
+<!-- NAVBAR (mantida igual ao padrão original) -->
+<nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]" style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
+  <a href="#" class="flex items-center gap-2.5 no-underline group">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)"><i class="fas fa-chart-line text-vio text-xs"></i></div>
+    <span class="font-syne text-bright text-base tracking-tight font-extrabold">BRAGGA<span class="text-vio">.</span>DEV</span>
+  </a>
+  <ul class="hidden md:flex gap-8">
+    <li><a href="#sobre-social" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l">Sobre Social</a></li>
+    <li><a href="#portfolio-social" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l">Portfólio</a></li>
+    <li><a href="#dashboard-metrics" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l">Dashboard</a></li>
+    <li><a href="#processo-trabalho" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l">Processo</a></li>
+    <li><a href="#faq-social" class="nav-link font-dm text-xs tracking-widest uppercase text-muted hover:text-vio-l">FAQ</a></li>
+  </ul>
+  <a href="https://wa.me/5573981683277" target="_blank" class="hidden md:inline-flex items-center gap-2 font-syne text-xs tracking-widest uppercase bg-vio text-white px-5 py-2.5 rounded-full hover:bg-vio-l"><i class="fab fa-whatsapp"></i> Orçamento</a>
+  <button id="mbtn" class="md:hidden w-9 h-9 flex flex-col gap-[5px] bg-transparent"><span id="mb1" class="block w-5 h-[1.5px] bg-vio-l"></span><span id="mb2" class="block w-5 h-[1.5px] bg-vio-l"></span><span id="mb3" class="block w-5 h-[1.5px] bg-vio-l"></span></button>
+</nav>
+<div id="drawer" class="fixed inset-0 z-40 pointer-events-none" style="transition:background .35s"><div id="dpanel" class="absolute top-0 right-0 bottom-0 w-72 bg-[#0c0c0c] border-l border-vio/15 transform translate-x-full transition-transform duration-400 pt-24 px-8"><ul class="flex flex-col gap-0"><li><a href="#sobre-social" class="mlink block py-4 text-sm uppercase text-muted hover:text-vio-l">Sobre Social</a></li><li><a href="#portfolio-social" class="mlink block py-4 text-sm uppercase text-muted hover:text-vio-l">Portfólio</a></li><li><a href="#dashboard-metrics" class="mlink block py-4 text-sm uppercase text-muted hover:text-vio-l">Dashboard</a></li><li><a href="#processo-trabalho" class="mlink block py-4 text-sm uppercase text-muted hover:text-vio-l">Processo</a></li><li><a href="#faq-social" class="mlink block py-4 text-sm uppercase text-muted hover:text-vio-l">FAQ</a></li></ul></div></div>
+
+<!-- HERO -->
+<section class="relative z-10 py-32 md:py-48 px-6 md:px-14 grid-bg">
+  <div class="max-w-6xl mx-auto text-center md:text-left md:flex md:items-center md:justify-between gap-10">
+    <div class="sr">
+      <div class="inline-flex items-center gap-2 bg-vio/10 border border-vio/30 rounded-full px-4 py-1.5 mb-6"><i class="fas fa-bullhorn text-vio text-xs"></i><span class="text-xs font-dm tracking-wider text-vio-l">Estratégia · Dados · Criatividade</span></div>
+      <h1 class="font-syne font-extrabold text-6xl md:text-8xl tracking-tighter text-bright leading-[1.05]">Social Media<br><span class="text-vio">Estratégico</span></h1>
+      <p class="font-dm text-muted text-lg max-w-xl mt-6 leading-relaxed">Planejamento, calendário editorial, métricas reais e comunidade. Transformo marcas em conversas que geram resultado.</p>
+      <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start"><a href="#dashboard-metrics" class="bg-vio text-white px-6 py-3 rounded-full font-syne text-xs tracking-wider uppercase flex items-center gap-2 hover:bg-vio-l transition"><i class="fas fa-chart-simple"></i>Ver dashboard</a><a href="https://wa.me/5573981683277" target="_blank" class="border border-vio/40 text-vio-l px-6 py-3 rounded-full font-syne text-xs tracking-wider"><i class="fab fa-whatsapp mr-2"></i>Falar com gestor</a></div>
+    </div>
+    <div class="sr hidden md:block">
+  <div class="relative w-100 h-100 rounded-full overflow-hidden border border-vio/20">
+
+    <!-- glow atrás -->
+    <div class="absolute inset-0 bg-vio/10 blur-2xl"></div>
+
+    <!-- imagem -->
+    <img src="img/odontovida.jpg"
+         alt="Social media"
+         class="relative z-10 w-full h-full object-cover">
+
+  </div>
+</div>
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- SESSÃO: PROJETO SIMULADO COM PROBLEMA → SOLUÇÃO → RESULTADO -->
+<section id="sobre-social" class="relative z-10 py-24 px-6 md:px-14">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="sr space-y-5">
+        <h2 class="font-syne text-bright text-4xl font-extrabold tracking-tight">Case simulado:<br><span class="text-vio">Clínica OdontoViva</span></h2>
+        <p class="font-dm text-light leading-relaxed">Desenvolvi uma estratégia completa de 45 dias para a clínica fictícia "OdontoViva", com objetivo de aumentar agendamentos via Instagram e fortalecer autoridade local. Planejamento editorial, copy direcionada e monitoramento contínuo.</p>
+        
+        <!-- 🔥 TRÍADE: Problema → Solução → Resultado -->
+        <div class="mt-6 space-y-3 bg-void3/50 p-5 rounded-xl border-l-4 border-vio">
+          <p class="text-sm text-muted"><strong class="text-vio-l">Problema:</strong> Baixo engajamento (3.2%) e pouca geração de leads por Instagram.</p>
+          <p class="text-sm text-muted"><strong class="text-vio-l">Solução:</strong> Estratégia de conteúdo com foco em educativo + prova social + CTA estratégico nos stories.</p>
+          <p class="text-sm text-muted"><strong class="text-vio-l">Resultado:</strong> Aumento para 5.8% de engajamento, +47% leads via DM e +18% de seguidores orgânicos.</p>
+        </div>
+        
+        <div><div class="flex gap-3 flex-wrap"><span class="badge-vio px-3 py-1 rounded-full text-xs">+35% engajamento</span><span class="badge-vio px-3 py-1 rounded-full text-xs">+22% alcance</span><span class="badge-vio px-3 py-1 rounded-full text-xs">12 posts/mês</span></div></div>
+        <p class="font-dm italic text-dim text-sm">"Entregamos um calendário editorial de 4 semanas, interação ativa com seguidores e relatórios semanais. A comunidade cresceu 18% em 30 dias."</p>
+      </div>
+      <div class="sr bg-void2 border border-vio/20 rounded-2xl p-6 backdrop-blur-sm"><i class="fas fa-quote-left text-vio/30 text-3xl mb-3"></i><p class="font-dm text-light text-sm leading-relaxed">Monitoramento de métricas: taxa de engajamento subiu de 3.2% para 5.8%; stories atingiram 2.500 visualizações médias; interação via direct aumentou 40% com perguntas estratégicas.</p><div class="mt-4 flex items-center gap-2"><i class="fas fa-chart-line text-vio text-sm"></i><span class="text-xs text-muted">Resultado simulado baseado em estratégia real de conteúdo.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO VISUAL: posts + LEGENDAS REAIS + calendário -->
+<section id="portfolio-social" class="relative z-10 py-24 px-6 md:px-14 bg-void2/30">
+  <div class="max-w-7xl mx-auto">
+    <div class="sr text-center mb-14"><span class="text-vio text-xs tracking-[.3em] uppercase">Portfólio de conteúdo</span><h2 class="font-syne text-4xl md:text-5xl font-bold text-bright mt-2">Posts criados &<br> Calendário editorial</h2></div>
+    <!-- Galeria de posts com LEGENDAS REAIS -->
+<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mb-16">
+
+  <!-- Post 1 -->
+  <div class="post-card rounded-2xl overflow-hidden sr">
+    <img src="img/mitos.jpg" alt="Post clareamento dental" class="w-full h-[180px] object-cover">
+    <div class="p-4">
+      <div class="flex justify-between items-start">
+        <span class="text-[10px] text-vio uppercase tracking-wide">Carrossel</span>
+        <i class="fas fa-heart text-dim text-xs"></i>
+      </div>
+      <h3 class="font-syne text-bright text-base mt-1">5 Mitos sobre clareamento</h3>
+
+      <div class="mt-3 text-xs text-light bg-void/40 p-2 rounded-md">
+        <i class="fas fa-pen-fancy text-vio text-[10px] mr-1"></i>
+        Você escova os dentes do jeito certo?<br><br>
+        3 erros que podem estar destruindo seu sorriso:<br>
+        ❌ Escovar com força<br>
+        ❌ Não usar fio dental<br>
+        ❌ Escovar rápido demais<br><br>
+      </div>
+
+      <p class="font-dm text-dim text-xs mt-2">1.2k curtidas · 48 saves · 22 comentários</p>
+    </div>
+  </div>
+
+  <!-- Post 2 -->
+  <div class="post-card rounded-2xl overflow-hidden sr">
+    <img src="img/limpeza.jpg" alt="Antes e depois limpeza dental" class="w-full h-[180px] object-cover">
+    <div class="p-4">
+      <span class="text-[10px] text-vio uppercase tracking-wide">Reels + Stories</span>
+      <h3 class="font-syne text-bright text-base">Antes e depois: limpeza</h3>
+
+      <div class="mt-3 text-xs text-light bg-void/40 p-2 rounded-md">
+        <i class="fas fa-pen-fancy text-vio text-[10px] mr-1"></i>
+        🎥 Assista até o fim! Transformação real em apenas uma sessão.
+        Marque aquele amigo que precisa agendar 
+      </div>
+
+      <p class="font-dm text-dim text-xs mt-2">2.3k plays · 85 compartilhamentos</p>
+    </div>
+  </div>
+
+  <!-- Post 3 -->
+  <div class="post-card rounded-2xl overflow-hidden sr">
+    <img src="img/tipoideal.jpg" alt="Quiz odontologia" class="w-full h-[180px] object-cover">
+    <div class="p-4">
+      <span class="text-[10px] text-vio uppercase tracking-wide">Quiz interativo</span>
+      <h3 class="font-syne text-bright text-base">Qual tratamento ideal?</h3>
+
+      <div class="mt-3 text-xs text-light bg-void/40 p-2 rounded-md">
+        <i class="fas fa-pen-fancy text-vio text-[10px] mr-1"></i>
+        🔍 1. Clareamento 2. Aparelho 3. Lente dental —
+        comente o número 👇
+      </div>
+
+      <p class="font-dm text-dim text-xs mt-2">+70 comentários · engajamento 12%</p>
+    </div>
+  </div>
+
+</div>>
+
+    <!-- Calendário editorial (semana fictícia) -->
+    <div class="dashboard-panel p-6 md:p-8 sr" id="calendario">
+      <div class="flex items-center gap-3 mb-6"><i class="fas fa-calendar-alt text-vio text-xl"></i><h3 class="font-syne text-bright text-2xl font-bold">Calendário editorial (semana exemplo)</h3></div>
+      <div class="calendar-grid text-center">
+        <div class="cal-day font-bold text-vio-l">SEG</div><div class="cal-day font-bold text-vio-l">TER</div><div class="cal-day font-bold text-vio-l">QUA</div><div class="cal-day font-bold text-vio-l">QUI</div><div class="cal-day font-bold text-vio-l">SEX</div><div class="cal-day font-bold text-vio-l">SÁB</div><div class="cal-day font-bold text-vio-l">DOM</div>
+        <div class="cal-day">Post institucional<br><span class="cal-event">💙 Missão</span></div>
+        <div class="cal-day">Carrossel educativo<br><span class="cal-event">🦷 Saúde bucal</span></div>
+        <div class="cal-day">Reels com paciente<br><span class="cal-event">🎥 depoimento</span></div>
+        <div class="cal-day">Stories: enquete<br><span class="cal-event">📊 votação</span></div>
+        <div class="cal-day">Promoção agendamento<br><span class="cal-event">🔥 desconto</span></div>
+        <div class="cal-day">Dica de higiene<br><span class="cal-event">✨ carrossel</span></div>
+        <div class="cal-day">Resumo da semana<br><span class="cal-event">📌 destaques</span></div>
+      </div>
+      <p class="text-dim text-xs mt-5 text-center border-t border-vio/10 pt-4">*Calendário dinâmico adaptado conforme análise de engajamento. Ferramentas: Notion + Later.</p>
+    </div>
+
+    <!-- Interação com comunidade exemplo -->
+    <div class="mt-12 sr bg-void3/50 rounded-2xl p-6 border border-vio/15">
+      <div class="flex gap-4 items-start"><i class="fas fa-comment-dots text-vio text-xl mt-1"></i><div><h4 class="font-syne text-bright">Interação com a comunidade (exemplo real simulado)</h4><p class="text-sm text-muted mt-1">Respondi cada comentário com tom humano + criei enquetes nos stories que geraram 320 respostas. Construção de relacionamento com seguidores ativos, resultando em aumento de 22% nos salvamentos de posts.</p><div class="mt-3 flex gap-3 text-xs"><span class="bg-vio/10 px-3 py-1 rounded-full">💬 "qual seu maior medo no dentista?" ⇒ 78 respostas</span><span class="bg-vio/10 px-3 py-1 rounded-full">❤️ respostas personalizadas em menos de 1h</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD DE MÉTRICAS com INSIGHT ESTRATÉGICO -->
+<section id="dashboard-metrics" class="relative z-10 py-24 px-6 md:px-14">
+  <div class="max-w-7xl mx-auto">
+    <div class="sr text-center mb-12"><span class="text-vio text-xs tracking-[.4em] uppercase">Data-driven</span><h2 class="font-syne text-4xl md:text-5xl font-bold text-bright mt-2">Dashboard de métricas</h2><p class="text-muted max-w-xl mx-auto">Monitoramento de resultados da estratégia para Clínica OdontoViva (simulação baseada em práticas reais).</p></div>
+    <!-- cards metrics -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+      <div class="stat-card p-5 rounded-xl"><i class="fas fa-chart-line text-vio text-sm"></i><p class="text-dim text-xs mt-2">Engajamento médio</p><h3 class="font-syne text-3xl font-bold text-bright">+5.8%</h3><span class="text-xs text-green-400"><i class="fas fa-arrow-up"></i> +2.6% vs mês anterior</span></div>
+      <div class="stat-card p-5 rounded-xl"><i class="fas fa-users text-vio text-sm"></i><p class="text-dim text-xs mt-2">Crescimento de seguidores</p><h3 class="font-syne text-3xl font-bold text-bright">+18%</h3><span class="text-xs text-green-400">em 30 dias (orgânico)</span></div>
+      <div class="stat-card p-5 rounded-xl"><i class="fas fa-eye text-vio text-sm"></i><p class="text-dim text-xs mt-2">Alcance (posts)</p><h3 class="font-syne text-3xl font-bold text-bright">12.4k</h3><span class="text-xs text-green-400">média por semana</span></div>
+      <div class="stat-card p-5 rounded-xl"><i class="fas fa-envelope text-vio text-sm"></i><p class="text-dim text-xs mt-2">Leads via DM</p><h3 class="font-syne text-3xl font-bold text-bright">+47%</h3><span class="text-xs text-green-400">agendamentos simulados</span></div>
+    </div>
+
+    <!-- Gráficos + INSIGHT ESTRATÉGICO -->
+    <div class="grid md:grid-cols-2 gap-8 dashboard-panel p-6">
+      <div><canvas id="engagementChart" width="400" height="250" style="max-height:250px; width:100%"></canvas><p class="text-center text-dim text-xs mt-3">Evolução da taxa de engajamento (%) — últimas 4 semanas</p></div>
+      <div><canvas id="reachChart" width="400" height="250" style="max-height:250px; width:100%"></canvas><p class="text-center text-dim text-xs mt-3">Alcance por tipo de conteúdo (últimos 30d)</p></div>
+    </div>
+    
+    <!-- 🔍 INSIGHT ESTRATÉGICO (Diferencial) -->
+    <div class="mt-8 dashboard-panel p-5 text-center border border-vio/20 bg-vio/5 rounded-xl">
+      <i class="fas fa-lightbulb text-vio text-lg mr-2"></i>
+      <span class="text-sm text-light font-medium">🔍 Insight estratégico: conteúdos em formato Reels tiveram 42% mais alcance que posts estáticos, indicando prioridade para vídeos curtos na estratégia do próximo bimestre.</span>
+    </div>
+    
+    <div class="mt-6 dashboard-panel p-6 text-center"><i class="fas fa-chart-simple text-vio/70 mr-2"></i><span class="text-sm text-muted font-mono">Relatório executivo: a estratégia de conteúdo misto (educativo + institucional) gerou aumento de 35% no número de salvamentos e melhorou CTR nos links da bio.</span></div>
+  </div>
+</section>
+
+<!-- NOVA SEÇÃO: PROCESSO DE TRABALHO (diferencial absurdo) -->
+<section id="processo-trabalho" class="relative z-10 py-24 px-6 md:px-14 bg-void2/20">
+  <div class="max-w-6xl mx-auto">
+    <div class="sr text-center mb-12"><span class="text-vio text-xs tracking-[.4em] uppercase">Metodologia</span><h2 class="font-syne text-4xl md:text-5xl font-bold text-bright">Meu processo de<br>trabalho</h2><p class="text-muted max-w-xl mx-auto mt-3">Da estratégia à análise de resultados, tudo com foco em crescimento real.</p></div>
+    <div class="grid md:grid-cols-4 gap-5">
+      <div class="process-step p-5 rounded-xl text-center sr"><div class="w-12 h-12 rounded-full bg-vio/20 flex items-center justify-center mx-auto mb-4"><span class="font-syne font-bold text-vio text-xl">1</span></div><h3 class="font-syne text-bright text-base">Diagnóstico</h3><p class="text-dim text-xs mt-2">Análise de marca, concorrência e baseline de métricas.</p></div>
+      <div class="process-step p-5 rounded-xl text-center sr"><div class="w-12 h-12 rounded-full bg-vio/20 flex items-center justify-center mx-auto mb-4"><span class="font-syne font-bold text-vio text-xl">2</span></div><h3 class="font-syne text-bright text-base">Planejamento</h3><p class="text-dim text-xs mt-2">Calendário editorial, objetivos SMART e personas.</p></div>
+      <div class="process-step p-5 rounded-xl text-center sr"><div class="w-12 h-12 rounded-full bg-vio/20 flex items-center justify-center mx-auto mb-4"><span class="font-syne font-bold text-vio text-xl">3</span></div><h3 class="font-syne text-bright text-base">Criação</h3><p class="text-dim text-xs mt-2">Conteúdo visual, copywriting e agendamento.</p></div>
+      <div class="process-step p-5 rounded-xl text-center sr"><div class="w-12 h-12 rounded-full bg-vio/20 flex items-center justify-center mx-auto mb-4"><span class="font-syne font-bold text-vio text-xl">4</span></div><h3 class="font-syne text-bright text-base">Análise</h3><p class="text-dim text-xs mt-2">Monitoramento, relatórios e otimização contínua.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Depoimento -->
+<section class="relative z-10 py-20 px-6 md:px-14">
+  <div class="max-w-4xl mx-auto sr text-center"><i class="fas fa-chart-line text-3xl text-vio/50 mb-4"></i><p class="text-light text-lg italic font-dm">"O dashboard de métricas e o acompanhamento semanal me permitiram ajustar os conteúdos em tempo real. Em 30 dias, o engajamento orgânico superou todas as expectativas."</p><div class="flex items-center justify-center gap-3 mt-6"><div class="w-10 h-10 rounded-full bg-vio/20 flex items-center justify-center"><i class="fas fa-user-tie text-vio"></i></div><div><h6 class="font-syne text-bright">Dra. Amanda (Clínica OdontoViva)</h6><p class="text-dim text-xs">Diretora de marketing (projeto fictício)</p></div></div></div>
+</section>
+
+<!-- FAQ Social Media -->
+<section id="faq-social" class="relative z-10 py-24 px-6 md:px-14">
+  <div class="max-w-3xl mx-auto">
+    <div class="sr text-center mb-12"><h2 class="font-syne text-4xl font-bold text-bright">Práticas que entregam resultado</h2><p class="text-muted">Como aplico planejamento, métricas e gestão de comunidade</p></div>
+    <div class="flex flex-col">
+      <div class="faq-item"><button class="faq-q">Como realizo o planejamento estratégico?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner px-1 text-muted text-sm">Briefing aprofundado, persona, análise de concorrentes e definição de objetivos SMART. Calendário editorial mensal aprovado antes da execução.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Quais ferramentas de gestão e métricas utilizo?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner text-muted text-sm">Meta Business Suite, Later, Notion e dashboards customizados com análise semanal de alcance, engajamento, CTR e sentimento de comunidade.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Como é a interação com a comunidade?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner text-muted text-sm">Respostas ágeis com tom de voz da marca, criação de enquetes, caixinhas de perguntas e conteúdo gerado pelo usuário. Fortaleço laços com menções e DMs humanizados.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Você entrega relatórios de performance?<i class="fas fa-plus text-vio text-xs faq-icon"></i></button><div class="faq-a"><p class="faq-a-inner text-muted text-sm">Sim, relatório semanais com KPIs, gráficos de evolução e sugestões de melhoria. Tudo focado em resultado para o negócio.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA contato com wording mais profissional -->
+<section class="relative z-10 py-20 px-6 text-center border-t border-vio/10">
+  <div class="sr"><h3 class="font-syne text-bright text-3xl">Vamos construir sua estratégia?</h3><p class="text-muted max-w-md mx-auto mt-3">Projeto estratégico baseado em práticas reais de mercado e validação por métricas. Entre em contato para uma apresentação.</p><a href="https://wa.me/5573981683277" target="_blank" class="inline-flex items-center gap-2 bg-vio text-white px-8 py-4 rounded-full mt-6 font-syne text-sm hover:bg-vio-l transition"><i class="fab fa-whatsapp"></i> Solicitar apresentação</a></div>
+</section>
+
+<footer class="border-t border-vio/10 py-8 text-center text-dim text-xs"><p>© 2025 BRAGGA DEV · Portfólio Social Media estratégico · Dashboard de métricas com insights · Projeto com metodologia aplicada</p></footer>
+
+<script>
+  // navbar mobile
+  const mbtn=document.getElementById('mbtn'),drawer=document.getElementById('drawer'),dpanel=document.getElementById('dpanel');
+  let mOpen=false;
+  function toggleMenu(){ mOpen=!mOpen; dpanel.style.transform=mOpen?'translateX(0)':'translateX(100%)'; drawer.style.background=mOpen?'rgba(0,0,0,.6)':'transparent'; drawer.style.pointerEvents=mOpen?'all':'none'; document.body.style.overflow=mOpen?'hidden':''; if(mbtn){ const bars=document.querySelectorAll('#mb1,#mb2,#mb3'); if(bars[0])bars[0].style.transform=mOpen?'translateY(7px) rotate(45deg)':''; if(bars[1])bars[1].style.opacity=mOpen?'0':'1'; if(bars[2])bars[2].style.transform=mOpen?'translateY(-7px) rotate(-45deg)':''; } }
+  if(mbtn) mbtn.addEventListener('click',toggleMenu); if(drawer) drawer.addEventListener('click',e=>{if(e.target===drawer)toggleMenu();}); document.querySelectorAll('.mlink').forEach(l=>l.addEventListener('click',()=>{if(mOpen)toggleMenu();}));
+  // scroll reveal
+  const srObs=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); }); },{threshold:.1});
+  document.querySelectorAll('.sr').forEach(el=>srObs.observe(el));
+  // smooth anchor
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',e=>{ const href=a.getAttribute('href'); if(href&&href!=='#'){ e.preventDefault(); document.querySelector(href)?.scrollIntoView({behavior:'smooth'}); } }); });
+  // accordion FAQ
+  document.querySelectorAll('.faq-q').forEach(btn=>{ btn.addEventListener('click',()=>{ const item=btn.parentElement; const was=item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open')); if(!was) item.classList.add('open'); }); });
+  // CHARTS
+  const ctxEng = document.getElementById('engagementChart')?.getContext('2d');
+  const ctxReach = document.getElementById('reachChart')?.getContext('2d');
+  if(ctxEng){
+    new Chart(ctxEng, { type: 'line', data: { labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'], datasets: [{ label: 'Taxa de engajamento (%)', data: [3.2, 4.1, 5.0, 5.8], borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.05)', tension: 0.3, fill: true, pointBackgroundColor: '#a78bfa' }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { y: { grid: { color: '#2d2d3a' }, ticks: { color: '#a0a0b0' } }, x: { ticks: { color: '#a0a0b0' } } } } });
+  }
+  if(ctxReach){
+    new Chart(ctxReach, { type: 'bar', data: { labels: ['Reels', 'Carrossel', 'Imagem Estática', 'Stories'], datasets: [{ label: 'Alcance médio (mil)', data: [7.4, 5.2, 2.1, 4.8], backgroundColor: '#8b5cf6', borderRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { y: { grid: { color: '#2d2d3a' }, ticks: { color: '#a0a0b0' } }, x: { ticks: { color: '#a0a0b0' } } } } });
+  }
+</script>
+</body>
+</html>
