@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BRAGGA · Estudo de caso | Clareamento dental · Estratégia educativa</title>
+  <meta name="description" content="Análise de desempenho do post educativo sobre clareamento dental: alcance, engajamento e métricas de conversão." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void: '#080808', void2: '#0f0f0f', void3: '#161616', void4: '#1e1e1e',
+            vio: '#8b5cf6', 'vio-l': '#a78bfa', 'vio-d': '#5b21b6',
+            dim: '#5a5a6a', muted: '#8888a0', light: '#d4d4e8', bright: '#f0f0f8',
+          },
+          fontFamily: { syne: ['Syne', 'sans-serif'], dm: ['DM Sans', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080808; font-family: 'DM Sans', sans-serif; color: #d4d4e8; }
+    ::selection { background: #8b5cf6; color: #fff; }
+    .detail-card { background: #0f0f0f; border: 1px solid rgba(139,92,246,.12); border-radius: 1.5rem; }
+    .metric-box { background: #0a0a0a; border-left: 2px solid #8b5cf6; }
+    .badge { background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.2); color: #a78bfa; font-size: 0.7rem; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+  </style>
+</head>
+<body>
+
+<nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b border-white/[.04]" style="background:rgba(8,8,8,.92);backdrop-filter:blur(14px)">
+  <a href="index.html" class="flex items-center gap-2.5 no-underline group">
+    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3)"><i class="fas fa-chart-line text-vio text-xs"></i></div>
+    <span class="font-syne text-bright text-base tracking-tight font-extrabold">BRAGGA<span class="text-vio">.</span>DEV</span>
+  </a>
+  <a href="index.html#portfolio-social" class="hidden md:inline-flex items-center gap-2 text-muted hover:text-vio-l text-sm transition-all"><i class="fas fa-arrow-left text-xs"></i> Voltar ao portfólio</a>
+</nav>
+
+<section class="relative z-10 pt-32 pb-20 px-6 md:px-14">
+  <div class="max-w-6xl mx-auto">
+    <a href="index.html#portfolio-social" class="inline-flex items-center gap-2 text-muted hover:text-vio-l mb-8 text-sm transition-all"><i class="fas fa-arrow-left text-xs"></i> Voltar</a>
+    
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Imagem do post -->
+      <div class="detail-card overflow-hidden">
+        <img src="img/mitos.jpg" alt="Carrossel educativo sobre clareamento dental - Clínica OdontoViva" class="w-full h-auto object-cover">
+        <div class="p-4 border-t border-vio/10 bg-void2/50">
+          <div class="flex justify-between items-center">
+            <span class="text-dim text-xs">Formato: Carrossel</span>
+            <span class="text-dim text-xs">Plataforma: Instagram</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Conteúdo -->
+      <div>
+        <div class="flex gap-2 mb-4">
+          <span class="badge">Educativo</span>
+          <span class="badge">Autoridade</span>
+        </div>
+        <h1 class="font-syne text-4xl md:text-5xl font-bold text-bright leading-tight">5 Mitos sobre clareamento dental</h1>
+        <p class="text-muted text-sm mt-3">Post publicado em 12 de março de 2025 · Estratégia de educação do paciente</p>
+        
+        <!-- Copy profissional -->
+        <div class="mt-6 p-5 bg-void3/40 rounded-xl border border-vio/10">
+          <p class="text-light text-sm leading-relaxed">
+            O conteúdo aborda crenças populares sobre clareamento dental, desmistificando informações incorretas que circulam entre pacientes. A peça educativa foi desenvolvida para posicionar a clínica como autoridade no assunto, reduzindo objeções e aumentando a confiança para agendamentos.
+          </p>
+          <p class="text-light text-sm leading-relaxed mt-3">
+            Estrutura do post: introdução do problema, cinco mitos com contrapontos baseados em evidências, e chamada para ação direcionada à avaliação profissional.
+          </p>
+        </div>
+        
+        <!-- Métricas -->
+        <div class="grid grid-cols-3 gap-4 mt-6">
+          <div class="metric-box p-4 rounded-lg">
+            <i class="fas fa-chart-line text-vio text-sm"></i>
+            <p class="text-bright text-xl font-bold mt-2">6.1%</p>
+            <p class="text-dim text-xs">Taxa de engajamento</p>
+          </div>
+          <div class="metric-box p-4 rounded-lg">
+            <i class="fas fa-eye text-vio text-sm"></i>
+            <p class="text-bright text-xl font-bold mt-2">7.2k</p>
+            <p class="text-dim text-xs">Alcance total</p>
+          </div>
+          <div class="metric-box p-4 rounded-lg">
+            <i class="fas fa-bookmark text-vio text-sm"></i>
+            <p class="text-bright text-xl font-bold mt-2">48</p>
+            <p class="text-dim text-xs">Salvamentos</p>
+          </div>
+        </div>
+        
+        <!-- Insights -->
+        <div class="mt-6 p-4 bg-vio/5 rounded-xl border border-vio/20">
+          <h4 class="font-syne text-sm font-semibold text-vio-l uppercase tracking-wide">Insight estratégico</h4>
+          <p class="text-light text-sm mt-1">Conteúdo educativo gerou 22 comentários qualificados, com perguntas diretas sobre procedimentos. 4 leads foram capturados via DM após o post.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-vio/10 py-8 text-center text-dim text-xs">
+  <p>BRAGGA.DEV · Estratégia em social media · Dados e performance</p>
+</footer>
+</body>
+</html>
