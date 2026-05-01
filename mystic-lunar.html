@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mystica Lunnar — Loja Esotérica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0b14;
+    --deep: #13101e;
+    --surface: #1a1628;
+    --card: #211c33;
+    --border: rgba(180,150,255,0.15);
+    --gold: #c9a96e;
+    --gold-light: #e8d5a3;
+    --violet: #9b72cf;
+    --violet-light: #c4a0f0;
+    --cream: #f0e8d8;
+    --muted: #9b96b0;
+    --accent: #e8c4f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Stars background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 45%, rgba(200,180,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 58%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 70%, rgba(200,180,255,0.5) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,11,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    border: 0.5px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 0.3s;
+    background: transparent;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,114,207,0.12) 0%, rgba(201,169,110,0.06) 40%, transparent 70%);
+    pointer-events: none;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  }
+
+  .moon-svg {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 2rem;
+    animation: float 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(201,169,110,0.3));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--cream) 40%, var(--violet-light) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle-italic {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 460px;
+    margin: 0 auto 3rem;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #c9a96e, #b8895e);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 0 4px 30px rgba(201,169,110,0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 40px rgba(201,169,110,0.4);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: 0.5px solid var(--border);
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--violet-light);
+    color: var(--violet-light);
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 4rem;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  .divider-symbol {
+    color: var(--gold);
+    font-size: 1.2rem;
+    opacity: 0.6;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-pad {
+    padding: 7rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--muted);
+    max-width: 500px;
+    font-style: italic;
+  }
+
+  /* CATEGORIES */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-top: 4rem;
+  }
+
+  .category-card {
+    background: var(--deep);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: background 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+
+  .category-card:hover { background: var(--card); }
+
+  .category-card:hover .cat-icon { transform: scale(1.15); }
+
+  .cat-icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 1rem;
+    transition: transform 0.4s;
+    filter: drop-shadow(0 0 8px rgba(201,169,110,0.3));
+  }
+
+  .cat-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+
+  .cat-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* FEATURED PRODUCTS */
+  .products-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .view-all {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(201,169,110,0.4);
+    padding-bottom: 2px;
+    transition: color 0.3s;
+  }
+
+  .view-all:hover { color: var(--gold-light); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(155,114,207,0.1);
+  }
+
+  .product-img {
+    width: 100%;
+    height: 240px;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(155,114,207,0.1), transparent);
+  }
+
+  .product-img-glow {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.15), transparent 70%);
+  }
+
+  .product-emoji { position: relative; z-index: 1; font-size: 4rem; }
+
+  .product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    background: rgba(201,169,110,0.2);
+    color: var(--gold);
+    border: 0.5px solid rgba(201,169,110,0.4);
+    z-index: 2;
+  }
+
+  .product-info {
+    padding: 1.3rem 1.5rem 1.5rem;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .product-sub {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .add-btn {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 0.5px solid var(--violet);
+    color: var(--violet-light);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .add-btn:hover {
+    background: var(--violet);
+    color: var(--ink);
+  }
+
+  /* RITUAL BANNER */
+  .ritual-banner {
+    background: var(--surface);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 6rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ritual-banner::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(155,114,207,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .ritual-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    color: var(--cream);
+    max-width: 680px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  .ritual-quote::before {
+    content: '"';
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    font-size: 4rem;
+    color: rgba(201,169,110,0.2);
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  .ritual-author {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+  }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .benefit-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .benefit-icon-wrap {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    background: var(--surface);
+  }
+
+  .benefit-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+
+  .benefit-text {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .testimonial-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .testimonial-author {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .testimonial-card::before {
+    content: '✦';
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    color: rgba(201,169,110,0.2);
+    font-size: 1.5rem;
+  }
+
+  /* INSTAGRAM */
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 3rem;
+  }
+
+  .ig-tile {
+    aspect-ratio: 1;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .ig-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(155,114,207,0.4);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ig-tile:hover::after { opacity: 1; }
+
+  .ig-colors {
+    background: linear-gradient(135deg, rgba(155,114,207,0.1), rgba(201,169,110,0.1));
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+  }
+
+  .newsletter::before {
+    content: '☽ ✦ ☾';
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    color: rgba(201,169,110,0.3);
+  }
+
+  .newsletter-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .newsletter-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 0.9rem 1.2rem;
+    background: var(--deep);
+    border: 0.5px solid var(--border);
+    border-right: none;
+    color: var(--cream);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .newsletter-input::placeholder { color: var(--muted); }
+
+  .newsletter-input:focus { border-color: rgba(155,114,207,0.5); }
+
+  .newsletter-btn {
+    padding: 0.9rem 1.5rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .newsletter-btn:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 0.5px solid var(--border);
+    padding: 4rem 4rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-brand-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    border: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--muted);
+    transition: all 0.3s;
+  }
+
+  .social-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .footer-col-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-links { list-style: none; }
+
+  .footer-links li { margin-bottom: 0.6rem; }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2rem;
+    border-top: 0.5px solid var(--border);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(155,150,176,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-symbols {
+    font-size: 0.8rem;
+    letter-spacing: 0.5em;
+    color: rgba(201,169,110,0.3);
+  }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    transition: all 0.3s;
+    animation: waBounce 3s ease-in-out infinite;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+  }
+
+  @keyframes waBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .section-pad { padding: 4rem 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .newsletter { padding: 2.5rem 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { border-right: 0.5px solid var(--border); border-bottom: none; }
+    .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+    .divider { padding: 0 1.5rem; }
+    .ritual-banner { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">✦ Mystica Lunnar</a>
+  <ul class="nav-links">
+    <li><a href="#categorias">Categorias</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://www.instagram.com/mystica.lunnar/" target="_blank" class="nav-cta">Loja no Instagram</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-glow"></div>
+  <div>
+    <svg class="moon-svg" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="55" cy="55" r="38" fill="rgba(201,169,110,0.08)" stroke="rgba(201,169,110,0.4)" stroke-width="0.8"/>
+      <path d="M55 20 C38 20, 25 35, 25 55 C25 75, 38 90, 55 90 C42 82, 35 69.5, 35 55 C35 40.5, 42 28, 55 20Z" fill="rgba(201,169,110,0.9)"/>
+      <circle cx="55" cy="55" r="38" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.5"/>
+      <circle cx="63" cy="30" r="1.5" fill="rgba(201,169,110,0.5)"/>
+      <circle cx="75" cy="45" r="1" fill="rgba(201,169,110,0.4)"/>
+      <circle cx="70" cy="65" r="1.2" fill="rgba(201,169,110,0.5)"/>
+      <circle cx="78" cy="35" r="0.8" fill="rgba(201,169,110,0.3)"/>
+    </svg>
+    <p class="hero-eyebrow">☽ &nbsp; loja esotérica &nbsp; ☾</p>
+    <h1 class="hero-title">Mystica<br>Lunnar</h1>
+    <p class="hero-subtitle-italic">Onde a magia encontra o cotidiano</p>
+    <p class="hero-desc">Cristais, incensos, acessórios espirituais e produtos para sua jornada de autoconhecimento e conexão com o universo.</p>
+    <div class="hero-buttons">
+      <a href="#produtos" class="btn-primary">Explorar a Loja</a>
+      <a href="https://www.instagram.com/mystica.lunnar/" target="_blank" class="btn-ghost">Ver Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <span class="divider-symbol">✦</span>
+  <div class="divider-line"></div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categorias">
+  <div class="section-pad">
+    <p class="section-tag">✦ Nossa coleção</p>
+    <h2 class="section-title">Universo Mystica</h2>
+    <p class="section-lead">Cada produto é escolhido com intenção e amor, para apoiar sua prática espiritual.</p>
+
+    <div class="categories-grid">
+      <a href="#" class="category-card">
+        <span class="cat-icon">💎</span>
+        <p class="cat-name">Cristais</p>
+        <p class="cat-desc">Pedras preciosas & semipreciosas</p>
+      </a>
+      <a href="#" class="category-card">
+        <span class="cat-icon">🕯️</span>
+        <p class="cat-name">Velas Rituais</p>
+        <p class="cat-desc">Para manifestação & proteção</p>
+      </a>
+      <a href="#" class="category-card">
+        <span class="cat-icon">🌿</span>
+        <p class="cat-name">Incensos & Ervas</p>
+        <p class="cat-desc">Purificação & energia positiva</p>
+      </a>
+      <a href="#" class="category-card">
+        <span class="cat-icon">🔮</span>
+        <p class="cat-name">Adivinhação</p>
+        <p class="cat-desc">Tarô, runas & oráculos</p>
+      </a>
+      <a href="#" class="category-card">
+        <span class="cat-icon">📿</span>
+        <p class="cat-name">Amuletos</p>
+        <p class="cat-desc">Jóias & símbolos sagrados</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section id="produtos" style="background: var(--surface); border-top: 0.5px solid var(--border);">
+  <div class="section-pad">
+    <div class="products-header">
+      <div>
+        <p class="section-tag">✦ Em destaque</p>
+        <h2 class="section-title">Produtos Selecionados</h2>
+      </div>
+      <a href="https://www.instagram.com/mystica.lunnar/" target="_blank" class="view-all">Ver todos →</a>
+    </div>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-glow"></div>
+          <span class="product-badge">✦ Especial</span>
+          <span class="product-emoji">🔮</span>
+        </div>
+        <div class="product-info">
+          <p class="product-name">Bola de Cristal de Quartzo</p>
+          <p class="product-sub">Clareza · Intuição · Visão</p>
+          <div class="product-footer">
+            <span class="product-price">R$ 189,00</span>
+            <button class="add-btn">Encomendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-glow"></div>
+          <span class="product-badge">✦ Popular</span>
+          <span class="product-emoji">💜</span>
+        </div>
+        <div class="product-info">
+          <p class="product-name">Ametista Bruta</p>
+          <p class="product-sub">Proteção · Paz · Espiritualidade</p>
+          <div class="product-footer">
+            <span class="product-price">R$ 75,00</span>
+            <button class="add-btn">Encomendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-glow"></div>
+          <span class="product-emoji">🕯️</span>
+        </div>
+        <div class="product-info">
+          <p class="product-name">Kit Velas Lunares</p>
+          <p class="product-sub">7 velas para cada fase da lua</p>
+          <div class="product-footer">
+            <span class="product-price">R$ 59,00</span>
+            <button class="add-btn">Encomendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-glow"></div>
+          <span class="product-badge">✦ Novo</span>
+          <span class="product-emoji">🌙</span>
+        </div>
+        <div class="product-info">
+          <p class="product-name">Colar Lua Crescente</p>
+          <p class="product-sub">Prata 925 · Proteção Feminina</p>
+          <div class="product-footer">
+            <span class="product-price">R$ 135,00</span>
+            <button class="add-btn">Encomendar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE BANNER -->
+<div class="ritual-banner">
+  <p class="ritual-quote">A lua não se cansa de renascer. Que você também não se canse de começar novamente.</p>
+  <p class="ritual-author">✦ &nbsp; Mystica Lunnar &nbsp; ✦</p>
+</div>
+
+<!-- BENEFITS -->
+<section id="sobre">
+  <div class="section-pad">
+    <p class="section-tag">✦ Por que nos escolher</p>
+    <h2 class="section-title">Com cuidado & intenção</h2>
+
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon-wrap">✨</div>
+        <div>
+          <p class="benefit-title">Produtos Autênticos</p>
+          <p class="benefit-text">Cada item é cuidadosamente selecionado para garantir qualidade e energia genuína.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-wrap">📦</div>
+        <div>
+          <p class="benefit-title">Envio para Todo Brasil</p>
+          <p class="benefit-text">Entregamos sua magia com segurança e embalagem especial para todo o território nacional.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-wrap">💫</div>
+        <div>
+          <p class="benefit-title">Orientação Espiritual</p>
+          <p class="benefit-text">Dúvidas sobre uso e propriedades? Nossa equipe te guia com amor e conhecimento.</p>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon-wrap">🌙</div>
+        <div>
+          <p class="benefit-title">Ritualizados com Amor</p>
+          <p class="benefit-text">Muitos de nossos produtos passam por processos de limpeza e energização lunar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background: var(--surface); border-top: 0.5px solid var(--border);">
+  <div class="section-pad">
+    <p class="section-tag">✦ Depoimentos</p>
+    <h2 class="section-title">O que dizem as clientes</h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"Comprei a ametista e fiquei encantada! Chegou super bem embalada, com um cartãozinho de intenções. A qualidade é incrível."</p>
+        <p class="testimonial-author">— Ana Paula, São Paulo</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"As velas lunares transformaram minha prática. São lindas e perfumadas. Já fiz minha terceira compra e não me arrependo!"</p>
+        <p class="testimonial-author">— Fernanda, Rio de Janeiro</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"Atendimento maravilhoso! Me ajudaram a escolher os cristais certos para o que eu precisava. Cuidado e atenção em cada detalhe."</p>
+        <p class="testimonial-author">— Camila, Bahia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM FEED -->
+<section id="contato">
+  <div class="section-pad">
+    <p class="section-tag">✦ @mystica.lunnar</p>
+    <h2 class="section-title">Siga no Instagram</h2>
+    <p class="section-lead">Acompanhe novidades, rituais e inspirações no dia a dia.</p>
+
+    <div class="instagram-grid">
+      <div class="ig-tile ig-colors">🌙</div>
+      <div class="ig-tile" style="background: var(--surface);">💎</div>
+      <div class="ig-tile" style="background: var(--card);">🕯️</div>
+      <div class="ig-tile ig-colors">✨</div>
+      <div class="ig-tile" style="background: var(--card);">🌿</div>
+      <div class="ig-tile ig-colors">🔮</div>
+      <div class="ig-tile" style="background: var(--surface);">📿</div>
+      <div class="ig-tile" style="background: var(--card);">🌟</div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter" style="margin-top: 3rem;">
+      <h3 class="newsletter-title">Receba Rituais & Novidades</h3>
+      <p class="newsletter-sub">Assine nossa lista e receba dicas espirituais, promoções exclusivas e novidades da loja.</p>
+      <div class="newsletter-form">
+        <input class="newsletter-input" type="email" placeholder="seu@email.com">
+        <button class="newsletter-btn">Assinar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-brand-name">Mystica Lunnar</p>
+      <p class="footer-brand-tag">Onde a magia encontra o cotidiano</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/mystica.lunnar/" target="_blank" class="social-btn">📷</a>
+        <a href="#" class="social-btn">💬</a>
+        <a href="#" class="social-btn">✉️</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Loja</p>
+      <ul class="footer-links">
+        <li><a href="#categorias">Cristais</a></li>
+        <li><a href="#categorias">Velas</a></li>
+        <li><a href="#categorias">Incensos</a></li>
+        <li><a href="#categorias">Tarot</a></li>
+        <li><a href="#categorias">Amuletos</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Informações</p>
+      <ul class="footer-links">
+        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#">Política de envio</a></li>
+        <li><a href="#">Trocas & Devoluções</a></li>
+        <li><a href="#">Perguntas Frequentes</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer-col-title">Contato</p>
+      <ul class="footer-links">
+        <li><a href="https://www.instagram.com/mystica.lunnar/" target="_blank">Instagram</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">E-mail</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Mystica Lunnar · Todos os direitos reservados</p>
+    <p class="footer-symbols">☽ ✦ ☾</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/55" target="_blank" class="whatsapp-float" title="Fale conosco no WhatsApp">💬</a>
+
+<script>
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.textContent = '✓ Adicionado';
+      btn.style.background = 'var(--violet)';
+      btn.style.color = 'var(--ink)';
+      setTimeout(() => {
+        btn.textContent = 'Encomendar';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    });
+  });
+
+  document.querySelector('.newsletter-btn').addEventListener('click', () => {
+    const inp = document.querySelector('.newsletter-input');
+    if (inp.value.includes('@')) {
+      inp.value = '';
+      inp.placeholder = '✓ Inscrita com sucesso!';
+      setTimeout(() => { inp.placeholder = 'seu@email.com'; }, 3000);
+    }
+  });
+
+  document.querySelectorAll('.ig-tile').forEach(tile => {
+    tile.style.cursor = 'pointer';
+    tile.addEventListener('click', () => {
+      window.open('https://www.instagram.com/mystica.lunnar/', '_blank');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .benefit-item, .testimonial-card, .category-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
