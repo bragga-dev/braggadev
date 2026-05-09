@@ -274,7 +274,6 @@
     }
   </style>
 </head>
-<script defer src="/_vercel/insights/script.js"></script>
 <body class="relative">
 
   <div class="orb-1"></div>
@@ -485,5 +484,6 @@
     document.querySelectorAll('.faq-q').forEach(btn=>{ btn.addEventListener('click',()=>{ const item=btn.parentElement; const wasOpen=item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open')); if(!wasOpen)item.classList.add('open'); }); });
     if('IntersectionObserver' in window){ const iObs=new IntersectionObserver((entries,obs)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ const iframe=entry.target; if(!iframe.getAttribute('data-loaded')){ iframe.setAttribute('data-loaded','1'); iframe.src=iframe.src; } obs.unobserve(iframe); } }); }); document.querySelectorAll('iframe').forEach(f=>iObs.observe(f)); }
   </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
