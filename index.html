@@ -324,23 +324,90 @@
     </div>
   </div>
 
-  <!-- ══════════════ HERO — CARROSSEL (mantido original) ══════════════ -->
-  <section class="hero-carousel" id="hero-carousel">
-    <div class="hero-track" id="hero-track">
-      <div class="hero-slide grid-bg"><img src="img/bragga-dev-logo.jpeg" alt="Abiú Consultoria" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#0d0518,#1a0a35,#0f0820)"><i class="fas fa-briefcase" style="font-size:12rem;color:#8b5cf6"></i></div></div>
-      <div class="hero-slide"><img src="img/chatbot.jpg" alt="Daniela Faria Contadora" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#050e1a,#091828,#050e1a)"><i class="fas fa-calculator" style="font-size:12rem;color:#3b82f6"></i></div></div>
-      <div class="hero-slide"><img src="img/logo.jpg" alt="Kayani" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#0a100a,#0f1c0f,#0a100a)"><i class="fas fa-leaf" style="font-size:12rem;color:#22c55e"></i></div></div>
-      <div class="hero-slide"><img src="img/automacion.jpg" alt="Jessica" onerror="this.style.display='none'" /><div class="hero-slide-overlay"></div><div class="hero-slide-overlay-left"></div><div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none" style="background:linear-gradient(135deg,#12080f,#1f0a18,#12080f)"><i class="fas fa-user-tie" style="font-size:12rem;color:#ec4899"></i></div></div>
+ <!-- ══════════════ HERO — LETREIRO ESTÁTICO (MARKETING DEV) ══════════════ -->
+<section class="hero-carousel" id="hero-carousel" style="position:relative;overflow:hidden;width:100%;height:100vh;min-height:500px;">
+  <!-- Único slide estático (sem animação) -->
+  <div class="hero-slide grid-bg" style="position:relative;width:100%;height:100%;background:linear-gradient(135deg,#0d0518,#1a0a35,#0f0820);display:flex;align-items:center;justify-content:center;">
+    
+    <!-- Imagem de fundo (opcional) -->
+    <img src="img/bragga-dev-logo.jpeg" alt="BRAGGA DEV" 
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.2;" 
+         onerror="this.style.display='none'" />
+    
+    <!-- Overlay escuro para legibilidade -->
+    <div class="hero-slide-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.6);"></div>
+    <div class="hero-slide-overlay-left" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,5,24,0.85) 0%,transparent 100%);"></div>
+    
+    <!-- Ícone decorativo -->
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.08;pointer-events:none;">
+      <i class="fas fa-code" style="font-size:12rem;color:#8b5cf6;"></i>
     </div>
+    
+    <!-- CONTEÚDO DO LETREIRO (MARKETING DEV) -->
+    <div style="position:relative;z-index:2;text-align:center;max-width:900px;padding:2rem;color:white;">
+      
+      <!-- Badge / Tag -->
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);padding:6px 20px;border-radius:50px;margin-bottom:1.5rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#a78bfa;font-family:'DM Sans',sans-serif;">
+        <i class="fas fa-rocket" style="font-size:0.6rem;"></i>
+        DESENVOLVIMENTO WEB PROFISSIONAL
+      </div>
+      
+      <!-- Título principal -->
+      <h1 style="font-size:clamp(2.8rem,9vw,5.5rem);font-weight:800;margin-bottom:0.5rem;text-shadow:0 4px 30px rgba(0,0,0,0.5);font-family:'Syne',sans-serif;letter-spacing:-0.03em;line-height:0.95;">
+        Seu negócio <br><span style="color:#8b5cf6;">merece um site</span> <br>que vende
+      </h1>
+      
+      <!-- Subtítulo -->
+      <p style="font-size:clamp(1rem,1.8vw,1.3rem);opacity:0.85;margin-bottom:1.5rem;text-shadow:0 2px 10px rgba(0,0,0,0.3);font-weight:300;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
+        Sites profissionais, landing pages de alta conversão e automações <br>que transformam visitantes em clientes.
+      </p>
+      
+      <!-- Tags / Diferenciais -->
+      <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;">
+        <span style="background:rgba(139,92,246,0.15);backdrop-filter:blur(4px);padding:0.4rem 1.2rem;border-radius:50px;border:1px solid rgba(139,92,246,0.25);font-size:0.75rem;display:flex;align-items:center;gap:6px;">
+          <i class="fas fa-check-circle" style="color:#8b5cf6;font-size:0.6rem;"></i>Design Responsivo
+        </span>
+        <span style="background:rgba(139,92,246,0.15);backdrop-filter:blur(4px);padding:0.4rem 1.2rem;border-radius:50px;border:1px solid rgba(139,92,246,0.25);font-size:0.75rem;display:flex;align-items:center;gap:6px;">
+          <i class="fas fa-check-circle" style="color:#8b5cf6;font-size:0.6rem;"></i>Otimizado para SEO
+        </span>
+        <span style="background:rgba(139,92,246,0.15);backdrop-filter:blur(4px);padding:0.4rem 1.2rem;border-radius:50px;border:1px solid rgba(139,92,246,0.25);font-size:0.75rem;display:flex;align-items:center;gap:6px;">
+          <i class="fas fa-check-circle" style="color:#8b5cf6;font-size:0.6rem;"></i>Carregamento Rápido
+        </span>
+        <span style="background:rgba(139,92,246,0.15);backdrop-filter:blur(4px);padding:0.4rem 1.2rem;border-radius:50px;border:1px solid rgba(139,92,246,0.25);font-size:0.75rem;display:flex;align-items:center;gap:6px;">
+          <i class="fas fa-check-circle" style="color:#8b5cf6;font-size:0.6rem;"></i>Suporte Dedicado
+        </span>
+      </div>
+      
+      <!-- Botões CTA -->
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://wa.me/5573981683277?text=Olá%20BRAGGA%20DEV!%20Quero%20um%20site%20para%20meu%20negócio!" 
+           target="_blank" 
+           style="display:inline-flex;align-items:center;gap:10px;background:#8b5cf6;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;transition:all 0.3s;box-shadow:0 8px 30px rgba(139,92,246,0.3);"
+           onmouseover="this.style.transform='translateY(-3px)';this.style.background='#a78bfa';"
+           onmouseout="this.style.transform='';this.style.background='#8b5cf6';">
+          <i class="fab fa-whatsapp"></i> Solicitar Orçamento
+        </a>
+        <a href="#projetos" 
+           style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(139,92,246,0.4);color:#a78bfa;padding:14px 32px;border-radius:50px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;transition:all 0.3s;"
+           onmouseover="this.style.background='rgba(139,92,246,0.1)';this.style.borderColor='#8b5cf6';"
+           onmouseout="this.style.background='';this.style.borderColor='rgba(139,92,246,0.4)';">
+          <i class="fas fa-arrow-right"></i> Ver Portfólio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos removidos (ocultos) -->
+  <div style="display:none;">
     <button class="hcar-btn" id="hcar-prev" style="left:1.5rem" aria-label="Anterior"><i class="fas fa-chevron-left text-xs"></i></button>
     <button class="hcar-btn" id="hcar-next" style="right:1.5rem" aria-label="Próximo"><i class="fas fa-chevron-right text-xs"></i></button>
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10" id="hcar-dots">
-      <button class="hcar-dot on" data-i="0"></button><button class="hcar-dot" data-i="1"></button><button class="hcar-dot" data-i="2"></button><button class="hcar-dot" data-i="3"></button>
+      <button class="hcar-dot on" data-i="0"></button>
     </div>
-    <div class="hcar-counter" id="hcar-counter">01 / 04</div>
+    <div class="hcar-counter" id="hcar-counter">01 / 01</div>
     <div class="scroll-cue hidden md:flex"><span class="font-dm text-[.5rem] tracking-[.4em] uppercase text-dim">scroll</span><div class="w-px h-10" style="background:linear-gradient(#8b5cf6,transparent)"></div></div>
-  </section>
-
+  </div>
+</section>x
   <div class="sep"></div>
 
   <!-- ══════════════ NOVA SEÇÃO: SOBRE MIM (foto + perfil + formação + tecnologias) ══════════════ -->
