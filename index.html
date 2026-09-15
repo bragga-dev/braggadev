@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>BRAGGA DEV · Desenvolvimento web em Jequié, BA</title>
   <meta name="description" content="BRAGGA DEV — sites, landing pages e automações. Desenvolvimento backend com Python e Django, design responsivo e foco em conversão." />
-  <meta name="theme-color" content="#07070A" />
+  <meta name="theme-color" content="#0D0818" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -18,15 +18,16 @@
       theme: {
         extend: {
           colors: {
-            void:   '#07070A',
-            panel:  '#0C0C11',
-            panel2: '#111117',
-            vio:    '#7C5CFF',
-            'vio-l':'#B9A8FF',
-            dim:    '#5C5C6E',
-            muted:  '#8A8A9E',
-            light:  '#C9C9D6',
-            bright: '#EDEDF5',
+            void:   '#0D0818',
+            panel:  '#17102B',
+            panel2: '#1E1538',
+            vio:    '#8B5CF6',
+            'vio-l':'#C4B5FD',
+            'vio-d':'#5B3FBF',
+            dim:    '#7C719B',
+            muted:  '#A79DC4',
+            light:  '#D6CFEC',
+            bright: '#F3EFFF',
           },
           fontFamily: {
             tech:  ['"Chakra Petch"', 'sans-serif'],
@@ -42,19 +43,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: #07070A;
+      background: #0D0818;
+      background-image:
+        radial-gradient(ellipse 90% 50% at 50% 0%, rgba(139,92,246,.20) 0%, transparent 60%),
+        linear-gradient(180deg, #120B22 0%, #0D0818 55%, #110A20 100%);
+      background-attachment: fixed;
       font-family: 'DM Sans', sans-serif;
-      color: #C9C9D6;
+      color: #D6CFEC;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    ::selection { background: #7C5CFF; color: #fff; }
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: #07070A; }
-    ::-webkit-scrollbar-thumb { background: #3B2E6E; }
+    ::selection { background: #8B5CF6; color: #fff; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #120B23; }
+    ::-webkit-scrollbar-thumb { background: #6D4BD6; }
 
     a:focus-visible, button:focus-visible {
-      outline: 2px solid #B9A8FF;
+      outline: 2px solid #C4B5FD;
       outline-offset: 3px;
       border-radius: 4px;
     }
@@ -72,30 +77,35 @@
       font-weight: 700;
       letter-spacing: -.015em;
       line-height: 1.02;
-      color: #EDEDF5;
+      color: #F3EFFF;
     }
     .eyebrow {
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 500;
       font-size: .8rem;
       letter-spacing: .04em;
-      color: #B9A8FF;
+      color: #C4B5FD;
     }
-    .lede { max-width: 60ch; line-height: 1.7; font-weight: 300; color: #8A8A9E; }
+    .lede { max-width: 60ch; line-height: 1.7; font-weight: 300; color: #A79DC4; }
 
-    /* ── FUNDO: um único orb, discreto ── */
-    .orb {
-      position: fixed; width: 780px; height: 780px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,92,255,.07) 0%, transparent 68%);
-      top: -320px; left: 50%; transform: translateX(-50%);
-      pointer-events: none; z-index: 0;
+    /* ── BRILHOS DE FUNDO ── */
+    .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .orb-top {
+      width: 820px; height: 820px;
+      background: radial-gradient(circle, rgba(139,92,246,.16) 0%, transparent 66%);
+      top: -360px; left: 50%; transform: translateX(-50%);
+    }
+    .orb-side {
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(109,40,217,.16) 0%, transparent 68%);
+      bottom: -200px; right: -220px;
     }
 
     /* ── NAV ── */
     .nav-link { position: relative; padding-bottom: 3px; }
     .nav-link::after {
       content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 1px; background: #B9A8FF; transition: width .25s;
+      width: 0; height: 1px; background: #C4B5FD; transition: width .25s;
     }
     .nav-link:hover::after { width: 100%; }
 
@@ -104,13 +114,13 @@
       position: relative; min-height: 92vh;
       display: flex; align-items: center;
       padding: 8rem 0 5rem;
-      border-bottom: 1px solid rgba(124,92,255,.10);
+      border-bottom: 1px solid rgba(139,92,246,.20);
     }
     .hero-grid {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(124,92,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124,92,255,.05) 1px, transparent 1px);
+        linear-gradient(rgba(139,92,246,.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,.10) 1px, transparent 1px);
       background-size: 72px 72px;
       mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 78%);
       -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 78%);
@@ -122,57 +132,72 @@
       font-family: 'Chakra Petch', sans-serif; font-weight: 600;
       font-size: .9rem; letter-spacing: .01em;
       padding: 14px 28px; border-radius: 6px;
-      text-decoration: none; transition: background .25s, border-color .25s, color .25s;
+      text-decoration: none; transition: background .25s, border-color .25s, color .25s, box-shadow .25s;
     }
-    .btn-primary { background: #7C5CFF; color: #fff; }
-    .btn-primary:hover { background: #6B49F5; }
+    .btn-primary {
+      background: linear-gradient(135deg, #8B5CF6 0%, #6D3FE0 100%);
+      color: #fff;
+      box-shadow: 0 8px 30px -8px rgba(139,92,246,.7);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #9D74FF 0%, #7B4CF0 100%);
+      box-shadow: 0 10px 34px -6px rgba(139,92,246,.85);
+    }
     .btn-quiet {
-      color: #B9A8FF; padding: 14px 4px;
-      border-bottom: 1px solid rgba(185,168,255,.3); border-radius: 0;
+      color: #C4B5FD; padding: 14px 4px;
+      border-bottom: 1px solid rgba(196,181,253,.4); border-radius: 0;
     }
-    .btn-quiet:hover { color: #EDEDF5; border-bottom-color: #B9A8FF; }
+    .btn-quiet:hover { color: #F3EFFF; border-bottom-color: #C4B5FD; }
 
     /* ── CARDS ── */
     .card {
-      background: #0C0C11;
-      border: 1px solid rgba(124,92,255,.10);
+      background: linear-gradient(160deg, rgba(139,92,246,.10) 0%, rgba(23,16,43,.9) 55%);
+      border: 1px solid rgba(139,92,246,.22);
       border-radius: 10px;
       padding: 1.9rem 1.7rem;
-      transition: border-color .25s;
+      transition: border-color .25s, box-shadow .25s;
     }
-    .card:hover { border-color: rgba(124,92,255,.28); }
+    .card:hover {
+      border-color: rgba(139,92,246,.5);
+      box-shadow: 0 0 34px -10px rgba(139,92,246,.45);
+    }
 
     .tile {
       display: block; text-decoration: none;
-      border: 1px solid rgba(124,92,255,.10);
+      background: rgba(139,92,246,.05);
+      border: 1px solid rgba(139,92,246,.2);
       border-radius: 10px; padding: 1.4rem 1.5rem;
       transition: border-color .25s, background .25s;
     }
-    .tile:hover { border-color: rgba(124,92,255,.3); background: #0C0C11; }
+    .tile:hover { border-color: rgba(139,92,246,.5); background: rgba(139,92,246,.12); }
 
     .chip {
       font-family: 'Chakra Petch', sans-serif; font-weight: 500;
-      font-size: .78rem; color: #B9A8FF;
-      background: rgba(124,92,255,.07);
-      border: 1px solid rgba(124,92,255,.18);
+      font-size: .78rem; color: #D6CFEC;
+      background: rgba(139,92,246,.18);
+      border: 1px solid rgba(139,92,246,.38);
       padding: 5px 12px; border-radius: 4px;
     }
 
     /* ── FAQ ── */
-    .faq-item { border-bottom: 1px solid rgba(124,92,255,.10); }
+    .faq-item { border-bottom: 1px solid rgba(139,92,246,.20); }
     .faq-q {
       width: 100%; background: transparent; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
       padding: 1.35rem 0; text-align: left;
       font-family: 'Chakra Petch', sans-serif; font-weight: 500; font-size: 1rem;
-      color: #C9C9D6; transition: color .25s;
+      color: #D6CFEC; transition: color .25s;
     }
-    .faq-q:hover { color: #B9A8FF; }
-    .faq-icon { transition: transform .3s; flex-shrink: 0; font-size: .7rem; color: #7C5CFF; }
+    .faq-q:hover { color: #C4B5FD; }
+    .faq-icon { transition: transform .3s; flex-shrink: 0; font-size: .7rem; color: #A78BFA; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
     .faq-a { overflow: hidden; max-height: 0; transition: max-height .35s ease; }
     .faq-item.open .faq-a { max-height: 320px; }
-    .faq-a-inner { font-weight: 300; color: #8A8A9E; font-size: .95rem; line-height: 1.75; padding-bottom: 1.4rem; max-width: 62ch; }
+    .faq-a-inner { font-weight: 300; color: #A79DC4; font-size: .95rem; line-height: 1.75; padding-bottom: 1.4rem; max-width: 62ch; }
+
+    /* ── DIVISÃO ENTRE SEÇÕES ── */
+    .section-line { border-top: 1px solid rgba(139,92,246,.16); }
+    .section-tint { background: linear-gradient(180deg, rgba(139,92,246,.07) 0%, transparent 70%); }
 
     /* ── REVEAL: só no carregamento do herói ── */
     @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -189,14 +214,15 @@
 </head>
 <body class="relative">
 
-  <div class="orb"></div>
+  <div class="orb orb-top"></div>
+  <div class="orb orb-side"></div>
 
   <!-- ══════════════ NAV ══════════════ -->
   <nav class="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-14 py-4 border-b"
-       style="background:rgba(7,7,10,.9);backdrop-filter:blur(14px);border-color:rgba(124,92,255,.10)">
+       style="background:rgba(16,10,30,.88);backdrop-filter:blur(14px);border-color:rgba(139,92,246,.22)">
     <a href="#" class="flex items-center gap-2.5 no-underline">
       <div class="w-8 h-8 rounded overflow-hidden flex items-center justify-center"
-           style="background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.25)">
+           style="background:rgba(139,92,246,.22);border:1px solid rgba(139,92,246,.4)">
         <img src="img/logo-bragga-dev.jpeg" alt="" class="w-full h-full object-cover" onerror="this.style.display='none'" />
       </div>
       <span class="brand text-bright text-2xl">Bragga<span class="text-vio">.</span>Dev</span>
@@ -205,15 +231,14 @@
     <ul class="hidden md:flex gap-9 list-none m-0 p-0">
       <li><a href="#sobre"    class="nav-link font-tech text-sm text-muted hover:text-vio-l transition-colors no-underline">Sobre</a></li>
       <li><a href="#servicos" class="nav-link font-tech text-sm text-muted hover:text-vio-l transition-colors no-underline">Serviços</a></li>
-      <li><a href="#projetos" class="nav-link font-tech text-sm text-muted hover:text-vio-l transition-colors no-underline">Projetos</a></li>
       <li><a href="#processo" class="nav-link font-tech text-sm text-muted hover:text-vio-l transition-colors no-underline">Processo</a></li>
       <li><a href="#faq"      class="nav-link font-tech text-sm text-muted hover:text-vio-l transition-colors no-underline">Dúvidas</a></li>
     </ul>
 
     <a href="https://wa.me/5573981683277?text=Ol%C3%A1%20BRAGGA%20DEV!%20Gostaria%20de%20um%20or%C3%A7amento."
        target="_blank" rel="noopener"
-       class="hidden md:inline-flex items-center gap-2 font-tech text-sm text-bright px-5 py-2 rounded no-underline transition-colors hover:border-vio-l"
-       style="font-weight:600;border:1px solid rgba(124,92,255,.35)">
+       class="hidden md:inline-flex items-center gap-2 font-tech text-sm text-bright px-5 py-2 rounded no-underline transition-colors"
+       style="font-weight:600;border:1px solid rgba(139,92,246,.55);background:rgba(139,92,246,.14)">
       Pedir orçamento
     </a>
 
@@ -226,12 +251,11 @@
 
   <div id="drawer" class="fixed inset-0 z-40 pointer-events-none" style="transition:background .3s">
     <div id="dpanel" class="absolute top-0 right-0 bottom-0 w-72 flex flex-col pt-24 pb-10 px-8 border-l"
-         style="background:#0C0C11;border-color:rgba(124,92,255,.15);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)">
+         style="background:#17102B;border-color:rgba(139,92,246,.3);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)">
       <ul class="flex flex-col list-none m-0 p-0 flex-1">
-        <li><a href="#sobre"    class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l border-b border-white/[.05] no-underline transition-colors">Sobre</a></li>
-        <li><a href="#servicos" class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l border-b border-white/[.05] no-underline transition-colors">Serviços</a></li>
-        <li><a href="#projetos" class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l border-b border-white/[.05] no-underline transition-colors">Projetos</a></li>
-        <li><a href="#processo" class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l border-b border-white/[.05] no-underline transition-colors">Processo</a></li>
+        <li><a href="#sobre"    class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l no-underline transition-colors" style="border-bottom:1px solid rgba(139,92,246,.14)">Sobre</a></li>
+        <li><a href="#servicos" class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l no-underline transition-colors" style="border-bottom:1px solid rgba(139,92,246,.14)">Serviços</a></li>
+        <li><a href="#processo" class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l no-underline transition-colors" style="border-bottom:1px solid rgba(139,92,246,.14)">Processo</a></li>
         <li><a href="#faq"      class="mlink block py-4 font-tech text-base text-muted hover:text-vio-l no-underline transition-colors">Dúvidas</a></li>
       </ul>
       <a href="https://wa.me/5573981683277?text=Ol%C3%A1%20BRAGGA%20DEV!%20Gostaria%20de%20um%20or%C3%A7amento."
@@ -273,12 +297,12 @@
   </header>
 
   <!-- ══════════════ SOBRE ══════════════ -->
-  <section id="sobre" class="relative z-10 py-24 md:py-32 px-6 md:px-14">
+  <section id="sobre" class="relative z-10 py-24 md:py-32 px-6 md:px-14 section-tint">
     <div class="max-w-7xl mx-auto grid md:grid-cols-[minmax(0,20rem)_1fr] gap-12 lg:gap-16 items-start">
 
       <div>
         <div class="relative w-full max-w-xs mx-auto md:mx-0 aspect-[4/5] rounded-lg overflow-hidden"
-             style="border:1px solid rgba(124,92,255,.22)">
+             style="border:1px solid rgba(139,92,246,.4);box-shadow:0 0 50px -12px rgba(139,92,246,.5)">
           <img src="img/bragga.png" alt="Edivan Figueiredo Braga" class="w-full h-full object-cover" onerror="this.style.display='none'" />
         </div>
       </div>
@@ -337,7 +361,7 @@
   </section>
 
   <!-- ══════════════ SERVIÇOS ══════════════ -->
-  <section id="servicos" class="relative z-10 py-24 md:py-32 px-6 md:px-14" style="border-top:1px solid rgba(124,92,255,.08)">
+  <section id="servicos" class="relative z-10 py-24 md:py-32 px-6 md:px-14 section-line">
     <div class="max-w-7xl mx-auto">
       <div class="mb-14 max-w-2xl">
         <p class="eyebrow mb-4">O que eu faço</p>
@@ -363,7 +387,7 @@
           </p>
         </article>
 
-        <article class="card" style="border-color:rgba(124,92,255,.3)">
+        <article class="card" style="border-color:rgba(139,92,246,.55);box-shadow:0 0 40px -12px rgba(139,92,246,.55)">
           <h3 class="text-bright text-lg mb-3" style="font-weight:600">Landing page</h3>
           <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">
             Página única focada em uma ação: texto direto, integração com WhatsApp
@@ -384,7 +408,7 @@
   </section>
 
   <!-- ══════════════ PROCESSO ══════════════ -->
-  <section id="processo" class="relative z-10 py-24 md:py-32 px-6 md:px-14" style="border-top:1px solid rgba(124,92,255,.08)">
+  <section id="processo" class="relative z-10 py-24 md:py-32 px-6 md:px-14 section-line section-tint">
     <div class="max-w-7xl mx-auto">
       <div class="mb-14 max-w-2xl">
         <p class="eyebrow mb-4">Como funciona</p>
@@ -393,23 +417,23 @@
       </div>
 
       <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 list-none m-0 p-0">
-        <li class="pl-5" style="border-left:1px solid rgba(124,92,255,.22)">
-          <span class="font-tech text-vio text-sm" style="font-weight:600">Etapa 1</span>
+        <li class="pl-5" style="border-left:2px solid rgba(139,92,246,.45)">
+          <span class="font-tech text-vio-l text-sm" style="font-weight:600">Etapa 1</span>
           <h3 class="text-bright text-lg mt-2 mb-2" style="font-weight:600">Briefing</h3>
           <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Conversamos sobre objetivo, público, referências visuais e prazo.</p>
         </li>
-        <li class="pl-5" style="border-left:1px solid rgba(124,92,255,.22)">
-          <span class="font-tech text-vio text-sm" style="font-weight:600">Etapa 2</span>
+        <li class="pl-5" style="border-left:2px solid rgba(139,92,246,.45)">
+          <span class="font-tech text-vio-l text-sm" style="font-weight:600">Etapa 2</span>
           <h3 class="text-bright text-lg mt-2 mb-2" style="font-weight:600">Design</h3>
           <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Monto o layout e só começo a programar depois da sua aprovação.</p>
         </li>
-        <li class="pl-5" style="border-left:1px solid rgba(124,92,255,.22)">
-          <span class="font-tech text-vio text-sm" style="font-weight:600">Etapa 3</span>
+        <li class="pl-5" style="border-left:2px solid rgba(139,92,246,.45)">
+          <span class="font-tech text-vio-l text-sm" style="font-weight:600">Etapa 3</span>
           <h3 class="text-bright text-lg mt-2 mb-2" style="font-weight:600">Desenvolvimento</h3>
           <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Código responsivo e testado, do celular pequeno ao monitor grande.</p>
         </li>
-        <li class="pl-5" style="border-left:1px solid rgba(124,92,255,.22)">
-          <span class="font-tech text-vio text-sm" style="font-weight:600">Etapa 4</span>
+        <li class="pl-5" style="border-left:2px solid rgba(139,92,246,.45)">
+          <span class="font-tech text-vio-l text-sm" style="font-weight:600">Etapa 4</span>
           <h3 class="text-bright text-lg mt-2 mb-2" style="font-weight:600">Entrega</h3>
           <p class="font-dm text-muted text-sm leading-relaxed" style="font-weight:300">Publicação, testes finais e suporte para os ajustes que aparecerem.</p>
         </li>
@@ -418,7 +442,7 @@
   </section>
 
   <!-- ══════════════ DÚVIDAS ══════════════ -->
-  <section id="faq" class="relative z-10 py-24 md:py-32 px-6 md:px-14" style="border-top:1px solid rgba(124,92,255,.08)">
+  <section id="faq" class="relative z-10 py-24 md:py-32 px-6 md:px-14 section-line">
     <div class="max-w-3xl mx-auto">
       <div class="mb-10">
         <p class="eyebrow mb-4">Dúvidas comuns</p>
@@ -455,7 +479,7 @@
   </section>
 
   <!-- ══════════════ CONTATO ══════════════ -->
-  <section id="contato" class="relative z-10 py-24 md:py-36 px-6 md:px-14" style="border-top:1px solid rgba(124,92,255,.08)">
+  <section id="contato" class="relative z-10 py-24 md:py-36 px-6 md:px-14 section-line section-tint">
     <div class="max-w-3xl mx-auto">
       <p class="eyebrow mb-4">Contato</p>
       <h2 class="h-display mb-6" style="font-size:clamp(2.2rem,5.5vw,4rem)">Me conta o que você precisa</h2>
@@ -475,7 +499,7 @@
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-x-10 gap-y-3 mt-14 pt-8 font-dm text-sm text-dim" style="font-weight:300;border-top:1px solid rgba(124,92,255,.10)">
+      <div class="flex flex-wrap gap-x-10 gap-y-3 mt-14 pt-8 font-dm text-sm text-dim" style="font-weight:300;border-top:1px solid rgba(139,92,246,.22)">
         <span>+55 73 98168-3277</span>
         <span>Jequié, Bahia · atendimento online</span>
         <span>Segunda a sábado, 8h às 18h</span>
@@ -484,13 +508,13 @@
   </section>
 
   <!-- ══════════════ RODAPÉ ══════════════ -->
-  <footer class="relative z-10 px-6 md:px-14" style="border-top:1px solid rgba(124,92,255,.10);background:#06060A">
+  <footer class="relative z-10 px-6 md:px-14" style="border-top:1px solid rgba(139,92,246,.28);background:linear-gradient(180deg,#1A1130 0%,#120B23 100%)">
     <div class="max-w-7xl mx-auto pt-14 pb-10 grid md:grid-cols-4 gap-10">
 
       <div class="md:col-span-2">
         <a href="#" class="flex items-center gap-2.5 no-underline mb-4">
           <div class="w-8 h-8 rounded overflow-hidden flex items-center justify-center"
-               style="background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.25)">
+               style="background:rgba(139,92,246,.22);border:1px solid rgba(139,92,246,.4)">
             <img src="img/logo-bragga-dev.jpeg" alt="" class="w-full h-full object-cover" onerror="this.style.display='none'" />
           </div>
           <span class="brand text-bright text-2xl">Bragga<span class="text-vio">.</span>Dev</span>
@@ -500,11 +524,11 @@
         </p>
         <div class="flex gap-3 mt-5">
           <a href="https://wa.me/5573981683277" target="_blank" rel="noopener" aria-label="WhatsApp"
-             class="w-9 h-9 rounded flex items-center justify-center no-underline text-muted hover:text-vio-l transition-colors"
-             style="border:1px solid rgba(124,92,255,.18)"><i class="fab fa-whatsapp text-sm"></i></a>
+             class="w-9 h-9 rounded flex items-center justify-center no-underline text-vio-l hover:text-bright transition-colors"
+             style="border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.1)"><i class="fab fa-whatsapp text-sm"></i></a>
           <a href="https://www.instagram.com/edivanfigueiredobraga/" target="_blank" rel="noopener" aria-label="Instagram"
-             class="w-9 h-9 rounded flex items-center justify-center no-underline text-muted hover:text-vio-l transition-colors"
-             style="border:1px solid rgba(124,92,255,.18)"><i class="fab fa-instagram text-sm"></i></a>
+             class="w-9 h-9 rounded flex items-center justify-center no-underline text-vio-l hover:text-bright transition-colors"
+             style="border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.1)"><i class="fab fa-instagram text-sm"></i></a>
         </div>
       </div>
 
@@ -530,7 +554,7 @@
 
     </div>
 
-    <div class="max-w-7xl mx-auto py-6 flex flex-col md:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(124,92,255,.08)">
+    <div class="max-w-7xl mx-auto py-6 flex flex-col md:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(139,92,246,.18)">
       <p class="font-dm text-dim text-xs" style="font-weight:300">© 2025 BRAGGA DEV · Jequié, Bahia</p>
       <p class="font-dm text-dim text-xs" style="font-weight:300">Feito à mão, linha por linha</p>
     </div>
@@ -539,8 +563,8 @@
   <!-- Único CTA fixo da página -->
   <a href="https://wa.me/5573981683277?text=Ol%C3%A1%20BRAGGA%20DEV!%20Gostaria%20de%20um%20or%C3%A7amento."
      target="_blank" rel="noopener" aria-label="Falar no WhatsApp"
-     class="fixed bottom-6 right-6 z-[200] w-13 h-13 rounded-full flex items-center justify-center no-underline transition-transform hover:scale-105"
-     style="width:52px;height:52px;background:#25D366">
+     class="fixed bottom-6 right-6 z-[200] rounded-full flex items-center justify-center no-underline transition-transform hover:scale-105"
+     style="width:52px;height:52px;background:#25D366;box-shadow:0 6px 24px -6px rgba(37,211,102,.6)">
     <i class="fab fa-whatsapp text-white text-2xl"></i>
   </a>
 
@@ -555,7 +579,7 @@
     function toggleMenu() {
       mOpen = !mOpen;
       dpanel.style.transform = mOpen ? 'translateX(0)' : 'translateX(100%)';
-      drawer.style.background = mOpen ? 'rgba(0,0,0,.6)' : 'transparent';
+      drawer.style.background = mOpen ? 'rgba(13,8,24,.75)' : 'transparent';
       drawer.style.pointerEvents = mOpen ? 'all' : 'none';
       document.body.style.overflow = mOpen ? 'hidden' : '';
       mbtn.setAttribute('aria-expanded', String(mOpen));
