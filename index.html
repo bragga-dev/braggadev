@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Pirata+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
 
   <script>
     tailwind.config = {
@@ -199,6 +200,48 @@
     .section-line { border-top: 1px solid rgba(139,92,246,.16); }
     .section-tint { background: linear-gradient(180deg, rgba(139,92,246,.07) 0%, transparent 70%); }
 
+
+        /* ── TECNOLOGIAS ── */
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tech-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 13px;
+      border: 1px solid rgba(139, 92, 246, .25);
+      border-radius: 6px;
+      background: rgba(139, 92, 246, .08);
+      color: #D6CFEC;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 400;
+      transition:
+        border-color .25s,
+        background .25s,
+        transform .25s;
+    }
+
+    .tech-item:hover {
+      border-color: rgba(139, 92, 246, .65);
+      background: rgba(139, 92, 246, .16);
+      transform: translateY(-2px);
+    }
+
+    .tech-item i {
+      font-size: 1.3rem;
+      line-height: 1;
+      color: #C4B5FD;
+    }
+
+    .tech-item .tech-fa {
+      font-size: 1.1rem;
+    }
+
     /* ── REVEAL: só no carregamento do herói ── */
     @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     .rise { animation: riseIn .7s cubic-bezier(.2,.7,.3,1) both; }
@@ -342,25 +385,100 @@
           </div>
         </div>
 
-        <div class="mt-9">
-          <h3 class="text-bright text-base mb-4" style="font-weight:600">Ferramentas do dia a dia</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="chip">Python</span>
-            <span class="chip">Django</span>
-            <span class="chip">Django REST</span>
-            <span class="chip">PostgreSQL</span>
-            <span class="chip">MySQL</span>
-            <span class="chip">Docker</span>
-            <span class="chip">React</span>
-            <span class="chip">Git e GitHub</span>
-            <span class="chip">JavaScript</span>
-            <span class="chip">Tailwind</span>
-            <span class="chip">Scrum</span>
-            <span class="chip">HTML</span>
-            <span class="chip">CSS</span>
-            <span class="chip">Linux</span>
-          </div>
-        </div>
+       <div class="mt-9">
+  <h3
+    class="text-bright text-base mb-4"
+    style="font-weight:600"
+  >
+    Ferramentas do dia a dia
+  </h3>
+
+  <div class="tech-grid">
+
+    <!-- Linguagem -->
+    <span class="tech-item">
+      <i class="devicon-python-plain colored" aria-hidden="true"></i>
+      Python
+    </span>
+
+    <!-- Frameworks -->
+    <span class="tech-item">
+      <i class="devicon-django-plain" aria-hidden="true"></i>
+      Django
+    </span>
+
+    <span class="tech-item">
+      <i class="fas fa-code tech-fa" aria-hidden="true"></i>
+      Django REST Framework
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-react-original colored" aria-hidden="true"></i>
+      React
+    </span>
+
+    <!-- Bancos de dados -->
+    <span class="tech-item">
+      <i class="devicon-postgresql-plain colored" aria-hidden="true"></i>
+      PostgreSQL
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-mysql-plain colored" aria-hidden="true"></i>
+      MySQL
+    </span>
+
+    <!-- Infraestrutura -->
+    <span class="tech-item">
+      <i class="devicon-docker-plain colored" aria-hidden="true"></i>
+      Docker
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-linux-plain" aria-hidden="true"></i>
+      Linux
+    </span>
+
+    <!-- Versionamento -->
+    <span class="tech-item">
+      <i class="devicon-git-plain colored" aria-hidden="true"></i>
+      Git
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-github-original" aria-hidden="true"></i>
+      GitHub
+    </span>
+
+    <!-- Frontend -->
+    <span class="tech-item">
+      <i class="devicon-javascript-plain colored" aria-hidden="true"></i>
+      JavaScript
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-tailwindcss-original colored" aria-hidden="true"></i>
+      Tailwind CSS
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-html5-plain colored" aria-hidden="true"></i>
+      HTML5
+    </span>
+
+    <span class="tech-item">
+      <i class="devicon-css3-plain colored" aria-hidden="true"></i>
+      CSS3
+    </span>
+
+    <!-- Metodologia -->
+    <span class="tech-item">
+      <i class="fas fa-people-group tech-fa" aria-hidden="true"></i>
+      Scrum
+    </span>
+
+  </div>
+</div>
       </div>
 
     </div>
